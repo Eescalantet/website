@@ -1,0 +1,28 @@
+---
+title: "About"
+---
+
+I am an Assistant Professor of Economics at the Norris-Vincent College of Business at Angelo State University and a Research Assistant Professor at the Free Market Institute at Texas Tech University. I hold a Ph.D. from the Department of Agricultural and Applied Economics at Texas Tech University.
+
+My research combines ethnographic fieldwork and case studies with quantitative approaches — including natural experiments — to examine how formal and informal institutions interact to shape economic and political outcomes. I work primarily on low- and middle-income countries, with a focus on Latin America.
+
+## Andes Libres
+
+Before graduate school, I founded and directed **Andes Libres**, an educational think tank based in Cusco, Peru. The organization offered university students, rural communities, and local entrepreneurs access to economics and public policy research through forums, conferences, and debates. It also provided business training and connected participants with scholarly networks across Peruvian universities.
+
+:::: {.columns}
+
+::: {.column width="48%"}
+![](images/peru1.svg){.peru-photo}
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+![](images/peru2.svg){.peru-photo}
+:::
+
+::::
+
+*Photos from Andes Libres events in Cusco, Peru.*

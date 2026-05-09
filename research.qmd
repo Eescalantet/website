@@ -1,0 +1,61 @@
+---
+title: "Research"
+---
+
+## Peer-Reviewed Publications
+
+:::: {.pub-entry}
+**"Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"**\
+*World Development*, 2026\
+[SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4443657)
+::::
+
+:::: {.pub-entry}
+**"A Self-Defense Network against Terrorism and Crime: Evidence from Peru"**\
+*Terrorism and Political Violence*, 2023\
+[Published version](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20)
+::::
+
+:::: {.pub-entry}
+**"The Influence of Pinochet in the Chilean Miracle"**\
+*Latin American Research Review*, 2022\
+[Published version](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)
+::::
+
+:::: {.pub-entry}
+**"Night Watchers and Terrorists"**\
+*Journal of Economic Behavior and Organization*, 2020\
+[Published version](https://www.sciencedirect.com/science/article/pii/S0167268119304135)
+::::
+
+:::: {.pub-entry}
+**"Fighting on Christmas: Brawling as Self-Governance in Rural Peru"**\
+with Raymond March\
+*Journal of Institutional Economics*, 2020\
+[Published version](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)
+::::
+
+## Book Chapters
+
+:::: {.pub-entry}
+**"Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"**\
+in *The Pinochet Shock: Radical Change and Life Under Dictatorship*, Palgrave Macmillan, 2025\
+[Chapter](https://drive.google.com/file/d/1j5blSAc0GmI3oYDSa2RB7OBnWETZKWqa/view?usp=drive_link)
+::::
+
+:::: {.pub-entry}
+**"A Government Role Conducive to Liberty: Operation Warp Speed"**\
+with Peter C. Earle\
+in *Pandemics and Liberty*, American Institute for Economic Research, 2022\
+[Book](https://www.amazon.com/dp/1630692220)
+::::
+
+## Working Papers
+
+:::: {.pub-entry}
+**"Resource Shocks and Local Regulatory Capacity: Evidence from Peru"**
+::::
+
+:::: {.pub-entry}
+**"Co-Producing the State: Formal Recognition of Extralegal Governance and Fiscal Capacity"**
+::::

@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Enrique Escalante"
+  description: "Assistant Professor of Economics · Angelo State University"
+  site-url: "https://enriqueescalante.com"
+  navbar:
+    background: dark
+    foreground: light
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: research.qmd
+        text: Research
+      - href: teaching.qmd
+        text: Teaching
+      - href: contact.qmd
+        text: Contact
+    right:
+      - text: "CV"
+        href: "https://drive.google.com/file/d/1e-_bLVNg0Z8_s7XfpIwmXEeJi2q2iyGb/view?usp=drive_link"
+      - text: "Scholar"
+        href: "https://scholar.google.com/citations?user=W0YLItcAAAAJ&hl=en"
+      - text: "SSRN"
+        href: "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2602348"
+  page-footer:
+    center: "© 2026 Enrique Escalante"
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: false
+    link-external-newwindow: true

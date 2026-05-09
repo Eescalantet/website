@@ -1,0 +1,41 @@
+---
+pagetitle: "Enrique Escalante"
+---
+
+:::: {.columns}
+
+::: {.column width="27%"}
+
+![](images/profile.svg){.profile-photo}
+
+::: {.home-links}
+[eescalante\@angelo.edu](mailto:eescalante@angelo.edu)
+[Curriculum Vitae](https://drive.google.com/file/d/1e-_bLVNg0Z8_s7XfpIwmXEeJi2q2iyGb/view?usp=drive_link)
+[Google Scholar](https://scholar.google.com/citations?user=W0YLItcAAAAJ&hl=en)
+[SSRN](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2602348)
+:::
+
+:::
+
+::: {.column width="3%"}
+:::
+
+::: {.column width="70%"}
+
+# Enrique Escalante
+
+**Assistant Professor of Economics**
+Norris-Vincent College of Business, Angelo State University
+
+**Research Assistant Professor**
+Free Market Institute, Texas Tech University
+
+---
+
+Welcome to my website. I am an Assistant Professor of Economics at the Norris-Vincent College of Business at Angelo State University and a Research Assistant Professor at the Free Market Institute at Texas Tech University.
+
+My research lies at the intersection of political economy and institutional economics. I study how informal governance, political violence, and state capacity shape economic and social outcomes, with a focus on Latin America. A second research stream examines the long-run effects of welfare state expansion on family structure in the United States.
+
+:::
+
+::::

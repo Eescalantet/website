@@ -1,0 +1,25 @@
+---
+title: "Contact"
+---
+
+::: {.contact-block}
+**Enrique Escalante, Ph.D.**
+
+Assistant Professor of Economics
+Norris-Vincent College of Business
+Angelo State University
+San Angelo, TX 76909
+
+Research Assistant Professor
+Free Market Institute
+Texas Tech University
+:::
+
+::: {.contact-block}
+**Email:** [eescalante@angelo.edu](mailto:eescalante@angelo.edu)
+
+**Academic Profiles**
+[Curriculum Vitae](https://drive.google.com/file/d/1e-_bLVNg0Z8_s7XfpIwmXEeJi2q2iyGb/view?usp=drive_link)
+[Google Scholar](https://scholar.google.com/citations?user=W0YLItcAAAAJ&hl=en)
+[SSRN](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2602348)
+:::
