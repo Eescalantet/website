@@ -6,7 +6,7 @@ pagetitle: "Enrique Escalante"
 
 ::: {.column width="27%"}
 
-![](images/profile.svg){.profile-photo}
+![](images/profile.jpg){.profile-photo}
 
 ::: {.home-links}
 [eescalante\@angelo.edu](mailto:eescalante@angelo.edu)
