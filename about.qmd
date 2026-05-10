@@ -13,14 +13,14 @@ Before graduate school, I founded and directed **Andes Libres**, an educational 
 :::: {.columns}
 
 ::: {.column width="48%"}
-![](images/peru1.svg){.peru-photo}
+![](images/peru1.jpg){.peru-photo}
 :::
 
 ::: {.column width="4%"}
 :::
 
 ::: {.column width="48%"}
-![](images/peru2.svg){.peru-photo}
+![](images/peru2.jpg){.peru-photo}
 :::
 
 ::::
