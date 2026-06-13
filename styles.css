@@ -83,8 +83,29 @@ h2 {
 
 /* ── Responsive: stack columns on small screens ─────────── */
 @media (max-width: 767px) {
-  .profile-photo {
-    max-width: 150px;
+  /* Force any multi-column layout to stack vertically */
+  .columns {
+    display: block;
+  }
+  .columns > .column {
+    width: 100% !important;
     margin-bottom: 1rem;
+  }
+
+  /* Profile photo: centered, a touch larger than the desktop sidebar */
+  .profile-photo {
+    max-width: 180px;
+    margin-bottom: 1rem;
+  }
+
+  /* Home sidebar links: center and give bigger tap spacing */
+  .home-links {
+    text-align: center;
+    line-height: 2.4;
+  }
+
+  /* Tighten the large desktop header margins for mobile reading */
+  h2 {
+    margin-top: 1.6rem;
   }
 }
