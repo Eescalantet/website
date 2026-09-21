@@ -6,11 +6,10 @@ project:
 
 website:
   title: "Enrique Escalante"
-  description: "Assistant Professor of Economics · Angelo State University"
+  description: "Associate Professor of Economics · Angelo State University"
   site-url: "https://enriqueescalante.com"
   navbar:
-    background: dark
-    foreground: light
+    background: light
     left:
       - href: index.qmd
         text: Home
@@ -34,7 +33,9 @@ website:
 
 format:
   html:
-    theme: flatly
+    theme:
+      - cosmo
+      - theme.scss
     css: styles.css
     toc: false
     link-external-newwindow: true
