@@ -8,24 +8,40 @@ title: "Research"
 **"Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"**\
 *World Development*, 2026\
 [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4443657)
+
+::: {.pub-summary}
+Why do some rebel groups court public legitimacy while others stay hidden? I model the trade-off insurgents face between openness — which wins popular support, resources, and civilian collaboration — and secrecy, which shields the group from being targeted. The theory is tested against Peru's Shining Path and Túpac Amaru movements (1980–2000).
+:::
 ::::
 
 :::: {.pub-entry}
 **"A Self-Defense Network against Terrorism and Crime: Evidence from Peru"**\
 *Terrorism and Political Violence*, 2023\
 [Published version](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20)
+
+::: {.pub-summary}
+Self-governance is often assumed not to scale beyond small groups. Yet hundreds of thousands of Peruvian peasants built a decentralized, multi-community network of patrols (*rondas campesinas*) that provided security with no central direction — a polycentric order that played a decisive role in defeating crime and terrorism between 1980 and 2000.
+:::
 ::::
 
 :::: {.pub-entry}
 **"The Influence of Pinochet in the Chilean Miracle"**\
 *Latin American Research Review*, 2022\
 [Published version](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)
+
+::: {.pub-summary}
+Using a synthetic-control counterfactual, I find that Chilean income per capita underperformed comparable countries for at least fifteen years after Pinochet's coup, and that the growth of 1985–1997 did not depend on his autocracy — challenging the popular narrative that credits the dictatorship with Chile's economic "miracle."
+:::
 ::::
 
 :::: {.pub-entry}
 **"Night Watchers and Terrorists"**\
 *Journal of Economic Behavior and Organization*, 2020\
 [Published version](https://www.sciencedirect.com/science/article/pii/S0167268119304135)
+
+::: {.pub-summary}
+The peasant self-defense patrols that arose to fight the Shining Path adopted strikingly different internal structures — democratic in the north, hierarchical in the south. I develop an organizational theory showing how the severity and time horizon of the external threat shaped whether these extralegal groups organized horizontally or vertically.
+:::
 ::::
 
 :::: {.pub-entry}
@@ -33,6 +49,10 @@ title: "Research"
 with Raymond March\
 *Journal of Institutional Economics*, 2020\
 [Published version](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)
+
+::: {.pub-summary}
+The Andean Christmas ritual of *Takanakuy* — public, consensual brawling — works as a community mechanism for resolving disputes that Peru's formal courts cannot or will not settle, sustaining cooperation and social order through locally accepted rules.
+:::
 ::::
 
 ## Book Chapters
@@ -41,6 +61,11 @@ with Raymond March\
 **"Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"**\
 in *The Pinochet Shock: Radical Change and Life Under Dictatorship*, Palgrave Macmillan, 2025\
 [Chapter](https://drive.google.com/file/d/1j5blSAc0GmI3oYDSa2RB7OBnWETZKWqa/view?usp=drive_link)
+
+::: {.pub-summary}
+<!-- DRAFT — no PDF available to verify; please review/replace. -->
+A chapter revisiting the sources of Chile's economic transformation and asking how much of the country's growth can be attributed to the Pinochet regime versus the market reforms of the period.
+:::
 ::::
 
 :::: {.pub-entry}
@@ -48,14 +73,29 @@ in *The Pinochet Shock: Radical Change and Life Under Dictatorship*, Palgrave Ma
 with Peter C. Earle\
 in *Pandemics and Liberty*, American Institute for Economic Research, 2022\
 [Book](https://www.amazon.com/dp/1630692220)
+
+::: {.pub-summary}
+<!-- DRAFT — no PDF available to verify; please review/replace. -->
+A chapter examining Operation Warp Speed — the U.S. effort to accelerate COVID-19 vaccine development — as a case of a limited government role that can remain compatible with individual liberty.
+:::
 ::::
 
 ## Working Papers
 
 :::: {.pub-entry}
 **"Resource Shocks and Local Regulatory Capacity: Evidence from Peru"**
+
+::: {.pub-summary}
+<!-- DRAFT — no PDF available to verify; please review/replace. -->
+Examines how windfalls in natural-resource revenue affect the regulatory capacity of local governments in Peru.
+:::
 ::::
 
 :::: {.pub-entry}
 **"Co-Producing the State: Formal Recognition of Extralegal Governance and Fiscal Capacity"**
+
+::: {.pub-summary}
+<!-- DRAFT — no PDF available to verify; please review/replace. -->
+Studies how the state's formal recognition of pre-existing extralegal (community) governance shapes its fiscal capacity, drawing on evidence from Peru.
+:::
 ::::

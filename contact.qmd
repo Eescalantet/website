@@ -5,7 +5,7 @@ title: "Contact"
 ::: {.contact-block}
 **Enrique Escalante, Ph.D.**
 
-Assistant Professor of Economics
+Associate Professor of Economics
 Norris-Vincent College of Business
 Angelo State University
 San Angelo, TX 76909

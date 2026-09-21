@@ -4,3 +4,7 @@
 .DS_Store
 
 **/*.quarto_ipynb
+
+# Local source material — kept on disk, not published to the repo
+/photos_2026/
+/papers/

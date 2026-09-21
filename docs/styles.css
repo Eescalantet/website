@@ -1,7 +1,7 @@
 /* ── Typography ─────────────────────────────────────────── */
-body {
-  font-size: 1.0rem;
-  color: #2d2d2d;
+/* Fonts, base colors, and the accent color live in theme.scss */
+a {
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 /* ── Profile photo ──────────────────────────────────────── */
@@ -22,10 +22,9 @@ body {
 
 /* ── Section headers ────────────────────────────────────── */
 h2 {
-  margin-top: 2.2rem;
-  padding-bottom: 0.3rem;
-  border-bottom: 2px solid #2c3e50;
-  color: #2c3e50;
+  margin-top: 2.4rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 /* ── Publication entries ────────────────────────────────── */
@@ -79,6 +78,36 @@ h2 {
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
   margin-bottom: 0.5rem;
+}
+
+/* ── Home hero (about template) ─────────────────────────── */
+.about-links .about-link {
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.about-links .about-link:hover {
+  transform: translateY(-2px);
+  color: #2980b9;
+}
+
+.about-cta {
+  font-weight: 600;
+  margin-right: 0.8rem;
+}
+
+/* ── About page portrait ────────────────────────────────── */
+.about-portrait {
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Research: plain-language paper summaries ───────────── */
+.pub-summary {
+  margin-top: 0.45rem;
+  font-size: 0.93rem;
+  color: #555;
+  line-height: 1.55;
 }
 
 /* ── Responsive: stack columns on small screens ─────────── */
