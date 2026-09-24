@@ -1,17 +1,47 @@
 ---
 title: "Teaching"
+page-layout: full
 ---
 
-## Angelo State University
+I teach across the economics curriculum at Angelo State University, with a focus on **causal inference** and **price theory**.
 
-**Intermediate Microeconomics**
+## Signature courses
 
-**Quantitative Methods for Social Sciences**
+::: {.grid}
+::: {.g-col-12 .g-col-md-6 .theme-card}
+### Quantitative Methods for the Social Sciences
+Causal inference for applied research — research design, regression, difference-in-differences, and event studies, with hands-on data work.<br>
+*Best for: advanced undergraduates*<br>
+[Syllabus](https://drive.google.com/file/d/1RMiYHE9U9AKX4XfchXAvD5HVZCmc6A52/view?usp=drive_link)
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+### Intermediate Microeconomics
+Price theory in depth — consumer and producer behavior, market structure, and welfare, with an emphasis on economic intuition.<br>
+*Best for: undergraduates*
+:::
+:::
 
-**Economic Development**
+## Other courses
 
-**International Economics**
-
-**Principles of Microeconomics**
-
-**Principles of Macroeconomics**
+::: {.grid}
+::: {.g-col-12 .g-col-md-6 .theme-card}
+### Economic Development
+Why some countries are rich and others poor — institutions, growth, poverty, and the political economy of development.<br>
+[Syllabus](https://drive.google.com/file/d/19QV6zZQRZb8i408wkuyMC2quphvG-Ago/view?usp=drive_link)
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+### International Economics
+Trade and the open economy — comparative advantage, trade policy, exchange rates, and global integration.<br>
+[Syllabus](https://drive.google.com/file/d/1tN8ugcgy17CcczfcPAtE3XzUSI8IKaDT/view?usp=drive_link)
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+### Principles of Microeconomics
+Introduction to markets, incentives, and the price system.<br>
+[Syllabus](https://drive.google.com/file/d/1TUd6BrCs-3KRsGJNfCikikVTlDITMTiQ/view?usp=drive_link)
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+### Principles of Macroeconomics
+Introduction to growth, inflation, unemployment, and monetary and fiscal policy.<br>
+[Syllabus](https://drive.google.com/file/d/1TUd6BrCs-3KRsGJNfCikikVTlDITMTiQ/view?usp=drive_link)
+:::
+:::

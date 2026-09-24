@@ -1,29 +1,61 @@
 ---
 pagetitle: "Enrique Escalante"
-title: "Enrique Escalante"
-subtitle: "Associate Professor of Economics"
-about:
-  template: trestles
-  image: images/hero.jpg
-  image-shape: rounded
-  image-width: 17em
-  links:
-    - icon: envelope
-      text: Email
-      href: "mailto:eescalante@angelo.edu"
-    - icon: file-earmark-pdf
-      text: CV
-      href: "https://drive.google.com/file/d/1e-_bLVNg0Z8_s7XfpIwmXEeJi2q2iyGb/view?usp=drive_link"
-    - icon: mortarboard
-      text: Google Scholar
-      href: "https://scholar.google.com/citations?user=W0YLItcAAAAJ&hl=en"
-    - icon: file-earmark-text
-      text: SSRN
-      href: "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2602348"
+page-layout: full
 ---
 
-I am an Associate Professor of Economics at the Norris-Vincent College of Business at **Angelo State University** and a Research Assistant Professor at the **Free Market Institute at Texas Tech University**.
+::: {.grid .hero}
+::: {.g-col-12 .g-col-md-4}
+![](images/hero.jpg){.hero-photo}
+:::
+::: {.g-col-12 .g-col-md-8 .hero-text}
+# Enrique Escalante
 
-My research lies at the intersection of **political economy** and **institutional economics**. I study how informal governance, political violence, and state capacity shape economic and social outcomes, with a focus on Latin America. A second research stream examines the long-run effects of welfare state expansion on family structure in the United States.
+::: {.hero-role}
+Associate Professor of Economics · Angelo State University
+:::
 
-[Read my research →](research.qmd){.about-cta} [Get in touch →](contact.qmd){.about-cta}
+::: {.hero-headline}
+The political economy of violence and development.
+:::
+
+::: {.fields-strip}
+Development economics · Political conflict & regimes · Applied econometrics · Price theory
+:::
+
+[Read my research](research.qmd){.btn-cta} [Watch interviews](media.qmd){.btn-cta .btn-outline}
+:::
+:::
+
+## Research themes
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-4 .theme-card}
+### Political conflict & violence
+How communities respond to insurgency and crime when the state is weak or absent — self-defense networks, insurgent legitimacy, and informal order, drawing on Peru's 1980–2000 conflict.
+:::
+::: {.g-col-12 .g-col-md-4 .theme-card}
+### Political regimes & growth
+Whether authoritarian rule actually delivers economic gains — reassessing Chile's "miracle" under Pinochet with modern causal-inference tools.
+:::
+::: {.g-col-12 .g-col-md-4 .theme-card}
+### Development economics
+How formal and informal institutions shape state capacity, fiscal capacity, and long-run development in low- and middle-income countries.
+:::
+:::
+
+## Recent interviews & media
+
+::: {.media-item}
+**[America's K-Shaped Economy](https://www.youtube.com/watch?v=o3JOTiRMILo&t=757s)** [EN]{.lang-tag .lang-en}<br>
+*The Talk Diaries with Tanya Beckett* · 2026
+:::
+::: {.media-item}
+**[Entrevista en Valor Agregado](https://www.youtube.com/watch?v=vJUBzKOAH0Y)** [ES]{.lang-tag .lang-es}<br>
+*Canal B* · 2025
+:::
+::: {.media-item}
+**[Upsides and Risks of Increasing State Capacity](https://www.cato.org/multimedia/cato-daily-podcast/upsides-risks-increasing-state-capacity)** [EN]{.lang-tag .lang-en}<br>
+*Cato Daily Podcast* · 2024
+:::
+
+[See all interviews & writing →](media.qmd){.btn-cta .btn-outline}

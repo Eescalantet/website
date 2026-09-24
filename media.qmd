@@ -1,0 +1,50 @@
+---
+title: "Media & Writing"
+page-layout: full
+---
+
+I regularly discuss economics, political conflict, and development with public audiences — in both English and Spanish.
+
+## Interviews & Podcasts
+
+::: {.media-item}
+**[America's K-Shaped Economy](https://www.youtube.com/watch?v=o3JOTiRMILo&t=757s)** [EN]{.lang-tag .lang-en}<br>
+*The Talk Diaries with Tanya Beckett* · 2026 · YouTube
+:::
+::: {.media-item}
+**[The State of the U.S. Economy](https://open.spotify.com/episode/7ecR6AZQ0OQSoQjOnF3qRP)** [EN]{.lang-tag .lang-en}<br>
+*The Talk Diaries with Tanya Beckett* · 2025 · Spotify
+:::
+::: {.media-item}
+**[Entrevista en Valor Agregado](https://www.youtube.com/watch?v=vJUBzKOAH0Y)** [ES]{.lang-tag .lang-es}<br>
+*Canal B* · 2025 · TV interview
+:::
+::: {.media-item}
+**[Upsides and Risks of Increasing State Capacity](https://www.cato.org/multimedia/cato-daily-podcast/upsides-risks-increasing-state-capacity)** [EN]{.lang-tag .lang-en}<br>
+*Cato Daily Podcast* · 2024
+:::
+::: {.media-item}
+**[Why did Peru have such a bad pandemic?](https://www.bbc.co.uk/programmes/w3ct1z1r)** [EN]{.lang-tag .lang-en}<br>
+*The Inquiry, BBC World Service* · 2020
+:::
+
+## Writing
+
+::: {.media-item}
+**[A Peruvian Till the Very End](https://www.wsj.com/opinion/a-peruvian-till-the-very-end-vargas-llosa-spain-033f28c7)** [EN]{.lang-tag .lang-en}<br>
+*Wall Street Journal* — Letter to the Editor · 2025
+:::
+
+## In the Press
+
+Selected coverage of my research:
+
+::: {.media-item}
+**[Pinochet's economic policy is vastly overrated](https://www.noahpinion.blog/p/pinochets-economic-policy-is-vastly)** — Noah Smith, *Noahpinion*
+:::
+::: {.media-item}
+**[The Insurgent's Dilemma: Seeking Legitimacy](https://open.substack.com/pub/publicchoicelatinamerica/p/the-insurgents-dilemma-seeking-legitimacy)** — *Public Choice Latin America*
+:::
+::: {.media-item}
+**[Christmas traditions around the world](https://www.npr.org/2023/12/14/1218485324/christmas-traditions-around-the-world)** — *NPR* (on Takanakuy)
+:::
