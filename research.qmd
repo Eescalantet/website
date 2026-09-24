@@ -2,65 +2,87 @@
 title: "Research"
 ---
 
+My research is in the **political economy of violence and development** — with work on political conflict (Peru's insurgencies and community self-defense), political regimes and growth (Chile), and the institutions that underpin state and fiscal capacity, using applied econometrics and price theory.
+
 ## Peer-Reviewed Publications
 
-:::: {.pub-entry}
+::::: {.pub-entry}
 **"Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"**\
 *World Development*, 2026\
-[SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4443657)
+[SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4443657) · [PDF](https://drive.google.com/file/d/1dQxXaApbqzHqb-_a-YPWj7d7woUNh-ch/view?usp=drive_link)
 
-::: {.pub-summary}
+:::: {.panel-tabset}
+## English
 Why do some rebel groups court public legitimacy while others stay hidden? I model the trade-off insurgents face between openness — which wins popular support, resources, and civilian collaboration — and secrecy, which shields the group from being targeted. The theory is tested against Peru's Shining Path and Túpac Amaru movements (1980–2000).
-:::
-::::
 
-:::: {.pub-entry}
+## Español
+¿Por qué algunos grupos rebeldes buscan legitimidad pública mientras otros permanecen ocultos? Modelo la disyuntiva que enfrentan los insurgentes entre la apertura —que atrae apoyo popular, recursos y colaboración civil— y el secreto, que protege al grupo de ser blanco de ataques. La teoría se contrasta con Sendero Luminoso y el MRTA en el Perú (1980–2000).
+::::
+:::::
+
+::::: {.pub-entry}
 **"A Self-Defense Network against Terrorism and Crime: Evidence from Peru"**\
 *Terrorism and Political Violence*, 2023\
-[Published version](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20)
+[Published version](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20) · [PDF](https://drive.google.com/file/d/1ZlAOnm5SeCuxz9jt62QFtl_KjsQHFw4G/view?usp=drive_link)
 
-::: {.pub-summary}
+:::: {.panel-tabset}
+## English
 Self-governance is often assumed not to scale beyond small groups. Yet hundreds of thousands of Peruvian peasants built a decentralized, multi-community network of patrols (*rondas campesinas*) that provided security with no central direction — a polycentric order that played a decisive role in defeating crime and terrorism between 1980 and 2000.
-:::
-::::
 
-:::: {.pub-entry}
+## Español
+Suele suponerse que el autogobierno no puede escalar más allá de grupos pequeños. Sin embargo, cientos de miles de campesinos peruanos construyeron una red descentralizada y multicomunitaria de patrullas (*rondas campesinas*) que brindó seguridad sin dirección central —un orden policéntrico que fue decisivo para derrotar la delincuencia y el terrorismo entre 1980 y 2000.
+::::
+:::::
+
+::::: {.pub-entry}
 **"The Influence of Pinochet in the Chilean Miracle"**\
 *Latin American Research Review*, 2022\
-[Published version](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)
+[Published version](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20) · [PDF](https://drive.google.com/file/d/1FMhzIVrPsa2S997etJrEqMKLGKvhfPVF/view?usp=drive_link)
 
-::: {.pub-summary}
+:::: {.panel-tabset}
+## English
 Using a synthetic-control counterfactual, I find that Chilean income per capita underperformed comparable countries for at least fifteen years after Pinochet's coup, and that the growth of 1985–1997 did not depend on his autocracy — challenging the popular narrative that credits the dictatorship with Chile's economic "miracle."
-:::
-::::
 
-:::: {.pub-entry}
+## Español
+Mediante un contrafactual de control sintético, encuentro que el ingreso per cápita de Chile fue inferior al de países comparables durante al menos quince años tras el golpe de Pinochet, y que el crecimiento de 1985–1997 no dependió de su autocracia —cuestionando la narrativa popular que atribuye a la dictadura el "milagro" económico chileno.
+::::
+:::::
+
+::::: {.pub-entry}
 **"Night Watchers and Terrorists"**\
 *Journal of Economic Behavior and Organization*, 2020\
-[Published version](https://www.sciencedirect.com/science/article/pii/S0167268119304135)
+[Published version](https://www.sciencedirect.com/science/article/pii/S0167268119304135) · [PDF](https://drive.google.com/file/d/1slZ_Kzyob_adY0j3BGZbapurPFA2UYiZ/view?usp=drive_link)
 
-::: {.pub-summary}
+:::: {.panel-tabset}
+## English
 The peasant self-defense patrols that arose to fight the Shining Path adopted strikingly different internal structures — democratic in the north, hierarchical in the south. I develop an organizational theory showing how the severity and time horizon of the external threat shaped whether these extralegal groups organized horizontally or vertically.
-:::
-::::
 
-:::: {.pub-entry}
+## Español
+Las patrullas campesinas de autodefensa que surgieron para combatir a Sendero Luminoso adoptaron estructuras internas muy distintas —democráticas en el norte, jerárquicas en el sur. Desarrollo una teoría organizacional que muestra cómo la severidad y el horizonte temporal de la amenaza externa determinaron si estos grupos extralegales se organizaban de forma horizontal o vertical.
+::::
+:::::
+
+::::: {.pub-entry}
 **"Fighting on Christmas: Brawling as Self-Governance in Rural Peru"**\
 with Raymond March\
 *Journal of Institutional Economics*, 2020\
-[Published version](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)
+[Published version](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083) · [PDF](https://drive.google.com/file/d/1p1Ncp4w63u80s2Eh0qqtLDuJA6oVvIaJ/view?usp=drive_link)
 
-::: {.pub-summary}
+:::: {.panel-tabset}
+## English
 The Andean Christmas ritual of *Takanakuy* — public, consensual brawling — works as a community mechanism for resolving disputes that Peru's formal courts cannot or will not settle, sustaining cooperation and social order through locally accepted rules.
-:::
+
+## Español
+El ritual navideño andino del *Takanakuy* —peleas públicas y consentidas— funciona como un mecanismo comunitario para resolver disputas que los tribunales formales del Perú no pueden o no quieren atender, sosteniendo la cooperación y el orden social mediante reglas aceptadas localmente.
 ::::
+:::::
 
 ## Book Chapters
 
 :::: {.pub-entry}
 **"Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"**\
 in *The Pinochet Shock: Radical Change and Life Under Dictatorship*, Palgrave Macmillan, 2025\
-[Chapter](https://drive.google.com/file/d/1j5blSAc0GmI3oYDSa2RB7OBnWETZKWqa/view?usp=drive_link)
+[Book](https://link.springer.com/book/10.1007/978-3-031-78825-3) · [Chapter](https://drive.google.com/file/d/1j5blSAc0GmI3oYDSa2RB7OBnWETZKWqa/view?usp=drive_link)
 
 ::: {.pub-summary}
 <!-- DRAFT — no PDF available to verify; please review/replace. -->
