@@ -8,3 +8,6 @@
 # Local source material — kept on disk, not published to the repo
 /photos_2026/
 /papers/
+
+# RStudio session state (the project file itself is fine to keep)
+.Rproj.user/

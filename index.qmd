@@ -19,7 +19,7 @@ The political economy of violence and development.
 :::
 
 ::: {.fields-strip}
-Development economics · Political conflict & regimes · Applied econometrics · Price theory
+Development economics · Political conflict & regimes · Applied econometrics
 :::
 
 [Read my research](research.qmd){.btn-cta} [Watch interviews](media.qmd){.btn-cta .btn-outline}
@@ -30,12 +30,12 @@ Development economics · Political conflict & regimes · Applied econometrics ·
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-4 .theme-card}
-### Political conflict & violence
-How communities respond to insurgency and crime when the state is weak or absent — self-defense networks, insurgent legitimacy, and informal order, drawing on Peru's 1980–2000 conflict.
+### Contested Authority & violence
+How communities respond to insurgency and crime when the state is weak or absent? Self-defense networks, insurgent legitimacy, and informal order, drawing on Peru's 1980–2000 conflict.
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
-### Political regimes & growth
-Whether authoritarian rule actually delivers economic gains — reassessing Chile's "miracle" under Pinochet with modern causal-inference tools.
+### Political institutions & growth
+Whether authoritarian rule actually delivers economic gains, reassessing Chile's "miracle" under Pinochet with modern causal-inference tools.
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Development economics
