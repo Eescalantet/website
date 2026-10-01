@@ -11,3 +11,6 @@
 
 # RStudio session state (the project file itself is fine to keep)
 .Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
