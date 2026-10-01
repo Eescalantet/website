@@ -35,7 +35,7 @@ How communities respond to insurgency and crime when the state is weak or absent
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Political institutions & growth
-Whether authoritarian rule actually delivers economic gains, reassessing Chile's "miracle" under Pinochet with modern causal-inference tools.
+Whether authoritarian rule actually delivers economic gains, reassessing Chile's "miracle" under Pinochet and the democratic transition.
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Development economics
@@ -45,6 +45,14 @@ How formal and informal institutions shape state capacity, fiscal capacity, and 
 
 ## Recent interviews & media
 
+::: {.media-item}
+**[Is your job safe from AI? A record number of workers aren't sure](https://www.washingtontimes.com/news/2026/sep/29/gallup-poll-record-27-adults-worry-technology-could-cut-jobs/?srsltid=AU7gw4U6urU8cJePAQ4s3mu2RPLLFjlDtQrx22Ojh1EmEob34MhJzrrc)** [EN]{.lang-tag .lang-en}<br>
+*Washington Times* · 2026
+:::
+::: {.media-item}
+**[Entrevista en Valor Agregado](https://www.youtube.com/live/gjftS-xlaM8?si=Qh0rhq57kopITrre)** [ES]{.lang-tag .lang-es}<br>
+*Canal B* · 2026
+:::
 ::: {.media-item}
 **[America's K-Shaped Economy](https://www.youtube.com/watch?v=o3JOTiRMILo&t=757s)** [EN]{.lang-tag .lang-en}<br>
 *The Talk Diaries with Tanya Beckett* · 2026
