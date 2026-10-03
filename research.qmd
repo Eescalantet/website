@@ -9,7 +9,7 @@ My research is in the **political economy of violence and development** — with
 ::::: {.pub-entry}
 **"Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"**\
 *World Development*, 2026\
-[SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4443657) · [PDF](https://drive.google.com/file/d/1dQxXaApbqzHqb-_a-YPWj7d7woUNh-ch/view?usp=drive_link)
+[Published Version](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444) · [PDF](https://drive.google.com/file/d/1dQxXaApbqzHqb-_a-YPWj7d7woUNh-ch/view?usp=drive_link)
 
 :::: {.panel-tabset}
 ## English
@@ -105,19 +105,19 @@ A chapter examining Operation Warp Speed — the U.S. effort to accelerate COVID
 ## Working Papers
 
 :::: {.pub-entry}
-**"Resource Shocks and Local Regulatory Capacity: Evidence from Peru"**
+**"Resource Shocks and Local Enforcement Activity: Evidence from Peru"**
 
 ::: {.pub-summary}
 <!-- DRAFT — no PDF available to verify; please review/replace. -->
-Examines how windfalls in natural-resource revenue affect the regulatory capacity of local governments in Peru.
+How do resource shocks shape the enforcement behavior of local governments? Using a harmonized municipality-year panel from Peru, this study exploits quasi-experimental variation in intergovernmental transfers driven by global commodity price shocks and fixed geological endowments to examine how municipalities adjust local enforcement activity—the control operations they conduct to enforce commercial and building regulations. Municipalities with greater exposure to resource-based transfers intensify enforcement specifically during sustained, deep depletion of transfers, when revenues have declined for several consecutive years. The response is broadly present across the distribution of baseline fiscal capacity rather than concentrated in high- or low-capacity municipalities. General municipal staffing does not expand in depletion except for short-term discretionary contracts that rise modestly while procurement shows no systematic response and public-goods provision responds only through garbage collection, a low-cost visible service. The findings indicate that transfer dependence shapes the enforcement margin of decentralized government under fiscal scarcity, in systems with limited local tax autonomy. 
 :::
 ::::
 
 :::: {.pub-entry}
-**"Co-Producing the State: Formal Recognition of Extralegal Governance and Fiscal Capacity"**
+**"Co-Producing the State: Formal Recognition of Informal Governance and Fiscal Capacity"**
 
 ::: {.pub-summary}
 <!-- DRAFT — no PDF available to verify; please review/replace. -->
-Studies how the state's formal recognition of pre-existing extralegal (community) governance shapes its fiscal capacity, drawing on evidence from Peru.
+This paper examines how the formal recognition of local informal organizations affects fiscal capacity in Peru. I argue that formal recognition enables the coproduction of public goods, strengthening voluntary tax compliance. Using district-level panel data from 2004–2022, I implement a staggered difference-in-differences design that exploits variation in the timing and intensity of recognition across municipalities. Districts that formally register informal organizations experience higher local tax revenues and greater fiscal autonomy relative to comparable districts. These results suggest that recognition enhances fiscal capacity through cooperative rather than coercive mechanisms. The effects are smaller but persistent where informal  governance is pervasive and deeply embedded. They weaken and can reverse when the number of registered organizations becomes too large, consistent with rising coordination costs and fragmented authority. 
 :::
 ::::

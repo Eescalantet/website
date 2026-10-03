@@ -37,8 +37,12 @@ I regularly discuss economics, political conflict, and development with public a
 
 ## In the Press
 
-Selected coverage of my research:
+Selected coverage of my research and expert commentary:
 
+
+::: {.media-item}
+**[Is your job safe from AI? A record number of workers aren't sure](https://www.washingtontimes.com/news/2026/sep/29/gallup-poll-record-27-adults-worry-technology-could-cut-jobs/?srsltid=AU7gw4XYcEomSGnhIie3Ry60smW6WXQP3gtGuZ7SGSZccp_u9T-4gn3O)** — *Washington Times*
+:::
 ::: {.media-item}
 **[Pinochet's economic policy is vastly overrated](https://www.noahpinion.blog/p/pinochets-economic-policy-is-vastly)** — Noah Smith, *Noahpinion*
 :::
