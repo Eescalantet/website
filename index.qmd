@@ -32,14 +32,20 @@ Development economics · Political conflict & regimes · Applied econometrics
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Contested Authority & violence
 How communities respond to insurgency and crime when the state is weak or absent? Self-defense networks, insurgent legitimacy, and informal order, drawing on Peru's 1980–2000 conflict.
+
+[Read the paper →](https://www.sciencedirect.com/science/article/pii/S0167268119304135){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Political institutions & growth
 Whether authoritarian rule actually delivers economic gains, reassessing Chile's "miracle" under Pinochet and the democratic transition.
+
+[Read the paper →](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Development economics
 How formal and informal institutions shape state capacity, fiscal capacity, and long-run development in low- and middle-income countries.
+
+[Read the paper →](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444){.stretched-link .card-cue}
 :::
 :::
 

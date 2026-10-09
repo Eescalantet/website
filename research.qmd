@@ -4,7 +4,7 @@ title: "Research"
 
 My research is in the **political economy of violence and development** — with work on political conflict (Peru's insurgencies and community self-defense), political regimes and growth (Chile), and the institutions that underpin state and fiscal capacity, using applied econometrics and price theory.
 
-## Peer-Reviewed Publications
+## Journal Articles
 
 ::::: {.pub-entry}
 **"Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"**\

@@ -184,12 +184,21 @@ h2 {
 
 /* ── Theme / feature cards ──────────────────────────────── */
 .theme-card {
+  position: relative;
   background: #fff;
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   padding: 1.3rem 1.4rem;
   height: 100%;
   transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card-cue {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1f4e79;
 }
 
 .theme-card:hover {
