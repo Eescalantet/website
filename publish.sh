@@ -28,6 +28,9 @@ if git diff --cached --quiet; then
 fi
 git commit -m "$MSG"
 
+echo "→ Syncing with remote (pull --rebase)..."
+git pull --rebase --autostash
+
 echo "→ Pushing to GitHub..."
 git push
 
