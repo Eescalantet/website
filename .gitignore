@@ -14,3 +14,11 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# LaTeX build artifacts
+cv/*.aux
+cv/*.log
+cv/*.out
+cv/*.synctex.gz
+cv/*.fls
+cv/*.fdb_latexmk

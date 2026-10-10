@@ -1,0 +1,152 @@
+% ---------------------------------------------------------------
+% Enrique Escalante — Curriculum Vitae
+% Compile with: pdflatex cv.tex   (or: latexmk -pdf cv.tex)
+% ---------------------------------------------------------------
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=0.9in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{XCharter}            % clean professional serif
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\definecolor{accent}{HTML}{1F4E79}
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent}
+
+% --- Section headings: small-caps, accent color, hairline rule ---
+\titleformat{\section}
+  {\large\bfseries\scshape\color{accent}}{}{0em}{}[{\color{accent!40}\titlerule}]
+\titlespacing{\section}{0pt}{12pt}{5pt}
+
+\setlist[itemize]{leftmargin=1.2em, itemsep=3pt, topsep=2pt}
+
+% --- Helper: a line with a right-aligned date ---
+\newcommand{\daterow}[2]{\noindent #1\hfill #2\par\smallskip}
+
+% --- Environment for publication / entry lists (hanging, no bullet) ---
+\newenvironment{entries}
+  {\begin{list}{}{\setlength{\leftmargin}{1.2em}\setlength{\itemindent}{-1.2em}\setlength{\itemsep}{5pt}\setlength{\topsep}{2pt}}}
+  {\end{list}}
+
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+% =============================== HEADER ===============================
+{\LARGE\bfseries Enrique Escalante}\\[3pt]
+{\large Associate Professor of Economics}\\[6pt]
+Norris-Vincent College of Business, Angelo State University\\
+Research Assistant Professor, Free Market Institute, Texas Tech University\\[4pt]
+\href{mailto:eescalante@angelo.edu}{eescalante@angelo.edu} \quad$\cdot$\quad
+\href{https://enriqueescalante.com}{enriqueescalante.com} \quad$\cdot$\quad
+San Angelo, TX \quad$\cdot$\quad Citizenship: Peru (U.S.\ Permanent Resident)
+
+% =============================== INTERESTS ===============================
+\section{Research Interests}
+Political economy of violence and development; development economics; political conflict and regimes; applied econometrics; price theory.
+
+% =============================== POSITIONS ===============================
+\section{Academic Positions}
+\textbf{Angelo State University}, Norris-Vincent College of Business\\[2pt]
+\daterow{Associate Professor of Economics}{2026--present}
+\daterow{Assistant Professor of Economics}{2021--2026}
+\daterow{Instructor of Economics}{2019--2021}
+\smallskip
+\textbf{Texas Tech University}, Free Market Institute\\[2pt]
+\daterow{Research Assistant Professor}{2021--present}
+\daterow{Research Associate}{2019--2021}
+
+% =============================== EDUCATION ===============================
+\section{Education}
+\daterow{\textbf{Ph.D., Agricultural and Applied Economics}, Texas Tech University}{2019}
+\daterow{\textbf{M.S., Agricultural and Applied Economics}, Texas Tech University}{2017}
+\daterow{\textbf{B.S., Electrical Engineering}, San Antonio Abad University, Cusco, Peru}{2007}
+
+% =============================== PUBLICATIONS ===============================
+\section{Journal Articles (Published and Forthcoming)}
+\begin{entries}
+\item[] ``Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets.'' \textit{World Development}, 199 (2026).
+\item[] ``A Self-Defense Network against Terrorism and Crime: Evidence from Peru.'' \textit{Terrorism and Political Violence}, 35(4), 828--845 (2023).
+\item[] ``The Influence of Pinochet on the Chilean Miracle.'' \textit{Latin American Research Review}, 57(4), 831--847 (2022).
+\item[] ``Night Watchers and Terrorists.'' \textit{Journal of Economic Behavior \& Organization}, 171, 116--131 (2020).
+\item[] (with Raymond March) ``Fighting on Christmas: Brawling as Self-Governance in Rural Peru.'' \textit{Journal of Institutional Economics}, 16(3), 355--368 (2020).
+\end{entries}
+
+% =============================== BOOK CHAPTERS ===============================
+\section{Book Chapters}
+\begin{entries}
+\item[] ``Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?'' In \textit{The Pinochet Shock: Radical Change and Life Under Dictatorship}. London: Palgrave Macmillan, 2025.
+\item[] (with Peter C. Earle) ``Operation Warp Speed.'' In \textit{Pandemics and Liberty}. North Haven, CT: American Institute for Economic Research, 2022.
+\end{entries}
+
+% =============================== WORKING PAPERS ===============================
+\section{Working Papers (Under Review)}
+\begin{entries}
+\item[] ``Resource Shocks and Local Enforcement Activity: Evidence from Peru.'' Under review, \textit{World Bank Economic Review}.
+\item[] ``Co-Producing the State: Formal Recognition of Informal Governance and Fiscal Capacity.'' Under review, \textit{Journal of Comparative Economics}.
+\end{entries}
+
+% =============================== MEDIA ===============================
+\section{Policy Engagement \& Media}
+\begin{entries}
+\item[] ``Most U.S. Cities Have Terrorism Insurance, Including Lubbock,'' \textit{Everything Lubbock}, 2026.
+\item[] ``En Clave Económica,'' \textit{Gestión Mundo}, 2026. (Spanish)
+\item[] ``En Radar 24,'' \textit{Gestión Mundo}, 2026. (Spanish)
+\item[] ``America's K-Shaped Economy,'' \textit{The Talk Diaries with Tanya Beckett}, 2026.
+\item[] ``The State of the U.S. Economy,'' \textit{The Talk Diaries with Tanya Beckett}, 2025.
+\item[] ``Misjudging Peruvian Vargas Llosa,'' \textit{Wall Street Journal} (Letter to the Editor), 2025.
+\item[] ``Valor Agregado,'' \textit{Canal B}, 2025. (Spanish)
+\item[] ``Upsides and Risks of Increasing State Capacity,'' \textit{Cato Daily Podcast}, 2024.
+\item[] ``Why Did Peru Have Such a Bad Pandemic?'' \textit{The Inquiry}, BBC, 2020.
+\end{entries}
+
+% =============================== CONFERENCES ===============================
+\section{Academic Seminars and Conferences}
+\daterow{\textbf{2026} (scheduled): Public Choice Society, APEE, Southern Economic Association, Mont Pelerin Society.}{}
+\daterow{\textbf{2025}: Public Choice Society, APEE, Southern Economic Association.}{}
+\daterow{\textbf{2024}: Center for Governance and Markets (Univ.\ of Pittsburgh), Public Choice Society, APEE, Warsaw Economic Seminars (Univ.\ of Warsaw), Peruvian Economic Association, Southern Economic Association, WINIR.}{}
+\daterow{\textbf{2023}: Southern Economic Association, Public Choice Society, APEE, Universidad Andina del Cusco, UNSAAC (Cusco, Peru).}{}
+\daterow{\textbf{2022}: Southern Economic Association, Public Choice Society, APEE.}{}
+\daterow{\textbf{2021}: Southern Economic Association, Liberty Fund Latin America (TTU), Public Choice Society, APEE.}{}
+\daterow{\textbf{2020}: Southern Economic Association.}{}
+\daterow{\textbf{2019}: Voluntary Governance (Arizona State University), Public Choice Society, APEE.}{}
+
+% =============================== TEACHING ===============================
+\section{Teaching Experience}
+\textbf{Angelo State University.} Intermediate Microeconomics; Quantitative Methods for Social Sciences; Development Economics; International Economics; Principles of Microeconomics; Principles of Macroeconomics.
+\begin{itemize}
+\item Developed and taught upper-level courses emphasizing causal inference and applied research design.
+\item Supervised undergraduate research presented at external conferences and competitions.
+\item Mentored students in empirical analysis, data collection, and research presentation.
+\item \textit{Political Economy Reading Group} (2021--2026): designed and led an interdisciplinary seminar with scholarships tied to sustained engagement.
+\end{itemize}
+\textbf{Texas Tech University.} Applied Business Economics (2017--2018). \\
+\textbf{Universidad Francisco Marroquín (Guatemala).} Advanced Seminar on Economics (2017).
+
+% =============================== AWARDS ===============================
+\section{Awards}
+\begin{entries}
+\item[] President's Award for Faculty Excellence, Angelo State University (finalist nominee), 2021.
+\item[] Hayek Fund, Institute for Humane Studies, 2018.
+\item[] Young Scholar Award, Association of Private Enterprise Education, 2016--2017.
+\item[] Atlas Network Award for Student Outreach (Francisco Marroquín), 2013 --- ``For exceptional work with student groups in remote regions of Peru'' (as Director, Andes Libres Institute).
+\end{entries}
+
+% =============================== SERVICE ===============================
+\section{Professional Activities}
+\textbf{Referee service:} Journal of Comparative Economics; Economics Letters; Southern Economic Journal; Public Choice; Journal of Public Finance and Public Choice; Latin American Research Review; Journal of Institutional Economics; Journal of Private Enterprise.\\[4pt]
+\textbf{Non-academic:} Executive Director and Founder, Andes Libres Public Policy Institute, Peru (2008--2015).
+
+% =============================== SKILLS ===============================
+\section{Skills}
+\textbf{Languages:} English (fluent), Spanish (native), French (basic), Quechua (basic).\\
+\textbf{Software:} R, Python.
+
+\vfill
+{\footnotesize\color{gray}Updated: October 2026}
+
+\end{document}

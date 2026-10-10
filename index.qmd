@@ -49,35 +49,39 @@ How formal and informal institutions shape state capacity, fiscal capacity, and 
 :::
 :::
 
-## Recent interviews & media
+## Publications
 
 ::: {.media-item}
-**[Is your job safe from AI? A record number of workers aren't sure](https://www.washingtontimes.com/news/2026/sep/29/gallup-poll-record-27-adults-worry-technology-could-cut-jobs/?srsltid=AU7gw4U6urU8cJePAQ4s3mu2RPLLFjlDtQrx22Ojh1EmEob34MhJzrrc)** [EN]{.lang-tag .lang-en}<br>
-*Washington Times* · 2026
+**"Co-Producing the State: Formal Recognition of Informal Governance and Fiscal Capacity"**<br>
+*Journal of Comparative Economics* · conditionally accepted, 2026
 :::
 ::: {.media-item}
-**[En Clave Economica](https://www.youtube.com/watch?v=lWehMaq7U1I&t=19s)** [ES]{.lang-tag .lang-es}<br>
-*Gestion Mundo* · 2026
+**["Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444)**<br>
+*World Development* · 2026
 :::
 ::: {.media-item}
-**[En Radar 24](https://www.youtube.com/watch?v=86jR5VF8NH4&t=511s)** [ES]{.lang-tag .lang-es}<br>
-*Gestion Mundo* · 2026
+**["Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"](https://link.springer.com/book/10.1007/978-3-031-78825-3)**<br>
+in *The Pinochet Shock*, Palgrave Macmillan · 2025
 :::
 ::: {.media-item}
-**[Entrevista en Valor Agregado](https://www.youtube.com/live/gjftS-xlaM8?si=Qh0rhq57kopITrre)** [ES]{.lang-tag .lang-es}<br>
-*Canal B* · 2026
+**["A Self-Defense Network against Terrorism and Crime: Evidence from Peru"](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20)**<br>
+*Terrorism and Political Violence* · 2023
 :::
 ::: {.media-item}
-**[America's K-Shaped Economy](https://www.youtube.com/watch?v=o3JOTiRMILo&t=757s)** [EN]{.lang-tag .lang-en}<br>
-*The Talk Diaries with Tanya Beckett* · 2026
+**["The Influence of Pinochet in the Chilean Miracle"](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)**<br>
+*Latin American Research Review* · 2022
 :::
 ::: {.media-item}
-**[Entrevista en Valor Agregado](https://www.youtube.com/watch?v=vJUBzKOAH0Y)** [ES]{.lang-tag .lang-es}<br>
-*Canal B* · 2025
+**"A Government Role Conducive to Liberty: Operation Warp Speed"** (with Peter C. Earle)<br>
+in *Pandemics and Liberty*, American Institute for Economic Research · 2022
 :::
 ::: {.media-item}
-**[Upsides and Risks of Increasing State Capacity](https://www.cato.org/multimedia/cato-daily-podcast/upsides-risks-increasing-state-capacity)** [EN]{.lang-tag .lang-en}<br>
-*Cato Daily Podcast* · 2024
+**["Night Watchers and Terrorists"](https://www.sciencedirect.com/science/article/pii/S0167268119304135)**<br>
+*Journal of Economic Behavior and Organization* · 2020
+:::
+::: {.media-item}
+**["Fighting on Christmas: Brawling as Self-Governance in Rural Peru"](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)** (with Raymond March)<br>
+*Journal of Institutional Economics* · 2020
 :::
 
-[See all interviews & writing →](media.qmd){.btn-cta .btn-outline}
+[See full research, summaries & working papers →](research.qmd){.btn-cta .btn-outline}
