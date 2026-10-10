@@ -22,3 +22,8 @@ cv/*.out
 cv/*.synctex.gz
 cv/*.fls
 cv/*.fdb_latexmk
+
+# CV source (keep private — contains phone number)
+/CV_Escalante_gen.doc
+*.doc
+*.docx
