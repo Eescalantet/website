@@ -19,7 +19,7 @@ Texas Tech University
 **Email:** [eescalante@angelo.edu](mailto:eescalante@angelo.edu)
 
 **Academic Profiles**
-[Curriculum Vitae](https://drive.google.com/file/d/1e-_bLVNg0Z8_s7XfpIwmXEeJi2q2iyGb/view?usp=drive_link)
+[Curriculum Vitae](/cv/cv.pdf)
 [Google Scholar](https://scholar.google.com/citations?user=W0YLItcAAAAJ&hl=en)
 [SSRN](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2602348)
 :::

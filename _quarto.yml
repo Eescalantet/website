@@ -3,6 +3,7 @@ project:
   output-dir: docs
   resources:
     - CNAME
+    - cv/cv.pdf
 
 website:
   title: "Enrique Escalante"
@@ -25,7 +26,7 @@ website:
         text: Contact
     right:
       - text: "CV"
-        href: "https://drive.google.com/file/d/1e-_bLVNg0Z8_s7XfpIwmXEeJi2q2iyGb/view?usp=drive_link"
+        href: "/cv/cv.pdf"
       - text: "Scholar"
         href: "https://scholar.google.com/citations?user=W0YLItcAAAAJ&hl=en"
       - text: "SSRN"
