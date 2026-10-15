@@ -52,28 +52,36 @@ How formal and informal institutions shape state capacity, fiscal capacity, and 
 ## Publications
 
 ::: {.media-item}
-**"The Odd Couple: Formal and Informal Governance in the Making of Fiscal Capacity"** — *Journal of Comparative Economics* · conditionally accepted, 2026
+**"The Odd Couple: Formal and Informal Governance in the Making of Fiscal Capacity"**<br>
+*Journal of Comparative Economics* · forthcoming
 :::
 ::: {.media-item}
-**["Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444)** — *World Development* · 2026
+**["Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444)**<br>
+*World Development* · 2026
 :::
 ::: {.media-item}
-**["Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"](https://link.springer.com/book/10.1007/978-3-031-78825-3)** — in *The Pinochet Shock*, Palgrave Macmillan · 2025
+**["Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"](https://link.springer.com/book/10.1007/978-3-031-78825-3)**<br>
+in *The Pinochet Shock*, Palgrave Macmillan · 2025
 :::
 ::: {.media-item}
-**["A Self-Defense Network against Terrorism and Crime: Evidence from Peru"](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20)** — *Terrorism and Political Violence* · 2023
+**["A Self-Defense Network against Terrorism and Crime: Evidence from Peru"](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20)**<br>
+*Terrorism and Political Violence* · 2023
 :::
 ::: {.media-item}
-**["The Influence of Pinochet in the Chilean Miracle"](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)** — *Latin American Research Review* · 2022
+**["The Influence of Pinochet in the Chilean Miracle"](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)**<br>
+*Latin American Research Review* · 2022
 :::
 ::: {.media-item}
-**"A Government Role Conducive to Liberty: Operation Warp Speed"** (with Peter C. Earle) — in *Pandemics and Liberty*, American Institute for Economic Research · 2022
+**"A Government Role Conducive to Liberty: Operation Warp Speed"** (with Peter C. Earle)<br>
+in *Pandemics and Liberty*, American Institute for Economic Research · 2022
 :::
 ::: {.media-item}
-**["Night Watchers and Terrorists"](https://www.sciencedirect.com/science/article/pii/S0167268119304135)** — *Journal of Economic Behavior and Organization* · 2020
+**["Night Watchers and Terrorists"](https://www.sciencedirect.com/science/article/pii/S0167268119304135)**<br>
+*Journal of Economic Behavior and Organization* · 2020
 :::
 ::: {.media-item}
-**["Fighting on Christmas: Brawling as Self-Governance in Rural Peru"](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)** (with Raymond March) — *Journal of Institutional Economics* · 2020
+**["Fighting on Christmas: Brawling as Self-Governance in Rural Peru"](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)** (with Raymond March)<br>
+*Journal of Institutional Economics* · 2020
 :::
 
 [See full research, summaries & working papers →](research.qmd){.btn-cta .btn-outline}
