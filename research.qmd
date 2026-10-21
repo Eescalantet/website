@@ -64,7 +64,7 @@ Mediante un contrafactual de control sintético, encuentro que el ingreso per c�
 ::::: {.pub-entry}
 **"Night Watchers and Terrorists"**\
 *Journal of Economic Behavior and Organization*, 2020\
-[Published version](https://www.sciencedirect.com/science/article/pii/S0167268119304135) · [PDF](https://drive.google.com/file/d/1slZ_Kzyob_adY0j3BGZbapurPFA2UYiZ/view?usp=drive_link)
+[Interactive summary](nightwatchers/) · [Published version](https://www.sciencedirect.com/science/article/pii/S0167268119304135) · [PDF](https://drive.google.com/file/d/1slZ_Kzyob_adY0j3BGZbapurPFA2UYiZ/view?usp=drive_link)
 
 :::: {.panel-tabset}
 ## English

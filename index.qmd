@@ -30,10 +30,10 @@ Development economics · Political conflict & regimes · Applied econometrics
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-4 .theme-card}
-### Contested Authority & violence
-How communities respond to insurgency and crime when the state is weak or absent? Self-defense networks, insurgent legitimacy, and informal order, drawing on Peru's 1980–2000 conflict.
+### Self-defense under terror
+Why did Peru's peasant patrols against the Shining Path govern themselves democratically in the north and through commandos in the south? An organizational theory of defense: the time horizon a threat imposes shapes how vigilante groups organize.
 
-[Read the paper →](https://www.sciencedirect.com/science/article/pii/S0167268119304135){.stretched-link .card-cue}
+[Explore the interactive summary →](nightwatchers/){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Political institutions & growth

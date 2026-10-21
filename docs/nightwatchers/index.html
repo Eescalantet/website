@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Night Watchers and Terrorists</title>
+<meta name="description" content="An interactive summary of Escalante (2020), 'Night Watchers and Terrorists,' Journal of Economic Behavior and Organization: why Peru's peasant patrols against the Shining Path were democratic in the north and hierarchical in the south.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f3ec;
+  --paper: #fffdf8;
+  --ink: #1d1a16;
+  --muted: #6b6359;
+  --rule: #ddd3c4;
+  --north: #2f6b6a;      /* teal: assembly, horizontal */
+  --south: #b5432a;      /* vermilion: commando, vertical */
+  --ochre: #c48a1d;
+  --north-soft: #dbe9e7;
+  --south-soft: #f3ddd5;
+  --ochre-soft: #f4e6c8;
+  --link: #1f4e79;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16140f; --paper: #1f1c17; --ink: #ece6dc; --muted: #a79e91; --rule: #3a342c;
+    --north: #6fb3b0; --south: #e27a5f; --ochre: #e0ae4c;
+    --north-soft: #1f3534; --south-soft: #3b2219; --ochre-soft: #3a2e15; --link: #8fb8e0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16140f; --paper: #1f1c17; --ink: #ece6dc; --muted: #a79e91; --rule: #3a342c;
+  --north: #6fb3b0; --south: #e27a5f; --ochre: #e0ae4c;
+  --north-soft: #1f3534; --south-soft: #3b2219; --ochre-soft: #3a2e15; --link: #8fb8e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Newsreader", Georgia, serif; font-size: 1.2rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--link); }
+.sans { font-family: "Inter", system-ui, sans-serif; }
+
+/* top bar */
+.topbar {
+  position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule);
+}
+.topbar-inner {
+  max-width: 1100px; margin: 0 auto; padding: .55rem 16px; display: flex; gap: 1rem;
+  align-items: center; justify-content: space-between; font-family: "Inter", sans-serif; font-size: .8rem;
+}
+.topbar a { text-decoration: none; color: var(--muted); }
+.topbar a:hover { color: var(--ink); }
+.brand { font-weight: 600; color: var(--ink) !important; white-space: nowrap; }
+.toc { display: flex; gap: .9rem; overflow-x: auto; scrollbar-width: none; }
+.toc::-webkit-scrollbar { display: none; }
+.toc a { white-space: nowrap; }
+
+/* layout */
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+.wide { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+section { padding: 3.5rem 0 1rem; }
+.chapter-num {
+  font-family: "Inter", sans-serif; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .2rem;
+}
+h1, h2, h3 { line-height: 1.15; font-weight: 600; }
+h2 { font-size: 2.1rem; margin: 0 0 1rem; }
+h3 { font-size: 1.35rem; margin: 2rem 0 .5rem; }
+hr.sep { border: 0; border-top: 1px solid var(--rule); max-width: 720px; margin: 2.5rem auto 0; }
+
+/* hero */
+.hero { padding: 5rem 0 3rem; border-bottom: 1px solid var(--rule); }
+.hero .kicker { font-family: "Inter", sans-serif; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--south); }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); margin: .4rem 0 .6rem; letter-spacing: -.01em; }
+.hero .dek { font-size: 1.4rem; color: var(--muted); font-style: italic; margin: 0 0 1.5rem; }
+.byline { font-family: "Inter", sans-serif; font-size: .85rem; color: var(--muted); }
+.byline a { color: var(--muted); }
+.hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 2.5rem; border-radius: 6px; overflow: hidden; border: 1px solid var(--rule); }
+.hero-split div { padding: 1.2rem 1.3rem; font-size: 1rem; line-height: 1.45; }
+.hero-split .n { background: var(--north-soft); }
+.hero-split .s { background: var(--south-soft); }
+.hero-split strong { display: block; font-family: "Inter", sans-serif; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .3rem; }
+.hero-split .n strong { color: var(--north); }
+.hero-split .s strong { color: var(--south); }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 2rem 0; }
+.stat { background: var(--paper); padding: 1rem 1.1rem; }
+.stat .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.stat .l { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: .3rem; }
+
+/* quotes, notes */
+blockquote { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--rule); font-style: italic; }
+blockquote.n { border-color: var(--north); }
+blockquote.s { border-color: var(--south); }
+blockquote cite { display: block; font-style: normal; font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+.note { font-family: "Inter", sans-serif; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.tagN { color: var(--north); font-weight: 600; }
+.tagS { color: var(--south); font-weight: 600; }
+
+/* panels */
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 1.4rem; margin: 2rem 0; }
+.panel h4 { margin: 0 0 .2rem; font-size: 1.15rem; }
+.panel .sub { font-family: "Inter", sans-serif; font-size: .82rem; color: var(--muted); margin: 0 0 1rem; }
+
+/* toggle */
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; gap: 3px; font-family: "Inter", sans-serif; font-size: .85rem; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; color: var(--muted); padding: .4rem .9rem; border-radius: 999px; cursor: pointer; font: inherit; }
+.seg button[aria-pressed="true"].n { background: var(--north); color: #fff; }
+.seg button[aria-pressed="true"].s { background: var(--south); color: #fff; }
+.seg button[aria-pressed="true"].o { background: var(--ochre); color: #fff; }
+.seg button:focus-visible, input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+.compare { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1rem; }
+.compare th { text-align: left; font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: .7rem .8rem .7rem 0; vertical-align: top; width: 28%; border-top: 1px solid var(--rule); }
+.compare td { padding: .7rem 0; border-top: 1px solid var(--rule); vertical-align: top; line-height: 1.45; transition: color .2s; }
+
+/* org chart */
+.org { width: 100%; height: auto; display: block; margin: .5rem 0 0; }
+
+/* model */
+.model-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.5rem; align-items: start; }
+.slider-row { font-family: "Inter", sans-serif; font-size: .85rem; margin: .5rem 0 1rem; }
+.slider-row label { display: flex; justify-content: space-between; color: var(--muted); }
+input[type=range] { width: 100%; accent-color: var(--ochre); margin: .5rem 0 .2rem; }
+.readout { font-family: "Inter", sans-serif; font-size: .85rem; display: grid; gap: .5rem; }
+.readout .row { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--rule); padding-bottom: .35rem; }
+.readout .row b { font-weight: 600; }
+.verdict { margin-top: .9rem; padding: .8rem .9rem; border-radius: 6px; font-family: "Newsreader", serif; font-size: 1.05rem; line-height: 1.4; transition: background .25s; }
+.village { width: 100%; height: auto; margin-top: .8rem; }
+.presets { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .6rem; }
+.presets button { font-family: "Inter", sans-serif; font-size: .75rem; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); padding: .35rem .65rem; border-radius: 4px; cursor: pointer; }
+.presets button:hover { border-color: var(--muted); }
+
+/* errors */
+.errors { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.errors > div { border-radius: 6px; padding: 1rem 1.1rem; font-size: 1rem; line-height: 1.45; }
+.errors .n { background: var(--north-soft); }
+.errors .s { background: var(--south-soft); }
+.errors strong { font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .3rem; }
+
+/* timeline */
+.tl-legend { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .6rem; }
+.tl-detail { margin-top: 1rem; font-size: 1.02rem; line-height: 1.5; min-height: 6.5rem; }
+
+/* hypotheses */
+.hyps { display: grid; gap: 1rem; margin: 1.5rem 0; }
+.hyp { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.hyp summary { list-style: none; cursor: pointer; padding: 1rem 1.2rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; }
+.hyp summary::-webkit-details-marker { display: none; }
+.hyp .hid { font-family: "Inter", sans-serif; font-weight: 600; font-size: .85rem; color: var(--muted); }
+.hyp .claim { font-size: 1.05rem; line-height: 1.35; }
+.badge { font-family: "Inter", sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .55rem; border-radius: 4px; white-space: nowrap; }
+.badge.ok { background: var(--north-soft); color: var(--north); }
+.badge.no { background: var(--south-soft); color: var(--south); }
+.hyp .body { padding: 0 1.2rem 1.1rem; font-size: 1.02rem; line-height: 1.5; border-top: 1px solid var(--rule); padding-top: .9rem; }
+
+.takeaway { font-size: 1.55rem; line-height: 1.35; font-style: italic; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 1.4rem 0; margin: 2rem 0; }
+
+footer { border-top: 1px solid var(--rule); margin-top: 4rem; padding: 2rem 0 4rem; }
+footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; line-height: 1.5; }
+.btns { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.btn { font-family: "Inter", sans-serif; font-size: .85rem; font-weight: 600; text-decoration: none; padding: .55rem 1rem; border-radius: 4px; border: 1px solid var(--link); color: var(--link); }
+.btn.fill { background: var(--link); color: var(--paper); }
+
+@media (max-width: 760px) {
+  body { font-size: 1.1rem; }
+  h2 { font-size: 1.7rem; }
+  .model-grid, .errors, .hero-split { grid-template-columns: 1fr; }
+  .compare th { width: 34%; }
+  .topbar .toc { display: none; }
+  .hyp summary { grid-template-columns: 1fr auto; }
+  .hyp .hid { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Night Watchers</a>
+    <nav class="toc" aria-label="Sections">
+      <a href="#puzzle">Puzzle</a><a href="#two">Two patrols</a><a href="#theory">Theory</a>
+      <a href="#north">North</a><a href="#south">South</a><a href="#reverse">Reversal</a>
+      <a href="#rivals">Alternatives</a><a href="#lesson">Lesson</a><a href="#source">Source</a>
+    </nav>
+    <a href="/">← enriqueescalante.com</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">An interactive summary</div>
+    <h1>Night Watchers and Terrorists</h1>
+    <p class="dek">Why did Peru's peasant patrols govern themselves by assembly in the north and by commandos in the south?</p>
+    <div class="byline">Edwar E. Escalante · <em>Journal of Economic Behavior and Organization</em> 171 (2020): 116–131 · <a href="https://doi.org/10.1016/j.jebo.2019.12.025">doi:10.1016/j.jebo.2019.12.025</a></div>
+    <div class="hero-split">
+      <div class="n"><strong>North · vs. cattle rustlers</strong>Elected presidents, a sovereign assembly, women's enforcement committees, reconciliation.</div>
+      <div class="s"><strong>South · vs. the Shining Path</strong>Commandos with autocratic authority, passes and passwords, swift and severe punishment.</div>
+    </div>
+  </div>
+</header>
+
+<!-- I -->
+<section id="puzzle">
+  <div class="wrap">
+    <div class="chapter-num">Chapter I</div>
+    <h2>Peasants against terror</h2>
+    <p>In 1980 the Shining Path opened its war on the Peruvian state by burning a voting center in Chuschi, Ayacucho. Over the next seventeen years it became the most violent communist insurgency in the western hemisphere. One of the most effective responses did not come from the army. It came from the peasants themselves.</p>
+    <p>The patrols, <em>rondas campesinas</em>, here called <strong>Night Watchers</strong>, had little money and no experience, and for years they were illegal. Thousands of indigenous communities formed them anyway. They were <em>extralegal</em> but not criminal: they organized outside the law, without profit motives or systematic crime.</p>
+  </div>
+  <div class="wide">
+    <div class="stats">
+      <div class="stat"><div class="v">5,786</div><div class="l">patrol units across Peru</div></div>
+      <div class="stat"><div class="v">400,360</div><div class="l">patrol members</div></div>
+      <div class="stat"><div class="v" style="color:var(--south)">42.6%</div><div class="l">of conflict deaths in Ayacucho, which holds 3.9% of Peru's territory</div></div>
+      <div class="stat"><div class="v" style="color:var(--south)">−13.9%</div><div class="l">Ayacucho GDP, 1975–91 (Peru overall: +1.8%)</div></div>
+      <div class="stat"><div class="v" style="color:var(--south)">−23.3%</div><div class="l">rural population of Ayacucho, 1981–93</div></div>
+    </div>
+    <p class="note wrap" style="padding:0">Sources cited in the paper: Degregori et al. (1996); TRC (2003); Ideele (1994).</p>
+  </div>
+  <div class="wrap">
+    <p>Every patrol faced the same problem. To defend a village you have to give someone the right to use force. Patrollers can then use that right for themselves: shirk the night shift, settle personal scores, pocket the beer money. So the question the paper asks is:</p>
+    <p class="takeaway" style="font-size:1.35rem">How does the kind of external threat a group faces shape how it governs itself?</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- II -->
+<section id="two">
+  <div class="wrap">
+    <div class="chapter-num">Chapter II</div>
+    <h2>One movement, two constitutions</h2>
+    <p>The first Night Watcher patrol was formed in 1976 by the community of Cuyumalca in northern Peru to fight theft and assault. The southern patrols appeared around 1983 to fight the Shining Path. Both were peasant initiatives that later entered the legal system. Inside, they looked nothing alike.</p>
+  </div>
+  <div class="wrap">
+    <div class="panel">
+      <h4>Compare the patrols</h4>
+      <p class="sub">Switch between regions to see how each patrol was organized (Table 1 of the paper).</p>
+      <div class="seg" role="group" aria-label="Region">
+        <button class="n" aria-pressed="true" data-region="north">North (vs. crime)</button>
+        <button class="s" aria-pressed="false" data-region="south">South (vs. Shining Path)</button>
+      </div>
+      <svg class="org" id="org" viewBox="0 0 640 200" role="img" aria-label="Organizational chart"></svg>
+      <table class="compare" id="compare"><tbody></tbody></table>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- III -->
+<section id="theory">
+  <div class="wrap">
+    <div class="chapter-num">Chapter III</div>
+    <h2>The shadow of the future</h2>
+    <p>The theory draws on Buchanan and Tullock's <em>Calculus of Consent</em> (1962). Any rule for collective decisions involves two costs:</p>
+    <p><span class="tagN">Decision-making costs</span>: the time and effort needed to reach agreement. They rise as more people must consent.<br>
+    <span class="tagS">External costs</span>: what you expect to suffer when a decision goes against you, such as being sent on a night shift or punished on a leader's word. They rise as fewer people must consent.</p>
+    <p>A community picks the rule that minimizes the sum of the two. The paper's contribution is to show that <strong>the time horizon</strong> moves both curves at once. An existential threat with no predictable pattern shortens the horizon. Deliberation becomes slow and dangerous, so decision-making costs rise. People are also more willing to tolerate a strongman, because they expect the emergency, and the strongman, not to last.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Choose a decision rule for a village</h4>
+      <p class="sub">Move the slider to change the villagers' time horizon. The curves are a stylized version of the paper's argument, not estimates.</p>
+      <div class="presets">
+        <button data-h="0.88">North: cattle rustlers</button>
+        <button data-h="0.08">South, 1983: Shining Path</button>
+        <button data-h="0.58">Culluchaca, 1993: terror recedes</button>
+      </div>
+      <div class="model-grid">
+        <div>
+          <svg id="curves" viewBox="0 0 520 340" style="width:100%;height:auto" role="img" aria-label="Cost curves by decision rule"></svg>
+        </div>
+        <div>
+          <div class="slider-row">
+            <label for="h"><span>Short horizon<br><small>existential, random threat</small></span><span style="text-align:right">Long horizon<br><small>persistent, predictable threat</small></span></label>
+            <input type="range" id="h" min="0" max="1" step="0.01" value="0.88">
+          </div>
+          <div class="readout">
+            <div class="row"><span>Share of village whose consent is needed</span><b id="ro-k">—</b></div>
+            <div class="row"><span>Households (of 40) who decide</span><b id="ro-n">—</b></div>
+            <div class="row"><span>Governance form</span><b id="ro-form">—</b></div>
+          </div>
+          <svg class="village" id="village" viewBox="0 0 300 130" role="img" aria-label="Village households"></svg>
+          <div class="verdict" id="verdict"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <h3>Which mistake can you afford?</h3>
+    <p>Any enforcement system makes two kinds of error. The time horizon decides which one a community would rather make.</p>
+    <div class="errors">
+      <div class="n"><strong style="color:var(--north)">Long horizon: risk false negatives</strong>Sometimes a shirker or thief goes unpunished. That is tolerable, because villagers will keep dealing with each other for years and can correct the error later.</div>
+      <div class="s"><strong style="color:var(--south)">Short horizon: risk false positives</strong>Sometimes a cooperator is punished. That is tolerable too, because either the terrorists win or they lose, and the costs of a commando's rule <em>may not last</em>.</div>
+    </div>
+    <p>The paper's main hypothesis follows. Peasant vigilantes rely on hierarchy to enforce their agreements <strong>if and only if</strong> they face a short time horizon and an existential threat.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- IV -->
+<section id="north">
+  <div class="wrap">
+    <div class="chapter-num">Chapter IV · North</div>
+    <h2>Everyone knows what's going on</h2>
+    <p>The northern threat was serious. Bands of cattle rustlers raided at night, killed and raped, and sold through chains of truckers, dealers and slaughterhouses. But they did not want to rule the villages, and their raids were persistent and predictable. Peasants still lived off the land, so their horizon stayed long.</p>
+    <p>A long horizon makes reputation work. A patroller who cheats loses future income and standing, so the arrangement enforces itself:</p>
+    <blockquote class="n">"A knowledge of 'what's going on' meant that a prosperous store-owner could not plead poverty to escape a fine for missing patrol for a month. A woman known for letting her pigs stray into neighboring fields could not claim never to have allowed the animals to roam free."<cite>Starn (1999, 139)</cite></blockquote>
+    <p><strong>Peer-to-peer enforcement.</strong> Women's committees made sure the men patrolled. A man could fight back against other men, but attacking a group of <em>señoras</em> would make him a laughingstock:</p>
+    <blockquote class="n">"Those who dodged service could expect to be roused out of bed by the wives of other villagers, fined, or even whipped."<cite>Starn (1999, 78)</cite></blockquote>
+    <p><strong>Checks on the patrol itself.</strong> The assembly elected and removed leaders and banned patrols from acting for private gain. When a whipping was ordered, a relative often held the lash, and anyone who held back was whipped too. Justice aimed at reconciliation, because everyone had to keep living together:</p>
+    <blockquote class="n">"We're all peasants, all poor. Why punish someone so bad they can't work? Or send them to rot in jail? How will their families survive? In the night watch you take your whip strokes, and then correct yourself, and go back to your life."<cite>Villager quoted in Starn (1999, 88)</cite></blockquote>
+    <p>The checks worked almost too well. Leading a patrol was so draining and closely watched that volunteers were hard to find. <em>"This job tires you out. The problems never end, and people are never satisfied, and talk about you behind your back."</em></p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- V -->
+<section id="south">
+  <div class="wrap">
+    <div class="chapter-num">Chapter V · South</div>
+    <h2>A thousand eyes, a thousand ears</h2>
+    <p>The Shining Path was a different kind of enemy. It wanted to replace the community's order. It killed village authorities, carried out random public executions, and planted informers inside the villages. In the words it used for itself, it had "one thousand ears and one thousand eyes." Forming a patrol made a village a target:</p>
+    <blockquote class="s">"Against the use of the military and their peasant supporters, we responded with a forceful action: Lucanamarca. … We executed 80 villagers."<cite>Abimael Guzmán, quoted in TRC (2003)</cite></blockquote>
+    <p>With no predictable pattern to plan around, deliberation became slow and dangerous, and no one knew which neighbor was a spy. So communities handed authority to <strong>commandos</strong>. Villagers had to register and carry passes. Passwords, flag ceremonies and training became compulsory. Commerce was restricted. Planning took place at night in the hills, in secret:</p>
+    <blockquote class="s">"No one could know, it was a matter of life and death; we were forbidden from even telling our wives because people said there were gossips."<cite>Patrol leader, quoted in La Serna (2012, 170)</cite></blockquote>
+    <p>Punishment in the south looked more like the terrorists' own methods than like northern reconciliation. Falling asleep on guard could mean execution. The hierarchy also brought its own internal rent-seeking, which Del Pino (1992) documents: commandos settled personal disputes, seized resources, and abused outsiders.</p>
+    <blockquote class="s">"They were like gods… they acted like kings, and with the positions they held, they practically were kings."<cite>Peasant from the Apurímac valley, in La Serna (2012, 203)</cite></blockquote>
+    <p>Villagers accepted these external costs because they expected them to be <em>temporary</em>. Like other revolutionary movements, the threat was not expected to last.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VI -->
+<section id="reverse">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VI</div>
+    <h2>The experiment in reverse</h2>
+    <p>If the time horizon drives structure, hierarchy should weaken when terror recedes. Coronel's (1996) fieldwork in Huanta, Ayacucho, lets us follow three southern communities through the conflict. In all three, authority went to the commandos as violence rose and returned to the assembly as violence fell.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Three communities, 1980–1997</h4>
+      <p class="sub">Select a community. The line is a schematic of how vertical its governance was, drawn from Coronel's account; it is not measured data.</p>
+      <div class="seg" role="group" aria-label="Community">
+        <button class="o" aria-pressed="true" data-c="culluchaca">Culluchaca</button>
+        <button class="o" aria-pressed="false" data-c="ocana">Ocaña</button>
+        <button class="o" aria-pressed="false" data-c="cangari">Cangari</button>
+      </div>
+      <svg id="timeline" viewBox="0 0 900 260" style="width:100%;height:auto;margin-top:1rem" role="img" aria-label="Schematic timeline"></svg>
+      <div class="tl-legend">Shaded band: the Shining Path's peak violence. Patrols spread after 1985, and attacks fell sharply after 1991.</div>
+      <div class="tl-detail" id="tl-detail"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <blockquote>"Members of the self-defense committees join the productive tasks with the purpose of rebuilding their family and communal economy. The [patrols] in each base get involved in the communal dynamic: elections, accountability … and enforcement of sanctions decided by authorities of the Assembly."<cite>Coronel (1996, 108)</cite></blockquote>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VII -->
+<section id="rivals">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VII</div>
+    <h2>Ruling out the usual suspects</h2>
+    <p>Three alternative explanations are plausible. The evidence rejects each one. Click a hypothesis to see why.</p>
+    <div class="hyps">
+      <details class="hyp" open>
+        <summary><span class="hid">H1</span><span class="claim">Long horizons and non-existential threats produce horizontal structures; short horizons and existential threats produce vertical ones.</span><span class="badge ok">Supported</span></summary>
+        <div class="body">Northern patrols facing predictable crime governed by assembly. Southern patrols facing random, existential terror centralized under commandos. Southern communities moved back toward assemblies once terror declined.</div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H2</span><span class="claim">Hierarchy arises whenever villagers must make snap decisions.</span><span class="badge no">Rejected</span></summary>
+        <div class="body">Northern patrols also made split-second choices, such as chasing thieves and answering night raids, yet they stayed horizontal. The need for fast combat decisions alone does not produce hierarchy. The time horizon does.</div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H3</span><span class="claim">The army imposed the vertical structure from outside.</span><span class="badge no">Rejected</span></summary>
+        <div class="body">Southern peasants organized from about 1983, roughly a decade before the armed forces formally allied with them. Patrols grew from fewer than 700 in 1989 to more than 1,200 by 1991, and they kept their autonomy after the alliance, choosing their own presidents, treasurers and commandos. Legislative Decree 741 (1991) recognized patrols that already existed. In Sanamarca: <em>"The army did not impose the patrols; we have chosen our leaders, and we all agree to fight."</em></div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H4</span><span class="claim">Different cultures explain the different structures.</span><span class="badge no">Rejected</span></summary>
+        <div class="body">Neither region had self-defense organizations before the crime wave and the Shining Path. Traditional southern authorities, the <em>varayoqs</em>, clashed with both the Shining Path and the army, and later shared power with commandos rather than producing them. As Starn writes of the north, the ties of community "were by no means a received tradition in northern villages. They had to be created."</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VIII -->
+<section id="lesson">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VIII</div>
+    <h2>The lesson</h2>
+    <p class="takeaway">The internal structure of extralegal organizations is especially sensitive to the shadow of the future.</p>
+    <p>Hierarchy and democracy were not cultural inheritances or orders from the state. They were tools. Peasants chose whichever one kept the cost of controlling opportunism lowest given how far ahead they could plan. When tomorrow was predictable, they governed in a circle where "it was easy for anyone to get in a word." When it was not, they accepted kings, and they took the kings back down once the threat had passed.</p>
+    <p>The Night Watchers grew into a force of about 120,000 combatants. Fighting alongside some 30,000 soldiers, they helped defeat the Shining Path. The logic of the paper, that threats shape governance through the time horizon, applies to self-defense groups, militias and community policing wherever the state is absent.</p>
+  </div>
+</section>
+
+<footer id="source">
+  <div class="wrap">
+    <div class="chapter-num">Source</div>
+    <div class="cite">Escalante, Edwar E. 2020. "Night Watchers and Terrorists." <em>Journal of Economic Behavior and Organization</em> 171: 116–131. https://doi.org/10.1016/j.jebo.2019.12.025</div>
+    <div class="btns">
+      <a class="btn fill" href="https://www.sciencedirect.com/science/article/pii/S0167268119304135">Read the published article</a>
+      <a class="btn" href="/research.html">More research</a>
+      <a class="btn" href="/">Home</a>
+    </div>
+    <p class="note">This page summarizes the article for a general audience. Quotations come from the article and its sources (Starn 1999; La Serna 2012; Coronel 1996; TRC 2003; Del Pino 1992). The interactive cost curves and the community timeline are stylized illustrations of the argument, not estimates. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent, text) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+
+  /* ---------- Chapter II: compare ---------- */
+  const rows = {
+    north: [
+      ["Enemy", "Cattle rustlers and thieves: violent and organized, but not trying to rule the village"],
+      ["Highest authority", "The general assembly of men, women, patrollers and village authorities. \"Nothing without it.\""],
+      ["Leaders", "Presidents elected by the assembly and removable at the end of a term"],
+      ["Patrol group", "4–10 patrollers per sector, about one night a week, 8 p.m. to 5 a.m."],
+      ["Scope", "Within the community, which was divided into 2–4 sectors"],
+      ["Enforcement", "Women's committees, fines, extra shifts; whippings voted by the assembly"],
+      ["Justice", "Separate committees capture, judge and punish; the goal is reconciliation"]
+    ],
+    south: [
+      ["Enemy", "The Shining Path: random executions, informers inside the village, an aim to impose a new order"],
+      ["Highest authority", "Commandos; the assembly was removed or shared power with traditional leaders"],
+      ["Leaders", "Commandos, often chosen by villagers and sponsored by the nearest army base"],
+      ["Patrol group", "30–60 patrollers on about 15-day stints; small patrols report up a chain to a central base"],
+      ["Scope", "Inside and outside the community, in coordination with the army"],
+      ["Enforcement", "Registration, passes, passwords and compulsory training; physical punishment"],
+      ["Justice", "Swift and severe, sometimes execution; \"no agreement, only punishment\""]
+    ]
+  };
+  const tbody = document.querySelector("#compare tbody");
+  const org = document.getElementById("org");
+
+  function drawOrg(region) {
+    org.innerHTML = "";
+    const ink = css("--ink"), muted = css("--muted"), rule = css("--rule");
+    const c = region === "north" ? css("--north") : css("--south");
+    const soft = region === "north" ? css("--north-soft") : css("--south-soft");
+    const font = { "font-family": "Inter, sans-serif", "font-size": 12, fill: ink, "text-anchor": "middle" };
+    if (region === "north") {
+      // circle of households around the assembly
+      const cx = 320, cy = 100, R = 72;
+      el("circle", { cx, cy, r: 40, fill: soft, stroke: c, "stroke-width": 1.5 }, org);
+      el("text", { ...font, x: cx, y: cy - 2, "font-weight": 600, fill: c }, org, "Assembly");
+      el("text", { ...font, x: cx, y: cy + 13, "font-size": 10, fill: muted }, org, "highest authority");
+      const n = 14;
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2;
+        const x = cx + R * Math.cos(a), y = cy + R * 0.95 * Math.sin(a);
+        el("line", { x1: cx + 40 * Math.cos(a), y1: cy + 40 * Math.sin(a), x2: x, y2: y, stroke: rule }, org);
+        el("circle", { cx: x, cy: y, r: 7, fill: c, opacity: .85 }, org);
+      }
+      const box = (x, label, sub) => {
+        el("rect", { x: x - 62, y: 72, width: 124, height: 52, rx: 6, fill: "none", stroke: c, "stroke-dasharray": "3 3" }, org);
+        el("text", { ...font, x, y: 95, "font-weight": 600 }, org, label);
+        el("text", { ...font, x, y: 111, "font-size": 10, fill: muted }, org, sub);
+      };
+      box(90, "Elected president", "enforces assembly's will");
+      box(550, "Women's committee", "enforces shifts");
+      el("line", { x1: 152, y1: 98, x2: 240, y2: 98, stroke: c, "marker-end": "" }, org);
+      el("line", { x1: 400, y1: 98, x2: 488, y2: 98, stroke: c }, org);
+    } else {
+      const lvl = [
+        { y: 28, xs: [320], r: 12, label: "Central base", note: "coordinates with army" },
+        { y: 90, xs: [160, 320, 480], r: 9, label: "Commandos", note: "each runs 3–5 patrols" },
+        { y: 152, xs: [], r: 6 }
+      ];
+      lvl[2].xs = [];
+      [160, 320, 480].forEach(px => [-50, -17, 17, 50].forEach(d => lvl[2].xs.push(px + d)));
+      lvl[1].xs.forEach(x => el("line", { x1: 320, y1: 28, x2: x, y2: 90, stroke: c, "stroke-width": 1.5 }, org));
+      lvl[2].xs.forEach((x, i) => {
+        const parent = lvl[1].xs[Math.floor(i / 4)];
+        el("line", { x1: parent, y1: 90, x2: x, y2: 152, stroke: rule }, org);
+      });
+      lvl.forEach((L, li) => L.xs.forEach(x => el("circle", { cx: x, cy: L.y, r: L.r, fill: c, opacity: li === 2 ? .7 : 1 }, org)));
+      el("text", { ...font, x: 352, y: 32, "text-anchor": "start", "font-weight": 600, fill: c }, org, "Central base");
+      el("text", { ...font, x: 352, y: 46, "text-anchor": "start", "font-size": 10, fill: muted }, org, "coordinates with the army");
+      el("text", { ...font, x: 560, y: 94, "text-anchor": "start", "font-weight": 600, fill: c }, org, "Commandos");
+      el("text", { ...font, x: 560, y: 108, "text-anchor": "start", "font-size": 10, fill: muted }, org, "3–5 patrols each");
+      el("text", { ...font, x: 320, y: 186, "font-size": 11, fill: muted }, org, "Patrols of 30–60 · villagers registered, issued passes");
+    }
+  }
+  function setRegion(region) {
+    document.querySelectorAll("[data-region]").forEach(b => b.setAttribute("aria-pressed", b.dataset.region === region));
+    tbody.innerHTML = rows[region].map(r => `<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+    drawOrg(region);
+  }
+  document.querySelectorAll("[data-region]").forEach(b => b.addEventListener("click", () => setRegion(b.dataset.region)));
+  let region = "north";
+  setRegion(region);
+  document.querySelectorAll("[data-region]").forEach(b => b.addEventListener("click", () => region = b.dataset.region));
+
+  /* ---------- Chapter III: model ---------- */
+  const svg = document.getElementById("curves");
+  const village = document.getElementById("village");
+  const hIn = document.getElementById("h");
+  const W = 520, H = 340, m = { l: 48, r: 16, t: 20, b: 58 };
+  const X = k => m.l + k * (W - m.l - m.r);
+  const Y = v => H - m.b - (v / 1.25) * (H - m.t - m.b);
+
+  function costs(h) {
+    // Short horizon: deliberation is costly (B high), external costs tolerated (A low).
+    const A = 0.15 + 0.85 * h, B = 1.05 - 0.85 * h;
+    const E = k => A * Math.pow(1 - k, 2);
+    const D = k => B * Math.pow(k, 2);
+    return { E, D, T: k => E(k) + D(k), kstar: A / (A + B) };
+  }
+  function path(f) {
+    let d = "";
+    for (let i = 0; i <= 100; i++) { const k = i / 100; d += (i ? "L" : "M") + X(k).toFixed(1) + "," + Y(Math.min(f(k), 1.25)).toFixed(1); }
+    return d;
+  }
+  function drawModel() {
+    const h = +hIn.value, c = costs(h), k = c.kstar;
+    const ink = css("--ink"), muted = css("--muted"), rule = css("--rule");
+    const N = css("--north"), S = css("--south"), O = css("--ochre");
+    svg.innerHTML = "";
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: muted };
+    // axes
+    el("line", { x1: m.l, y1: H - m.b, x2: W - m.r, y2: H - m.b, stroke: rule }, svg);
+    el("line", { x1: m.l, y1: m.t, x2: m.l, y2: H - m.b, stroke: rule }, svg);
+    el("text", { ...f, x: m.l, y: H - m.b + 16 }, svg, "One leader");
+    el("text", { ...f, x: W - m.r, y: H - m.b + 16, "text-anchor": "end" }, svg, "Whole village");
+    el("text", { ...f, x: (m.l + W - m.r) / 2, y: H - 14, "text-anchor": "middle" }, svg, "Share of the village whose consent a decision needs →");
+    el("text", { ...f, x: 14, y: (m.t + H - m.b) / 2, transform: `rotate(-90 14 ${(m.t + H - m.b) / 2})`, "text-anchor": "middle" }, svg, "Expected cost");
+    // curves
+    el("path", { d: path(c.E), fill: "none", stroke: S, "stroke-width": 2.2 }, svg);
+    el("path", { d: path(c.D), fill: "none", stroke: N, "stroke-width": 2.2 }, svg);
+    el("path", { d: path(c.T), fill: "none", stroke: ink, "stroke-width": 2.6, "stroke-dasharray": "0" }, svg);
+    // direct labels
+    el("text", { ...f, x: X(0.03), y: Y(Math.min(c.E(0.03), 1.2)) - 8, fill: S, "font-weight": 600 }, svg, "External costs");
+    el("text", { ...f, x: X(0.97), y: Y(Math.min(c.D(0.97), 1.2)) - 8, fill: N, "font-weight": 600, "text-anchor": "end" }, svg, "Decision-making costs");
+    const tl = c.T(0.5);
+    el("text", { ...f, x: X(0.5), y: Y(Math.min(tl, 1.2)) - 10, fill: ink, "font-weight": 600, "text-anchor": "middle" }, svg, "Total");
+    // optimum
+    el("line", { x1: X(k), y1: Y(c.T(k)), x2: X(k), y2: H - m.b, stroke: O, "stroke-dasharray": "4 3", "stroke-width": 1.5 }, svg);
+    el("circle", { cx: X(k), cy: Y(c.T(k)), r: 6, fill: O, stroke: css("--paper"), "stroke-width": 2 }, svg);
+    el("text", { ...f, x: X(k), y: H - m.b + 32, "text-anchor": "middle", fill: O, "font-weight": 600 }, svg, "Least-cost rule");
+
+    // readouts
+    const n = Math.max(1, Math.round(k * 40));
+    let form, text, bg;
+    if (k < 0.38) {
+      form = "Vertical: commando rule"; bg = css("--south-soft");
+      text = "Deliberating is slow and dangerous, and anyone might be an informer. Villagers accept a commando's unilateral power because they expect the emergency, and his rule, to be temporary.";
+    } else if (k < 0.62) {
+      form = "Mixed: checked commandos"; bg = css("--ochre-soft");
+      text = "As the threat eases, assemblies recover their functions and appoint commandos for short terms of three to six months. That is what happened in Culluchaca and Ocaña after 1993.";
+    } else {
+      form = "Horizontal: assembly rule"; bg = css("--north-soft");
+      text = "Villagers expect to deal with each other for years, so reputation and reciprocity enforce agreements. A strongman's external costs could last indefinitely, so power is dispersed and leaders are checked.";
+    }
+    document.getElementById("ro-k").textContent = Math.round(k * 100) + "%";
+    document.getElementById("ro-n").textContent = n;
+    document.getElementById("ro-form").textContent = form;
+    const v = document.getElementById("verdict");
+    v.textContent = text; v.style.background = bg;
+
+    // village dots
+    village.innerHTML = "";
+    const col = k < 0.38 ? S : (k < 0.62 ? O : N);
+    for (let i = 0; i < 40; i++) {
+      const cx = 18 + (i % 10) * 29, cy = 18 + Math.floor(i / 10) * 30;
+      el("circle", { cx, cy, r: 9, fill: i < n ? col : "none", stroke: i < n ? col : rule, "stroke-width": 1.5 }, village);
+    }
+  }
+  hIn.addEventListener("input", drawModel);
+  document.querySelectorAll(".presets button").forEach(b => b.addEventListener("click", () => { hIn.value = b.dataset.h; drawModel(); }));
+  drawModel();
+
+  /* ---------- Chapter VI: timeline ---------- */
+  const tl = document.getElementById("timeline");
+  // verticality 0 (assembly) .. 1 (commando); schematic only
+  const comms = {
+    culluchaca: {
+      pts: [[1980, .15], [1982, .3], [1984, .7], [1988, .9], [1991, .9], [1993, .45], [1997, .3]],
+      notes: [[1982.3, "Assemblies agree to confront the Shining Path"], [1993, "Commandos elected for 3-month terms"]],
+      text: "<strong>Culluchaca</strong> was cohesive, with legitimate authorities and little migration, so its decision-making costs were low. It rejected the Shining Path early, through <em>multiple assemblies</em> coordinated with neighboring communities in 1982. Its patrols then became steadily more vertical. By 1993 violence had fallen, \"the communal authorities return to their functions,\" and assemblies kept commandos on three-month terms."
+    },
+    ocana: {
+      pts: [[1980, .1], [1984, .15], [1987, .35], [1990, .75], [1992, .8], [1994, .4], [1997, .3]],
+      notes: [[1984.2, "Former authorities killed"], [1994, "Commandos: 3–6 month terms"]],
+      text: "<strong>Ocaña</strong> had a weak internal organization because its population moved constantly between cities, fairs and harvests. Its heterogeneity raised deliberation costs and <em>delayed</em> its patrol. Villagers resisted commando authority while the threat seemed low. After the 1992–93 peak, \"the authority of the commandos decreases,\" and the assembly elected them for three to six months."
+    },
+    cangari: {
+      pts: [[1980, .1], [1984, .2], [1986, .2], [1988, .55], [1990, .85], [1992, .7], [1997, .3]],
+      notes: [[1985, "Violence eases; credit & production return"], [1989.5, "Mass patrol mobilization"]],
+      text: "<strong>Cangari</strong>, in rough terrain, depended on farming and had little migration. At first the Shining Path killed selectively and partly filled an authority vacuum there. When violence eased in the mid-1980s, peasants regained loans and production. Vertical patrols then grew rapidly at the end of the decade. After attacks fell in 1991, villagers turned back to agriculture, rural finance and communal credit."
+    }
+  };
+  function drawTL(key) {
+    document.querySelectorAll("[data-c]").forEach(b => b.setAttribute("aria-pressed", b.dataset.c === key));
+    const c = comms[key];
+    const W = 900, H = 260, m = { l: 110, r: 20, t: 24, b: 36 };
+    const X = y => m.l + (y - 1980) / 17 * (W - m.l - m.r);
+    const Y = v => m.t + (1 - v) * (H - m.t - m.b);
+    const muted = css("--muted"), rule = css("--rule"), O = css("--ochre"), ink = css("--ink");
+    const f = { "font-family": "Inter, sans-serif", "font-size": 12, fill: muted };
+    tl.innerHTML = "";
+    el("rect", { x: X(1983), y: m.t, width: X(1992) - X(1983), height: H - m.t - m.b, fill: css("--south-soft"), opacity: .7 }, tl);
+    el("text", { ...f, x: (X(1983) + X(1992)) / 2, y: m.t + 14, "text-anchor": "middle", "font-size": 11 }, tl, "peak terror");
+    [0, 1].forEach(v => el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: rule }, tl));
+    el("text", { ...f, x: m.l - 10, y: Y(1) + 4, "text-anchor": "end", fill: css("--south"), "font-weight": 600 }, tl, "Commando");
+    el("text", { ...f, x: m.l - 10, y: Y(0) + 4, "text-anchor": "end", fill: css("--north"), "font-weight": 600 }, tl, "Assembly");
+    for (let y = 1980; y <= 1997; y += 4) el("text", { ...f, x: X(y), y: H - 12, "text-anchor": "middle" }, tl, y);
+    // smooth line
+    const p = c.pts.map(([y, v]) => [X(y), Y(v)]);
+    let d = `M${p[0][0]},${p[0][1]}`;
+    for (let i = 1; i < p.length; i++) {
+      const [x0, y0] = p[i - 1], [x1, y1] = p[i], mx = (x0 + x1) / 2;
+      d += ` C${mx},${y0} ${mx},${y1} ${x1},${y1}`;
+    }
+    el("path", { d, fill: "none", stroke: O, "stroke-width": 3 }, tl);
+    c.notes.forEach(([yr, label], i) => {
+      // find y on polyline
+      let v = 0;
+      for (let j = 1; j < c.pts.length; j++) if (yr <= c.pts[j][0]) { const [a, va] = c.pts[j - 1], [b, vb] = c.pts[j]; v = va + (vb - va) * (yr - a) / (b - a); break; }
+      el("circle", { cx: X(yr), cy: Y(v), r: 5, fill: css("--paper"), stroke: ink, "stroke-width": 1.5 }, tl);
+      const above = v < 0.6;
+      el("text", { ...f, x: X(yr), y: Y(v) + (above ? -12 : 20), "text-anchor": "middle", fill: ink, "font-size": 11.5 }, tl, label);
+    });
+    document.getElementById("tl-detail").innerHTML = c.text;
+  }
+  let comm = "culluchaca";
+  document.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", () => { comm = b.dataset.c; drawTL(comm); }));
+  drawTL(comm);
+
+  // redraw on theme change
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const redraw = () => { drawOrg(region); drawModel(); drawTL(comm); };
+  mq.addEventListener ? mq.addEventListener("change", redraw) : mq.addListener(redraw);
+})();
+</script>
+</body>
+</html>
