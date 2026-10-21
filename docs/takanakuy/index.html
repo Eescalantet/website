@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fighting on Christmas</title>
+<meta name="description" content="An interactive summary of Escalante and March, 'Fighting on Christmas: Brawling as Self-Governance in Rural Peru,' Journal of Institutional Economics: how the Takanakuy ritual settles disputes where courts cannot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f2ea;
+  --paper: #fffdf8;
+  --ink: #1e1b18;
+  --muted: #6a6259;
+  --rule: #ddd4c6;
+  --ring: #a8452b;       /* Takanakuy: the ring */
+  --court: #3c5a7a;      /* formal courts */
+  --revenge: #6b2f2f;    /* private revenge */
+  --ok: #2f6b4f;
+  --bad: #b5432a;
+  --mid: #c48a1d;
+  --ring-soft: #f3dfd5;
+  --ok-soft: #dcebe2;
+  --bad-soft: #f3ddd5;
+  --mid-soft: #f4e6c8;
+  --link: #1f4e79;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16130f; --paper: #1e1b17; --ink: #ece5da; --muted: #a59b8e; --rule: #3a332a;
+    --ring: #e08561; --court: #8fb0d4; --revenge: #d08a8a; --ok: #7cc39c; --bad: #e27a5f; --mid: #e0ae4c;
+    --ring-soft: #3b241a; --ok-soft: #1c3226; --bad-soft: #3b2219; --mid-soft: #3a2e15; --link: #8fb8e0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16130f; --paper: #1e1b17; --ink: #ece5da; --muted: #a59b8e; --rule: #3a332a;
+  --ring: #e08561; --court: #8fb0d4; --revenge: #d08a8a; --ok: #7cc39c; --bad: #e27a5f; --mid: #e0ae4c;
+  --ring-soft: #3b241a; --ok-soft: #1c3226; --bad-soft: #3b2219; --mid-soft: #3a2e15; --link: #8fb8e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Newsreader", Georgia, serif; font-size: 1.2rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--link); }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.topbar-inner { max-width: 1100px; margin: 0 auto; padding: .55rem 16px; display: flex; gap: 1rem; align-items: center; justify-content: space-between; font-family: "Inter", sans-serif; font-size: .8rem; }
+.topbar a { text-decoration: none; color: var(--muted); }
+.topbar a:hover { color: var(--ink); }
+.brand { font-weight: 600; color: var(--ink) !important; white-space: nowrap; }
+.toc { display: flex; gap: .9rem; overflow-x: auto; scrollbar-width: none; }
+.toc::-webkit-scrollbar { display: none; }
+.toc a { white-space: nowrap; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+.wide { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+section { padding: 3.5rem 0 1rem; }
+.chapter-num { font-family: "Inter", sans-serif; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+h1, h2, h3 { line-height: 1.15; font-weight: 600; }
+h2 { font-size: 2.1rem; margin: 0 0 1rem; }
+h3 { font-size: 1.35rem; margin: 2rem 0 .5rem; }
+hr.sep { border: 0; border-top: 1px solid var(--rule); max-width: 720px; margin: 2.5rem auto 0; }
+
+.hero { padding: 5rem 0 3rem; border-bottom: 1px solid var(--rule); }
+.hero .kicker { font-family: "Inter", sans-serif; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ring); }
+.hero h1 { font-size: clamp(2.8rem, 8vw, 4.8rem); margin: .4rem 0 .6rem; letter-spacing: -.01em; }
+.hero .dek { font-size: 1.4rem; color: var(--muted); font-style: italic; margin: 0 0 1.5rem; }
+.byline { font-family: "Inter", sans-serif; font-size: .85rem; color: var(--muted); }
+.byline a { color: var(--muted); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 2rem 0; }
+.stat { background: var(--paper); padding: 1rem 1.1rem; }
+.stat .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.stat .l { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: .3rem; }
+
+blockquote { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--ring); font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+.note { font-family: "Inter", sans-serif; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 1.4rem; margin: 2rem 0; }
+.panel h4 { margin: 0 0 .2rem; font-size: 1.15rem; }
+.panel .sub { font-family: "Inter", sans-serif; font-size: .82rem; color: var(--muted); margin: 0 0 1rem; }
+.step-label { font-family: "Inter", sans-serif; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 1rem 0 .4rem; }
+.chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+.chip { font-family: "Inter", sans-serif; font-size: .8rem; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); padding: .45rem .8rem; border-radius: 999px; cursor: pointer; }
+.chip:hover { border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.paths { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; }
+.path { text-align: left; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); border-radius: 8px; padding: .8rem .9rem; cursor: pointer; font-family: "Newsreader", serif; font-size: 1.02rem; line-height: 1.3; }
+.path small { display: block; font-family: "Inter", sans-serif; font-size: .72rem; color: var(--muted); margin-top: .25rem; }
+.path:hover { border-color: var(--muted); }
+.path[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: var(--paper); }
+button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+.outcome { margin-top: 1.2rem; border-top: 1px solid var(--rule); padding-top: 1rem; min-height: 14rem; }
+.story { font-size: 1.05rem; line-height: 1.55; }
+.story ol { padding-left: 1.2rem; margin: .4rem 0; }
+.story li { margin: .25rem 0; }
+.score { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin-top: 1rem; }
+.score div { border-radius: 6px; padding: .6rem .7rem; font-family: "Inter", sans-serif; font-size: .75rem; line-height: 1.35; }
+.score b { display: block; font-size: .95rem; margin-bottom: .1rem; }
+.y { background: var(--ok-soft); } .y b { color: var(--ok); }
+.n { background: var(--bad-soft); } .n b { color: var(--bad); }
+.m { background: var(--mid-soft); } .m b { color: var(--mid); }
+
+/* quiz */
+.quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .6rem; }
+.q { border: 1px solid var(--rule); border-radius: 8px; padding: .8rem .9rem; background: var(--bg); }
+.q p { margin: 0 0 .5rem; font-size: 1.02rem; line-height: 1.3; }
+.q .btns2 { display: flex; gap: .4rem; }
+.q button { font-family: "Inter", sans-serif; font-size: .75rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: .3rem .6rem; border-radius: 4px; cursor: pointer; }
+.q .why { font-family: "Inter", sans-serif; font-size: .76rem; line-height: 1.4; margin-top: .5rem; color: var(--muted); display: none; }
+.q.done .why { display: block; }
+.q.right { border-color: var(--ok); background: var(--ok-soft); }
+.q.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.quiz-score { font-family: "Inter", sans-serif; font-size: .85rem; margin-top: .8rem; color: var(--muted); }
+
+/* deterrence toggle */
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; gap: 3px; font-family: "Inter", sans-serif; font-size: .85rem; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; color: var(--muted); padding: .4rem .9rem; border-radius: 999px; cursor: pointer; font: inherit; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.game { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1rem; }
+.game th { font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: left; padding: .6rem .7rem; border-bottom: 1px solid var(--rule); font-weight: 600; }
+.game td { padding: .75rem .7rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.4; transition: background .2s; }
+.game td:first-child { font-family: "Inter", sans-serif; font-size: .85rem; font-weight: 600; width: 22%; }
+.verdict { margin-top: 1rem; padding: .8rem .9rem; border-radius: 6px; font-size: 1.05rem; line-height: 1.45; }
+
+.hyps { display: grid; gap: 1rem; margin: 1.5rem 0; }
+.hyp { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.hyp summary { list-style: none; cursor: pointer; padding: 1rem 1.2rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; }
+.hyp summary::-webkit-details-marker { display: none; }
+.hyp .hid { font-family: "Inter", sans-serif; font-weight: 600; font-size: .85rem; color: var(--muted); }
+.hyp .claim { font-size: 1.05rem; line-height: 1.35; }
+.badge { font-family: "Inter", sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .55rem; border-radius: 4px; white-space: nowrap; background: var(--ok-soft); color: var(--ok); }
+.hyp .body { padding: .9rem 1.2rem 1.1rem; font-size: 1.02rem; line-height: 1.5; border-top: 1px solid var(--rule); }
+
+.timeline { list-style: none; padding: 0; margin: 1.5rem 0; border-left: 2px solid var(--rule); }
+.timeline li { position: relative; padding: 0 0 1.2rem 1.3rem; font-size: 1.02rem; line-height: 1.45; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: .45rem; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2px solid var(--bad); }
+.timeline b { font-family: "Inter", sans-serif; font-size: .8rem; display: block; color: var(--bad); }
+
+.takeaway { font-size: 1.55rem; line-height: 1.35; font-style: italic; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 1.4rem 0; margin: 2rem 0; }
+footer { border-top: 1px solid var(--rule); margin-top: 4rem; padding: 2rem 0 4rem; }
+footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; line-height: 1.5; }
+.btns { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.btn { font-family: "Inter", sans-serif; font-size: .85rem; font-weight: 600; text-decoration: none; padding: .55rem 1rem; border-radius: 4px; border: 1px solid var(--link); color: var(--link); }
+.btn.fill { background: var(--link); color: var(--paper); }
+
+@media (max-width: 760px) {
+  body { font-size: 1.1rem; }
+  h2 { font-size: 1.7rem; }
+  .paths, .score { grid-template-columns: 1fr 1fr; }
+  .topbar .toc { display: none; }
+  .hyp summary { grid-template-columns: 1fr auto; }
+  .hyp .hid { grid-column: 1 / -1; }
+  .game td:first-child { width: 30%; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Fighting on Christmas</a>
+    <nav class="toc" aria-label="Sections">
+      <a href="#ritual">The ritual</a><a href="#choose">Settle a dispute</a><a href="#rules">Rules</a>
+      <a href="#threat">Credible threat</a><a href="#tests">Hypotheses</a><a href="#bans">Bans</a><a href="#lesson">Lesson</a><a href="#source">Source</a>
+    </nav>
+    <a href="/">← enriqueescalante.com</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">An interactive summary</div>
+    <h1>Fighting on Christmas</h1>
+    <p class="dek">In the Peruvian highlands, neighbors settle the year's grudges with a public fistfight, then embrace and feast together. Why does it work?</p>
+    <div class="byline">Edwar E. Escalante and Raymond J. March · "Fighting on Christmas: Brawling as Self-Governance in Rural Peru," <em>Journal of Institutional Economics</em> · <a href="https://doi.org/10.1017/S1744137419000468">doi:10.1017/S1744137419000468</a></div>
+  </div>
+</header>
+
+<!-- I -->
+<section id="ritual">
+  <div class="wrap">
+    <div class="chapter-num">Chapter I</div>
+    <h2>"To hit each other"</h2>
+    <p>Every Christmas morning, people from across Chumbivilcas Province in southern Peru fill the municipal coliseum of Santo Tomás, where bullfights are held the rest of the year. They come to watch neighbors fight. The ritual is called <strong>Takanakuy</strong>, Quechua for "to hit each other."</p>
+    <p>People fight over land boundaries, stolen cattle, broken agreements, romantic betrayals, schoolyard quarrels and insults traded while drunk at a fiesta. Every fight begins and ends with an embrace. Then the whole village eats together.</p>
+  </div>
+  <div class="wide">
+    <div class="stats">
+      <div class="stat"><div class="v" style="color:var(--ring)">80–150</div><div class="l">fights in the Santo Tomás arena on Christmas Day</div></div>
+      <div class="stat"><div class="v">5–10 min</div><div class="l">per fight, with two or three referees carrying whips</div></div>
+      <div class="stat"><div class="v">~66,000</div><div class="l">inhabitants of Chumbivilcas, in 77 indigenous communities and 8 districts; Takanakuy is held in all eight</div></div>
+      <div class="stat"><div class="v" style="color:var(--ok)">98%</div><div class="l">of fighters surveyed did not turn to any formal process after their fight, whatever the outcome (Trelles 2010)</div></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>A fistfight looks like a strange way to make peace. The paper argues it is a sensible one. Where formal courts are distant, slow and distrusted, Takanakuy gives villagers <strong>a credible way to enforce the law</strong>. It ends feuds before they spread, and it turns a potential social cost into a public spectacle that the community enjoys.</p>
+    <blockquote>"Any friction … finds a solution this day … through fist fighting and under fair conditions. This way, with no hypocrisy, fighters eliminate tensions and initiate the next year free from resentment."<cite>Laime (2003, 116)</cite></blockquote>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- II -->
+<section id="choose">
+  <div class="wrap">
+    <div class="chapter-num">Chapter II</div>
+    <h2>You've been wronged. Now what?</h2>
+    <p>Put yourself in a Chumbivilcas village. Someone has wronged you. Choose who you are and what happened, then pick a way to settle it.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Settle a dispute</h4>
+      <p class="sub">Each outcome is drawn from the evidence in the paper.</p>
+      <div class="step-label">1 · You are</div>
+      <div class="chips" id="who">
+        <button class="chip" data-v="man" aria-pressed="true">A man</button>
+        <button class="chip" data-v="woman" aria-pressed="false">A woman</button>
+        <button class="chip" data-v="child" aria-pressed="false">A child under 16</button>
+      </div>
+      <div class="step-label">2 · The grievance</div>
+      <div class="chips" id="what">
+        <button class="chip" data-v="land" aria-pressed="true">A neighbor moved our field boundary</button>
+        <button class="chip" data-v="cattle" aria-pressed="false">My cattle were stolen</button>
+        <button class="chip" data-v="love" aria-pressed="false">A romantic betrayal</button>
+        <button class="chip" data-v="insult" aria-pressed="false">An insult at a fiesta</button>
+      </div>
+      <div class="step-label">3 · What do you do?</div>
+      <div class="paths" id="paths">
+        <button class="path" data-v="court" aria-pressed="false">Go to court<small>Formal justice in Cusco or Arequipa</small></button>
+        <button class="path" data-v="revenge" aria-pressed="false">Take revenge<small>Settle it yourself, privately</small></button>
+        <button class="path" data-v="apology" aria-pressed="false">Let it go<small>Apologize, or swallow it</small></button>
+        <button class="path" data-v="taka" aria-pressed="false">Challenge them at Takanakuy<small>Fight it out on Christmas</small></button>
+      </div>
+      <div class="outcome" id="outcome"><p class="note">Pick a path to see how it plays out.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- III -->
+<section id="rules">
+  <div class="wrap">
+    <div class="chapter-num">Chapter III</div>
+    <h2>Rules of the ring</h2>
+    <p>Takanakuy is not a free-for-all. Volunteer families called <em>karguyoc</em> organize it: they arrange a Mass, raise funds and prepare the feast. Referees, usually local authorities whom villagers consider impartial, police every fight. They also lose reputation if they let a one-sided fight get out of hand. How well do you know the rules?</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Allowed or not?</h4>
+      <p class="sub">Answer each one to reveal the rule.</p>
+      <div class="quiz" id="quiz"></div>
+      <div class="quiz-score" id="quiz-score"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>The rules keep the fights from becoming dangerous, though not perfectly. Of 134 brawlers at Santo Tomás in 2006, Trelles (2010) found that 9 were severely injured, and one of them died. The rules also contain the dispute itself. The fight happens once, in public, under supervision, and then it is over.</p>
+    <blockquote>"Since the day we fought, now he respects me, now we greet each other with no problems, now he is good people, and we go along peacefully."<cite>A fighter, quoted in Laime (2003, 61)</cite></blockquote>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- IV -->
+<section id="threat">
+  <div class="wrap">
+    <div class="chapter-num">Chapter IV</div>
+    <h2>"Apologize, or I will fight you at the Takanakuy"</h2>
+    <p>Without a state to enforce the rules, the victim's only threat is private force. That threat is weak when using it is dangerous. If a victim kills an offender, the offender's kin take revenge on the killer. Takanakuy changes the calculation for both sides.</p>
+  </div>
+  <div class="wrap">
+    <div class="panel">
+      <h4>The offender's calculation</h4>
+      <p class="sub">Switch between a village with and without the ritual.</p>
+      <div class="seg" role="group" aria-label="Institution">
+        <button data-t="without" aria-pressed="false">Without Takanakuy</button>
+        <button data-t="with" aria-pressed="true">With Takanakuy</button>
+      </div>
+      <table class="game" id="game">
+        <thead><tr><th></th><th>What happens</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="verdict" id="game-verdict"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <h3>Reputation makes the threat credible</h3>
+    <p>Backing down is costly. A villager who apologizes when he believes he is right, or who fails to answer a wrong, is marked as a <em>wimp</em> and becomes an easy target. Fighting earns status, even in defeat. Weaker fighters who face a stronger opponent gain a reputation for being fearless. The champions become <em>qorilazos</em>, the skilled and tough ranch hands of local legend, a status that can "level and even invert the ethnic and class hierarchies" of the province.</p>
+    <p>Families and friends join the fight too, taking on later bouts on a fighter's behalf. That works as a deterrent. Someone everybody sees as being in the wrong will struggle to find allies willing to fight for him, and may be challenged more than once.</p>
+    <blockquote>"When a fighter wins a battle, the victory extends to all his/her family. In the case of the ayllu, the winner fighter becomes the favorite son/daughter of the community and the chosen one to hold a local position since it is believed that he/she will be able to defend the ayllu and to maintain order."<cite>Tello (2018, 68)</cite></blockquote>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- V -->
+<section id="tests">
+  <div class="wrap">
+    <div class="chapter-num">Chapter V</div>
+    <h2>Three hypotheses</h2>
+    <div class="hyps">
+      <details class="hyp" open>
+        <summary><span class="hid">H1</span><span class="claim">Villagers rely on Takanakuy when formal ways of resolving conflict are unavailable or insufficient.</span><span class="badge">Supported</span></summary>
+        <div class="body">Reaching a court in Cusco or Arequipa means several buses and trucks that "make the trip, at best, once a week," followed by long waits for a judge. Peruvian women have faced a long history of discrimination in the courts, and children under 16 need a legal representative. Corruption is common: "sometimes authorities are corrupt, they may receive a couple of cows or lamps. The cattle rustler corrupts authorities that way. Then, what can the affected party do? He has to look for revenge." Takanakuy is open to anyone who agrees to fight and shows up, women and children included.</div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H2</span><span class="claim">Takanakuy persists because it ends feuds, prevents violence outside the ritual and removes obstacles to cooperation.</span><span class="badge">Supported</span></summary>
+        <div class="body">Unresolved grudges are costly in small communities that farm and manage resources together. Ostracism is not a practical punishment when the village needs every pair of hands. Without the ritual's rules, fights can become a <em>waykilla</em>, a general brawl of all against all, which "has resulted in deaths in previous years as a consequence of the stones thrown in different directions." As Tello puts it, the ritual achieves "the social containment of vengeance," and "the peace that emerges from the festival is long-lasting, and it is what makes life in community possible."</div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H3</span><span class="claim">The reputational gains from Takanakuy make a wronged villager likely to carry out the threat to fight, despite the risks.</span><span class="badge">Supported</span></summary>
+        <div class="body">Fighters and their families gain social standing, and good fighters often go on to lead the community's patrols against cattle rustlers and to represent peasant organizations. Even outmatched fighters gain by being seen as fearless. Because the fights are public, on a major holiday and in front of hundreds of people, information about who keeps their word spreads quickly.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VI -->
+<section id="bans">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VI</div>
+    <h2>What happens when you ban it</h2>
+    <p>Outsiders have tried to stop Takanakuy several times. Each attempt met hostility, and none succeeded.</p>
+    <ul class="timeline">
+      <li><b>The police</b>Banned the ritual on one occasion. The fighting moved into the streets, unsupervised, and fights, injuries and deaths all increased (Laime 2003).</li>
+      <li><b>The Catholic Church</b>Organized competing events during the festival and threatened organizers, participants and spectators with excommunication. One priest called it "insulting God on his birthday, and the devil's work."</li>
+      <li><b>State television, 2014</b>Promoted a documentary on the festival, then pulled it and condemned children's participation. The filmmaker and researchers note that adults make sure children do not hurt themselves.</li>
+    </ul>
+    <p>In contrast, the provincial government advertises the tradition and acknowledges that its purpose is conflict resolution.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VII -->
+<section id="lesson">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VII</div>
+    <h2>The lesson</h2>
+    <p class="takeaway">Where courts are out of reach, a well-governed fight can be cheaper, fairer and more final than the alternatives.</p>
+    <p>Brawling costs more than a working court system or an immediate mutual apology. The risk of injury is real. But for villagers who have neither, the choice is between regulated violence and unregulated revenge. Takanakuy settles many conflicts through a single structure, restores relationships immediately, and spares villagers from searching for impartial judges or building their own enforcement. Its rules, its audience and the reputations at stake turn a dangerous threat into a credible and contained one.</p>
+    <p>The paper adds to the economics of informal governance, which includes pirate constitutions, prison gangs, trial by battle and Somali customary law. It also extends the economics of dueling by looking at what a fighting ritual does for the whole community, not only for the fighters.</p>
+  </div>
+</section>
+
+<footer id="source">
+  <div class="wrap">
+    <div class="chapter-num">Source</div>
+    <div class="cite">Escalante, Edwar E., and Raymond J. March. "Fighting on Christmas: Brawling as Self-Governance in Rural Peru." <em>Journal of Institutional Economics</em>. https://doi.org/10.1017/S1744137419000468</div>
+    <div class="btns">
+      <a class="btn fill" href="https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083">Read the published article</a>
+      <a class="btn" href="/nightwatchers/">Also: Night Watchers and Terrorists</a>
+      <a class="btn" href="/research.html">More research</a>
+    </div>
+    <p class="note">This page summarizes the published article for a general audience. Figures and quotations come from the article and the ethnographic sources it draws on (Laime 2003; Cama 2013; Trelles 2010; Tello 2018; Poole 1987, 1994). The outcomes in "Settle a dispute" restate the paper's evidence and are not a formal model. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ---------- Chapter II: settle a dispute ---------- */
+  const state = { who: "man", what: "land", path: null };
+  const whatLabel = { land: "the boundary dispute", cattle: "the stolen cattle", love: "the betrayal", insult: "the insult" };
+  const S = (a, b, c) => ({ cls: a, head: b, body: c });
+
+  function outcome() {
+    const { who, what, path } = state;
+    if (!path) return '<p class="note">Pick a path to see how it plays out.</p>';
+    let steps = [], score = [], extra = "";
+    if (path === "court") {
+      steps = [
+        "You leave Santo Tomás for the nearest city, Cusco or Arequipa. It takes several buses and a truck that makes the trip \"at best, once a week.\"",
+        "You wait. Getting in front of a judge takes a long time, and the trip costs more than many villagers can afford.",
+        what === "cattle"
+          ? "The rustler has already paid off local authorities: \"they may receive a couple of cows or lamps. The cattle rustler corrupts authorities that way.\""
+          : "Even if your case is heard, villagers regard the courts as \"problematic or biased,\" and verdicts often surprise."
+      ];
+      if (who === "woman") steps.splice(1, 0, "As a woman, you face a system with a long history of discrimination against women in the judicial process.");
+      if (who === "child") steps = ["You can't file anything. Children under 16 can't use the court system without a legal representative.", "Like many villagers, you end up not reporting it at all."];
+      extra = "As Cama (2013) observes, \"many villagers do not report infringements because of the distance between the capital and the communities.\"";
+      score = [S("n", "Accessible?", who === "man" ? "Distant, slow, costly" : "Even less so for you"), S("n", "Settles it?", "Rarely, and late"), S("m", "Contains violence?", "Only if it ever works"), S("m", "Reputation", "No gain")];
+    } else if (path === "revenge") {
+      steps = [
+        `You settle ${whatLabel[what]} on your own terms, at night and away from any referee.`,
+        "The other side's kin do not see it as settled. If someone is killed, the offender's relatives take revenge by killing the killer.",
+        "Now you are the one who has to pay: \"Now he will have to pay the healing and spend a lot of time and money. If he would have hit him in the Takanakuy, everything would be fine.\""
+      ];
+      extra = "Unregulated fights can spiral into a <em>waykilla</em>, a general brawl of all against all, which \"has resulted in deaths in previous years.\"";
+      score = [S("y", "Accessible?", "Always"), S("n", "Settles it?", "Starts a feud"), S("n", "Contains violence?", "Spreads it to kin"), S("m", "Reputation", "Respected, then blamed")];
+    } else if (path === "apology") {
+      steps = [
+        "An immediate apology or compensation would be the cheapest solution. But you believe you are in the right.",
+        "Letting it go marks you as a <em>wimp</em>, a safe target for abuse and violence.",
+        "Next year, someone else tries their luck."
+      ];
+      extra = "The paper notes that although a mutual apology would solve the conflict, responding to force with force and hoping the other side backs down often looks more convenient.";
+      score = [S("y", "Accessible?", "Free"), S("m", "Settles it?", "On paper"), S("m", "Contains violence?", "Now, but invites more"), S("n", "Reputation", "Marked as a wimp")];
+    } else {
+      steps = [
+        "You tell them, in effect: \"Apologize, or I will fight you at the Takanakuy.\" You both agree to fight and to attend. That is all it takes.",
+        "On Christmas you wait in a mask, which keeps rivals from sabotaging you before your bout. Your family and friends are ready to take later bouts on your behalf.",
+        "You fight for five to ten minutes. Punches and kicks only. The referees' whips keep both of you within the rules.",
+        "You embrace. The dispute is over, and the village feasts together."
+      ];
+      if (who === "woman") steps.splice(1, 0, "Women take part too: they \"fight for romantic reasons or land disputes … women also encourage the fighting.\"");
+      if (who === "child") steps.splice(1, 0, "Children fight as well, over school disputes or because they don't get along, and adults make sure they don't get hurt. \"When they perform well, their parents congratulate them.\"");
+      extra = "Afterward you don't go to the police. That is an implicit rule of Takanakuy unless an injury came from breaking the rules. In a survey, 98% of fighters said they did not turn to any formal process afterward.";
+      score = [S("y", "Accessible?", "Open to all who agree"), S("y", "Settles it?", "Ends with an embrace"), S("y", "Contains violence?", "Refereed, public, once"), S("y", "Reputation", "Status, even in defeat")];
+    }
+    return `<div class="story"><ol>${steps.map(s => `<li>${s}</li>`).join("")}</ol><p class="note" style="margin-top:.6rem">${extra}</p></div>
+      <div class="score">${score.map(s => `<div class="${s.cls}"><b>${s.head}</b>${s.body}</div>`).join("")}</div>`;
+  }
+  function render() { document.getElementById("outcome").innerHTML = outcome(); }
+  const bindChips = (id, key) => document.querySelectorAll(`#${id} [data-v]`).forEach(b => b.addEventListener("click", () => {
+    state[key] = b.dataset.v;
+    document.querySelectorAll(`#${id} [data-v]`).forEach(x => x.setAttribute("aria-pressed", x === b));
+    render();
+  }));
+  bindChips("who", "who"); bindChips("what", "what"); bindChips("paths", "path");
+
+  /* ---------- Chapter III: quiz ---------- */
+  const Q = [
+    ["Punching your opponent", true, "Allowed. Brawlers can punch and kick."],
+    ["Kicking", true, "Allowed."],
+    ["Bringing a stick or a stone", false, "No weapons of any kind."],
+    ["Pulling hair", false, "Forbidden, and the referees enforce it with whips."],
+    ["Biting", false, "Forbidden."],
+    ["Hitting an opponent who is on the ground", false, "Forbidden. Referees also stop fights that become one-sided."],
+    ["Wearing a mask while you wait for your bout", true, "Common. Masks hide fighters' identities from anyone who might attack or sabotage them before the fight."],
+    ["Asking a relative to fight the next bout for your side", true, "Yes. Friends and family become allies and fight later bouts on a fighter's behalf."],
+    ["Reporting your injuries to the police afterward", false, "Not done. It breaks the ritual's implicit rule, unless the injury came from someone breaking the rules."]
+  ];
+  const quiz = document.getElementById("quiz");
+  let answered = 0, correct = 0;
+  Q.forEach(([text, ok, why]) => {
+    const d = document.createElement("div"); d.className = "q";
+    d.innerHTML = `<p>${text}</p><div class="btns2"><button data-a="1">Allowed</button><button data-a="0">Not allowed</button></div><div class="why"></div>`;
+    d.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+      if (d.classList.contains("done")) return;
+      const right = (b.dataset.a === "1") === ok;
+      d.classList.add("done", right ? "right" : "wrong");
+      d.querySelector(".why").textContent = (right ? "Correct. " : "Not quite. ") + why;
+      answered++; if (right) correct++;
+      document.getElementById("quiz-score").textContent = `${correct} of ${answered} correct${answered === Q.length ? ". Every fight also ends with an embrace." : ""}`;
+    }));
+    quiz.appendChild(d);
+  });
+
+  /* ---------- Chapter IV: deterrence ---------- */
+  const G = {
+    without: {
+      rows: [
+        ["Victim retaliates", "Private violence with no referee. If someone dies, the kin of the dead take revenge on the killer, and the feud spreads.", "n"],
+        ["Victim backs down", "Marked as a wimp and an easy target from now on.", "n"],
+        ["Offender's view", "Retaliation is so dangerous that the victim may not carry out the threat, so wronging others is tempting.", "m"]
+      ],
+      verdict: "The threat is weak. Retaliation risks a spiral of revenge, so offenders can gamble that victims won't follow through.",
+      bg: "--bad-soft"
+    },
+    with: {
+      rows: [
+        ["Victim retaliates", "A refereed, public fight of five to ten minutes on Christmas, ending in an embrace. It brings status even in defeat.", "y"],
+        ["Victim backs down", "Still marked as a wimp, and now there is no excuse, because the safe option exists.", "n"],
+        ["Offender's view", "The victim's threat is credible. It is no longer worth wronging anybody unless you are willing to be publicly challenged.", "y"]
+      ],
+      verdict: "The threat becomes credible. Takanakuy works as a commitment device: lower risks make retaliation likely, and that deters wrongdoing in the first place.",
+      bg: "--ok-soft"
+    }
+  };
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function setT(t) {
+    document.querySelectorAll("[data-t]").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === t));
+    const g = G[t];
+    document.querySelector("#game tbody").innerHTML = g.rows.map(([a, b, c]) => `<tr><td>${a}</td><td class="${c}">${b}</td></tr>`).join("");
+    const v = document.getElementById("game-verdict");
+    v.textContent = g.verdict; v.style.background = css(g.bg);
+  }
+  document.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => setT(b.dataset.t)));
+  setT("with");
+})();
+</script>
+</body>
+</html>

@@ -57,7 +57,7 @@ Why do some insurgencies court the public while others hide in the shadows? Peru
 :::
 ::: {.media-item}
 **["Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444)**<br>
-*World Development* · 2026
+*World Development* · 2026 · [Interactive summary →](friends-or-foes/)
 :::
 ::: {.media-item}
 **["Por la Razón o la Fuerza: What Caused Chile's Economic Miracle?"](https://link.springer.com/book/10.1007/978-3-031-78825-3)**<br>
@@ -69,7 +69,7 @@ in *The Pinochet Shock*, Palgrave Macmillan · 2025
 :::
 ::: {.media-item}
 **["The Influence of Pinochet in the Chilean Miracle"](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20)**<br>
-*Latin American Research Review* · 2022
+*Latin American Research Review* · 2022 · [Interactive summary →](pinochet/)
 :::
 ::: {.media-item}
 **"A Government Role Conducive to Liberty: Operation Warp Speed"** (with Peter C. Earle)<br>
@@ -77,11 +77,11 @@ in *Pandemics and Liberty*, American Institute for Economic Research · 2022
 :::
 ::: {.media-item}
 **["Night Watchers and Terrorists"](https://www.sciencedirect.com/science/article/pii/S0167268119304135)**<br>
-*Journal of Economic Behavior and Organization* · 2020
+*Journal of Economic Behavior and Organization* · 2020 · [Interactive summary →](nightwatchers/)
 :::
 ::: {.media-item}
 **["Fighting on Christmas: Brawling as Self-Governance in Rural Peru"](https://www.cambridge.org/core/journals/journal-of-institutional-economics/article/abs/fighting-on-christmas-brawling-as-selfgovernance-in-rural-peru/1E0C603B98856180029533E852D28083)** (with Raymond March)<br>
-*Journal of Institutional Economics* · 2020
+*Journal of Institutional Economics* · 2020 · [Interactive summary →](takanakuy/)
 :::
 
 [See full research, summaries & working papers →](research.qmd){.btn-cta .btn-outline}
