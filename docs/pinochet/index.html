@@ -200,17 +200,17 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
   <div class="wide">
     <div class="panel">
       <h4>Pick your window</h4>
-      <p class="sub">Real GDP per capita, World Bank constant 2010 US$.</p>
+      <p class="sub">Real GDP per capita, World Bank constant 2010 US$, 1960–1988 (the paper's window).</p>
       <div class="presets" id="growth-presets">
-        <button data-a="1985" data-b="1997">"Miracle years" 1985–97</button>
+        <button data-a="1985" data-b="1988">The takeoff 1985–88</button>
         <button data-a="1976" data-b="1980">Friedman's boom 1976–80</button>
         <button data-a="1973" data-b="1988">Under Pinochet 1973–88</button>
-        <button data-a="1990" data-b="1997">Back to democracy 1990–97</button>
+        <button data-a="1960" data-b="1972">Before the coup 1960–72</button>
       </div>
       <svg class="chart" id="growth-chart" viewBox="0 0 900 260" role="img" aria-label="Chile GDP per capita with selected window"></svg>
       <div class="range-row">
-        <div><label for="ga"><span>Start year</span><b id="ga-v"></b></label><input type="range" id="ga" min="1960" max="1996" step="1" value="1985"></div>
-        <div><label for="gb"><span>End year</span><b id="gb-v"></b></label><input type="range" id="gb" min="1961" max="1997" step="1" value="1997"></div>
+        <div><label for="ga"><span>Start year</span><b id="ga-v"></b></label><input type="range" id="ga" min="1960" max="1987" step="1" value="1985"></div>
+        <div><label for="gb"><span>End year</span><b id="gb-v"></b></label><input type="range" id="gb" min="1961" max="1988" step="1" value="1988"></div>
       </div>
       <div class="growth-out">
         <div style="background:var(--chile-soft)"><div class="v c-chile" id="g-chile"></div><div class="l">Chile, average annual growth per person</div></div>
@@ -220,7 +220,7 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     </div>
   </div>
   <div class="wrap">
-    <p>Start the clock in 1985 and Chile is a miracle. Start it on the day of the coup and the regime spent its first fifteen years catching up to where Chile would plausibly have been anyway. Milton Friedman praised average growth of 8% in 1976–80, but that boom came right after a collapse, and the comparison countries were growing too.</p>
+    <p>Start the clock in 1985 and Chile looks like a miracle. Gary Becker put Chile's growth in income per person from 1985 to 1996 at 5% a year, far above the regional average. Start it on the day of the coup and the regime spent its first fifteen years catching up to where Chile would plausibly have been anyway. Milton Friedman praised average growth of 8% in 1976–80, but that boom came right after a collapse, and the comparison countries were growing too.</p>
   </div>
 </section>
 
@@ -258,7 +258,7 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     </div>
   </div>
   <div class="wrap">
-    <p>When the algorithm searched all eighteen donors (Latin American countries plus Spain and Portugal), it gave positive weight to only three:</p>
+    <p>When the algorithm searched the donor pool (Latin American countries plus Spain and Portugal), it gave positive weight to only three:</p>
     <table class="weights">
       <thead><tr><th>Donor</th><th class="n">Weight</th><th></th></tr></thead>
       <tbody>
@@ -285,10 +285,8 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     <div class="panel">
       <h4>Real Chile vs. synthetic Chile</h4>
       <p class="sub">GDP per capita, constant 2010 US$. The shaded area is the gap: income Chile did not have compared with its counterfactual.</p>
-      <div class="presets"><button class="toggle" id="extend" aria-pressed="false">Extend to 1997</button></div>
       <svg class="chart" id="main-chart" viewBox="0 0 900 400" role="img" aria-label="Real and synthetic Chile GDP per capita, 1960 to 1988"></svg>
       <div class="legend"><span><i style="background:var(--chile)"></i>Real Chile</span><span><i style="background:var(--synth)"></i>Synthetic Chile</span><span><i style="background:var(--neg-soft);border:1px solid var(--neg)"></i>Chile below</span><span><i style="background:var(--pos-soft);border:1px solid var(--pos)"></i>Chile above</span></div>
-      <p class="note" id="extend-note" style="display:none;margin-top:.8rem">Years after 1988 apply the same synthetic weights beyond the paper's main window (1960–1988). They are shown for context and are not part of the published estimates.</p>
     </div>
   </div>
   <div class="wrap">
@@ -305,13 +303,12 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     <div class="chapter-num">Chapter V</div>
     <h2>Could it be noise?</h2>
     <p>Any synthetic control will miss by something. To check whether Chile's miss is unusual, the paper runs <strong>placebo tests</strong>. It pretends each donor country had its own "Pinochet" in 1973, builds a synthetic version of that country, and measures its gap. If Chile's gap is larger than nearly all the fake ones, the effect is unlikely to be chance.</p>
-    <p>The p-value for each year is the share of countries whose placebo gap is at least as large as Chile's. With sixteen countries, the smallest possible value is 1/16 ≈ 0.06.</p>
+    <p>The p-value for each year is the share of countries whose placebo gap is at least as large as Chile's. The smallest value reported, 0.06, means no placebo country had a gap as large as Chile's.</p>
   </div>
   <div class="wide">
     <div class="panel">
       <h4>Estimated effect on Chilean income, by year</h4>
-      <p class="sub">Bars show Chile minus synthetic Chile, in US$. Color shows significance from the placebo ranking. Hover or tap a bar.</p>
-      <div class="presets"><button class="toggle" id="extend-p" aria-pressed="false">Extend to 1995</button></div>
+      <p class="sub">Bars show Chile minus synthetic Chile, in US$, as in Figure 4 of the paper. Color shows significance from the placebo ranking. Hover or tap a bar.</p>
       <svg class="chart" id="pval-chart" viewBox="0 0 900 340" role="img" aria-label="Annual treatment effects with p-values"></svg>
       <div class="legend">
         <span><i style="background:var(--neg)"></i>p ≈ 0.06</span>
@@ -322,7 +319,7 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     </div>
   </div>
   <div class="wrap">
-    <p>In 1973, 1975, 1976 and 1978, Chile's gap was the largest of all sixteen countries. The losses during the first decade are clearly distinguishable from noise. From the mid-1980s on, the effect fades and is no longer significant. The regime is associated with a <strong>significant early loss</strong> and, at best, a later return to where Chile would have been anyway.</p>
+    <p>In 1973, 1975, 1976 and 1978 (p ≈ 0.06), no placebo country had a gap as large as Chile's. The losses during the first decade are clearly distinguishable from noise. From the mid-1980s on, the effect fades and is no longer significant. The regime is associated with a <strong>significant early loss</strong> and, at best, a later return to where Chile would have been anyway.</p>
   </div>
 </section>
 
@@ -367,7 +364,7 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
       <a class="btn" href="/nightwatchers/">Also: Night Watchers and Terrorists</a>
       <a class="btn" href="/">Home</a>
     </div>
-    <p class="note">The charts use the paper's replication data: World Bank real GDP per capita (constant 2010 US$) and the published synthetic-control weights (Panama 53.2%, Uruguay 43.6%, Argentina 3.2%), which reproduce the paper's estimated gaps and p-values. The "build your own" panel matches on income only, so it simplifies the paper's procedure. Growth rates are compound annual rates between the selected years. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
+    <p class="note">The charts use the paper's replication data: World Bank real GDP per capita (constant 2010 US$) and the published synthetic-control weights (Panama 53.2%, Uruguay 43.6%, Argentina 3.2%), matching Figures 1 and 4 of the published article. All charts stay within the paper's window (1960–1988; effects through 1989 as in Figure 4). The "build your own" panel matches on income only, so it simplifies the paper's procedure. Growth rates are compound annual rates between the selected years. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
   </div>
 </footer>
 
@@ -375,27 +372,26 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
 
 <script>
 (function () {
-  /* ---------- data: real GDP per capita, constant 2010 US$, 1960–1997 ---------- */
-  const Y0 = 1960, Y1 = 1997, T = 1973;
+  /* ---------- data: real GDP per capita, constant 2010 US$, 1960–1988 (the paper's window) ---------- */
+  const Y0 = 1960, Y1 = 1988, T = 1973;
   const D = {
-    Chile:[3630,3692,3797,3939,3955,3885,4180,4240,4307,4367,4373,4679,4559,4261,4295,3747,3815,4084,4324,4630,4934,5093,4500,4266,4537,4785,4972,5214,5503,5985,6106,6487,7169,7552,7864,8573,9080,9548],
-    Panama:[2119,2282,2398,2526,2561,2714,2835,2989,3106,3273,3402,3625,3686,3777,3765,3729,3693,3639,3897,3974,4387,4678,4815,4495,4513,4632,4693,4509,3823,3801,4023,4312,4570,4722,4759,4744,4837,5045],
-    Uruguay:[5475,5539,5384,5330,5398,5395,5503,5249,5300,5571,5671,5639,5559,5573,5730,6066,6280,6336,6633,6996,7354,7420,6652,5930,5825,5873,6350,6815,6872,6904,6877,7071,7576,7721,8222,8045,8433,9089],
-    Argentina:[5605,5815,5675,5291,5739,6251,6121,6227,6435,6955,7057,7336,7330,7407,7686,7559,7292,7681,7228,7849,8053,7478,6997,7154,7199,6550,6959,7054,6772,6174,5940,6599,7285,7613,7953,7630,7955,8501],
-    Mexico:[3686,3751,3805,3986,4324,4490,4621,4745,5036,5051,5213,5239,5490,5735,5881,6037,6128,6166,6547,7005,7471,7941,7717,7235,7339,7373,6951,6937,6882,7028,7237,7392,7509,7661,7869,7278,7565,7947],
-    Brazil:[3411,3651,3726,3647,3664,3669,3717,3796,4121,4407,4674,5074,5548,6172,6569,6747,7231,7384,7443,7759,8268,7721,7587,7163,7375,7793,8246,8376,8211,8328,7931,7918,7756,7993,8290,8524,8578,8732],
-    Peru:[2684,2800,2994,3035,3143,3226,3394,3427,3338,3361,3381,3442,3469,3591,3826,3887,3840,3752,3557,3608,3727,3838,3738,3271,3311,3303,3532,3790,3357,2880,2679,2683,2615,2699,2975,3140,3175,3328],
-    Colombia:[2213,2261,2314,2311,2391,2390,2444,2472,2556,2649,2760,2853,3001,3131,3238,3238,3318,3378,3581,3689,3753,3752,3703,3678,3718,3751,3888,4014,4094,4152,4320,4337,4473,4498,4679,4841,4862,4951],
-    "Costa Rica":[2857,2729,2847,2879,2896,3075,3211,3288,3457,3545,3707,3855,4066,4273,4400,4381,4507,4783,4952,5061,4966,4725,4264,4270,4416,4347,4482,4671,4730,4848,4912,4912,5229,5459,5563,5652,5585,5758]
+    Chile:[3630,3692,3797,3939,3955,3885,4180,4240,4307,4367,4373,4679,4559,4261,4295,3747,3815,4084,4324,4630,4934,5093,4500,4266,4537,4785,4972,5214,5503],
+    Panama:[2119,2282,2398,2526,2561,2714,2835,2989,3106,3273,3402,3625,3686,3777,3765,3729,3693,3639,3897,3974,4387,4678,4815,4495,4513,4632,4693,4509,3823],
+    Uruguay:[5475,5539,5384,5330,5398,5395,5503,5249,5300,5571,5671,5639,5559,5573,5730,6066,6280,6336,6633,6996,7354,7420,6652,5930,5825,5873,6350,6815,6872],
+    Argentina:[5605,5815,5675,5291,5739,6251,6121,6227,6435,6955,7057,7336,7330,7407,7686,7559,7292,7681,7228,7849,8053,7478,6997,7154,7199,6550,6959,7054,6772],
+    Mexico:[3686,3751,3805,3986,4324,4490,4621,4745,5036,5051,5213,5239,5490,5735,5881,6037,6128,6166,6547,7005,7471,7941,7717,7235,7339,7373,6951,6937,6882],
+    Brazil:[3411,3651,3726,3647,3664,3669,3717,3796,4121,4407,4674,5074,5548,6172,6569,6747,7231,7384,7443,7759,8268,7721,7587,7163,7375,7793,8246,8376,8211],
+    Peru:[2684,2800,2994,3035,3143,3226,3394,3427,3338,3361,3381,3442,3469,3591,3826,3887,3840,3752,3557,3608,3727,3838,3738,3271,3311,3303,3532,3790,3357],
+    Colombia:[2213,2261,2314,2311,2391,2390,2444,2472,2556,2649,2760,2853,3001,3131,3238,3238,3318,3378,3581,3689,3753,3752,3703,3678,3718,3751,3888,4014,4094],
+    "Costa Rica":[2857,2729,2847,2879,2896,3075,3211,3288,3457,3545,3707,3855,4066,4273,4400,4381,4507,4783,4952,5061,4966,4725,4264,4270,4416,4347,4482,4671,4730]
   };
   const PAPER = { Panama: 53.2, Uruguay: 43.6, Argentina: 3.2 };
-  // Published annual effects (Chile − synthetic) and placebo p-values, 1973–1995.
+  // Annual effects (Chile − synthetic) and placebo p-values as in the published Figure 4.
   const EFFECT = [
     [1973,-415.4,.0625],[1974,-451.7,.1875],[1975,-1123.8,.0625],[1976,-1121.7,.0625],[1977,-860.9,.125],
     [1978,-873.0,.0625],[1979,-785.4,.125],[1980,-863.8,.25],[1981,-870.7,.1875],[1982,-1185.6,.125],
     [1983,-939.5,.25],[1984,-634.1,.375],[1985,-449.4,.5625],[1986,-515.5,.5],[1987,-381.6,.8125],
-    [1988,256.5,.875],[1989,755.1,.4375],[1990,776.6,.4375],[1991,899.3,.375],[1992,1201.5,.375],
-    [1993,1430.3,.25],[1994,1493.0,.125],[1995,2297.9,.0625]
+    [1988,256.5,.875],[1989,755.1,.4375]
   ];
   const years = Array.from({ length: Y1 - Y0 + 1 }, (_, i) => Y0 + i);
   const at = (arr, y) => arr[y - Y0];
@@ -451,11 +447,11 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     document.getElementById("gb-v").textContent = b;
     const W = 900, H = 260, m = { l: 52, r: 16, t: 14, b: 30 };
     const X = y => m.l + (y - Y0) / (Y1 - Y0) * (W - m.l - m.r);
-    const Y = v => H - m.b - (v - 2000) / 8000 * (H - m.t - m.b);
+    const Y = v => H - m.b - (v - 3000) / 4000 * (H - m.t - m.b);
     const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted") };
     gSvg.innerHTML = "";
     el("rect", { x: X(a), y: m.t, width: X(b) - X(a), height: H - m.t - m.b, fill: css("--chile-soft") }, gSvg);
-    axes(gSvg, X, Y, m, W, H, 2000, 10000, 2000, [1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995], f);
+    axes(gSvg, X, Y, m, W, H, 3000, 7000, 1000, [1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988], f);
     el("line", { x1: X(T), x2: X(T), y1: m.t, y2: H - m.b, stroke: css("--muted"), "stroke-dasharray": "3 3" }, gSvg);
     el("text", { ...f, x: X(T) + 5, y: m.t + 12 }, gSvg, "Coup");
     el("path", { d: line(SYN, X, Y, Y0, Y1), fill: "none", stroke: css("--synth"), "stroke-width": 2, "stroke-dasharray": "6 4" }, gSvg);
@@ -533,25 +529,23 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
   document.querySelectorAll("#build-presets button").forEach(btn => btn.addEventListener("click", () => drawBuild(btn.dataset.p)));
 
   /* ---------- Chapter IV: main chart ---------- */
-  const mSvg = document.getElementById("main-chart"), extBtn = document.getElementById("extend");
-  let extended = false;
+  const mSvg = document.getElementById("main-chart");
   const events = [[1973, "Coup"], [1975, "Shock therapy: −13%"], [1982, "Banking crash"], [1988, "Plebiscite: \"No\""]];
   function drawMain() {
-    const end = extended ? 1997 : 1988;
+    const end = 1988;
     const W = 900, H = 400, m = { l: 56, r: 16, t: 34, b: 30 };
     const X = y => m.l + (y - Y0) / (end - Y0) * (W - m.l - m.r);
-    const ymax = extended ? 10000 : 7000;
+    const ymax = 7000;
     const Y = v => H - m.b - (v - 3000) / (ymax - 3000) * (H - m.t - m.b);
     const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted") };
     mSvg.innerHTML = "";
-    axes(mSvg, X, Y, m, W, H, 3000, ymax, 1000, extended ? [1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995] : [1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988], f);
+    axes(mSvg, X, Y, m, W, H, 3000, ymax, 1000, [1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988], f);
     // gap polygons, year by year
     for (let y = T; y < end; y++) {
       const c0 = at(D.Chile, y), s0 = at(SYN, y), c1 = at(D.Chile, y + 1), s1 = at(SYN, y + 1);
       const below = (c0 + c1) / 2 < (s0 + s1) / 2;
       el("path", { d: `M${X(y)},${Y(c0)}L${X(y + 1)},${Y(c1)}L${X(y + 1)},${Y(s1)}L${X(y)},${Y(s0)}Z`, fill: below ? css("--neg-soft") : css("--pos-soft"), opacity: .9 }, mSvg);
     }
-    if (extended) el("rect", { x: X(1988), y: m.t, width: X(1997) - X(1988), height: H - m.t - m.b, fill: css("--bg"), opacity: .35 }, mSvg);
     events.forEach(([y, label], i) => {
       el("line", { x1: X(y), x2: X(y), y1: m.t - 6 + (i % 2) * 14, y2: H - m.b, stroke: css("--muted"), "stroke-dasharray": "2 3", opacity: .7 }, mSvg);
       el("text", { ...f, x: X(y) + (y === 1988 ? -4 : 4), y: m.t + 2 + (i % 2) * 14, "text-anchor": y === 1988 ? "end" : "start", fill: css("--ink") }, mSvg, label);
@@ -574,15 +568,9 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     hit.addEventListener("pointerdown", move);
     hit.addEventListener("pointerleave", () => { hideTip(); cross.setAttribute("opacity", 0); });
   }
-  extBtn.addEventListener("click", () => {
-    extended = !extended; extBtn.setAttribute("aria-pressed", extended);
-    document.getElementById("extend-note").style.display = extended ? "block" : "none";
-    drawMain();
-  });
 
   /* ---------- Chapter V: p-values ---------- */
-  const pSvg = document.getElementById("pval-chart"), extP = document.getElementById("extend-p");
-  let extendedP = false;
+  const pSvg = document.getElementById("pval-chart");
   function pColor(p) {
     if (p < 0.07) return css("--neg");
     if (p < 0.14) return css("--synth");
@@ -590,32 +578,26 @@ footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: 
     return css("--grey");
   }
   function drawP() {
-    const rows = EFFECT.filter(r => extendedP || r[0] <= 1988);
+    const rows = EFFECT;
     const W = 900, H = 340, m = { l: 60, r: 16, t: 16, b: 30 };
-    const ymin = -1500, ymax = extendedP ? 2500 : 1000;
+    const ymin = -1500, ymax = 1000;
     const Y = v => m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b);
     const bw = (W - m.l - m.r) / rows.length;
     const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted"), fmt: v => (v > 0 ? "+" : "") + v.toLocaleString("en-US") };
     pSvg.innerHTML = "";
     axes(pSvg, () => 0, Y, m, W, H, ymin, ymax, 500, [], f);
-    if (extendedP) {
-      const x0 = m.l + bw * rows.findIndex(r => r[0] === 1989);
-      el("rect", { x: x0, y: m.t, width: bw * 7, height: H - m.t - m.b, fill: css("--bg"), opacity: .6 }, pSvg);
-      el("text", { ...f, x: x0 + 6, y: Y(-1200) }, pSvg, "Beyond the paper's main window");
-    }
     rows.forEach(([yr, eff, p], i) => {
       const x = m.l + i * bw + bw * 0.15, wdt = bw * 0.7;
       const r = el("rect", { x, y: Math.min(Y(eff), Y(0)), width: wdt, height: Math.abs(Y(eff) - Y(0)), fill: pColor(p), rx: 2 }, pSvg);
       el("text", { ...f, x: x + wdt / 2, y: eff < 0 ? Y(eff) + 13 : Y(eff) - 5, "text-anchor": "middle", "font-size": 9.5, fill: css("--ink") }, pSvg, p.toFixed(2));
-      if (yr % (extendedP ? 2 : 3) === 1 || yr === 1988) el("text", { ...f, x: x + wdt / 2, y: H - m.b + 18, "text-anchor": "middle" }, pSvg, yr);
+      if (yr % 3 === 1 || yr === 1989) el("text", { ...f, x: x + wdt / 2, y: H - m.b + 18, "text-anchor": "middle" }, pSvg, yr);
       const hit = el("rect", { x: m.l + i * bw, y: m.t, width: bw, height: H - m.t - m.b, fill: "transparent" }, pSvg);
-      const show = ev => { r.setAttribute("opacity", .75); showTip(`<b>${yr}</b><br>Effect: ${fmtS$(eff)}<br>p-value: ${p.toFixed(3)}<br>${Math.round(p * 16)} of 16 countries had a gap this large or larger`, ev); };
+      const show = ev => { r.setAttribute("opacity", .75); showTip(`<b>${yr}</b><br>Effect: ${fmtS$(eff)}<br>p-value: ${p.toFixed(2)}`, ev); };
       hit.addEventListener("pointermove", show);
       hit.addEventListener("pointerdown", show);
       hit.addEventListener("pointerleave", () => { r.setAttribute("opacity", 1); hideTip(); });
     });
   }
-  extP.addEventListener("click", () => { extendedP = !extendedP; extP.setAttribute("aria-pressed", extendedP); drawP(); });
 
   const drawAll = () => { drawGrowth(); drawBuild(null); drawMain(); drawP(); };
   drawBuild("equal");
