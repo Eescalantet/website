@@ -5,6 +5,7 @@ project:
     - CNAME
     - cv/cv.pdf
     - nightwatchers/index.html
+    - pinochet/index.html
 
 website:
   title: "Enrique Escalante"

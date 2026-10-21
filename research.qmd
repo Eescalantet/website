@@ -50,7 +50,7 @@ Suele suponerse que el autogobierno no puede escalar más allá de grupos peque�
 ::::: {.pub-entry}
 **"The Influence of Pinochet in the Chilean Miracle"**\
 *Latin American Research Review*, 2022\
-[Published version](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20) · [PDF](https://drive.google.com/file/d/1FMhzIVrPsa2S997etJrEqMKLGKvhfPVF/view?usp=drive_link)
+[Interactive summary](pinochet/) · [Published version](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20) · [PDF](https://drive.google.com/file/d/1FMhzIVrPsa2S997etJrEqMKLGKvhfPVF/view?usp=drive_link)
 
 :::: {.panel-tabset}
 ## English
