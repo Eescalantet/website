@@ -6,6 +6,7 @@ project:
     - cv/cv.pdf
     - nightwatchers/index.html
     - pinochet/index.html
+    - friends-or-foes/index.html
 
 website:
   title: "Enrique Escalante"

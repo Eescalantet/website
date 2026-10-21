@@ -22,7 +22,7 @@ Este artículo examina cómo el reconocimiento formal de las organizaciones info
 ::::: {.pub-entry}
 **"Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets"**\
 *World Development*, 2026\
-[Published Version](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444) · [PDF](https://drive.google.com/file/d/1dQxXaApbqzHqb-_a-YPWj7d7woUNh-ch/view?usp=drive_link)
+[Interactive summary](friends-or-foes/) · [Published Version](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444) · [PDF](https://drive.google.com/file/d/1dQxXaApbqzHqb-_a-YPWj7d7woUNh-ch/view?usp=drive_link)
 
 :::: {.panel-tabset}
 ## English
