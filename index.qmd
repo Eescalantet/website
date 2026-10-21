@@ -36,10 +36,10 @@ Why did Peru's peasant patrols against the Shining Path govern themselves democr
 [Explore the interactive summary →](nightwatchers/){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
-### Political institutions & growth
-Whether authoritarian rule actually delivers economic gains, reassessing Chile's "miracle" under Pinochet and the democratic transition.
+### Whose miracle?
+Did Chile need a dictator to grow? A synthetic Chile without the 1973 coup out-earned the real one for fifteen years, which challenges the myth of the benevolent autocrat.
 
-[Read the paper →](https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20){.stretched-link .card-cue}
+[Explore the interactive summary →](pinochet/){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
 ### Development economics

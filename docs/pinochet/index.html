@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whose Miracle?</title>
+<meta name="description" content="An interactive summary of Escalante (2022), 'The Influence of Pinochet on the Chilean Miracle,' Latin American Research Review: a synthetic-control test of whether Chile's growth depended on Pinochet's autocracy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f4ef;
+  --paper: #fffefa;
+  --ink: #1b1d22;
+  --muted: #646a73;
+  --rule: #dcd8cf;
+  --chile: #1f4e79;      /* actual Chile */
+  --synth: #c48a1d;      /* synthetic Chile */
+  --neg: #b5432a;        /* Chile below counterfactual */
+  --pos: #2f6b6a;        /* Chile above counterfactual */
+  --chile-soft: #dde6f0;
+  --synth-soft: #f4e6c8;
+  --neg-soft: #f3ddd5;
+  --pos-soft: #dbe9e7;
+  --grey: #a7a29a;
+  --link: #1f4e79;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14161a; --paper: #1c1f24; --ink: #e8e6e1; --muted: #9ba1aa; --rule: #343840;
+    --chile: #7fb0e0; --synth: #e0ae4c; --neg: #e27a5f; --pos: #6fb3b0;
+    --chile-soft: #1d2a38; --synth-soft: #3a2e15; --neg-soft: #3b2219; --pos-soft: #1f3534; --grey: #5d6068; --link: #8fb8e0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14161a; --paper: #1c1f24; --ink: #e8e6e1; --muted: #9ba1aa; --rule: #343840;
+  --chile: #7fb0e0; --synth: #e0ae4c; --neg: #e27a5f; --pos: #6fb3b0;
+  --chile-soft: #1d2a38; --synth-soft: #3a2e15; --neg-soft: #3b2219; --pos-soft: #1f3534; --grey: #5d6068; --link: #8fb8e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Newsreader", Georgia, serif; font-size: 1.2rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--link); }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.topbar-inner { max-width: 1100px; margin: 0 auto; padding: .55rem 16px; display: flex; gap: 1rem; align-items: center; justify-content: space-between; font-family: "Inter", sans-serif; font-size: .8rem; }
+.topbar a { text-decoration: none; color: var(--muted); }
+.topbar a:hover { color: var(--ink); }
+.brand { font-weight: 600; color: var(--ink) !important; white-space: nowrap; }
+.toc { display: flex; gap: .9rem; overflow-x: auto; scrollbar-width: none; }
+.toc::-webkit-scrollbar { display: none; }
+.toc a { white-space: nowrap; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+.wide { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+section { padding: 3.5rem 0 1rem; }
+.chapter-num { font-family: "Inter", sans-serif; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+h1, h2, h3 { line-height: 1.15; font-weight: 600; }
+h2 { font-size: 2.1rem; margin: 0 0 1rem; }
+h3 { font-size: 1.35rem; margin: 2rem 0 .5rem; }
+hr.sep { border: 0; border-top: 1px solid var(--rule); max-width: 720px; margin: 2.5rem auto 0; }
+
+.hero { padding: 5rem 0 3rem; border-bottom: 1px solid var(--rule); }
+.hero .kicker { font-family: "Inter", sans-serif; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--neg); }
+.hero h1 { font-size: clamp(2.8rem, 8vw, 4.8rem); margin: .4rem 0 .6rem; letter-spacing: -.01em; }
+.hero .dek { font-size: 1.4rem; color: var(--muted); font-style: italic; margin: 0 0 1.5rem; }
+.byline { font-family: "Inter", sans-serif; font-size: .85rem; color: var(--muted); }
+.byline a { color: var(--muted); }
+.hero-num { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin-top: 2.5rem; }
+.hero-num div { background: var(--paper); padding: 1rem 1.1rem; }
+.hero-num .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.hero-num .l { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: .3rem; }
+
+blockquote { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--rule); font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+.note { font-family: "Inter", sans-serif; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.c-chile { color: var(--chile); font-weight: 600; }
+.c-synth { color: var(--synth); font-weight: 600; }
+.c-neg { color: var(--neg); font-weight: 600; }
+
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 1.4rem; margin: 2rem 0; }
+.panel h4 { margin: 0 0 .2rem; font-size: 1.15rem; }
+.panel .sub { font-family: "Inter", sans-serif; font-size: .82rem; color: var(--muted); margin: 0 0 1rem; }
+.chart { width: 100%; height: auto; display: block; touch-action: pan-y; }
+.chart text { font-family: "Inter", sans-serif; }
+
+.presets { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.presets button, .toggle { font-family: "Inter", sans-serif; font-size: .75rem; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); padding: .4rem .7rem; border-radius: 4px; cursor: pointer; }
+.presets button:hover, .toggle:hover { border-color: var(--muted); }
+.presets button[aria-pressed="true"], .toggle[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+/* growth calculator */
+.range-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-family: "Inter", sans-serif; font-size: .82rem; color: var(--muted); }
+.range-row label { display: flex; justify-content: space-between; }
+.range-row b { color: var(--ink); }
+input[type=range] { width: 100%; accent-color: var(--chile); margin: .4rem 0; }
+.growth-out { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.growth-out > div { border-radius: 6px; padding: .9rem 1rem; }
+.growth-out .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.growth-out .l { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); }
+.growth-verdict { margin-top: .9rem; font-size: 1.05rem; line-height: 1.45; }
+
+/* builder */
+.builder { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem; align-items: start; }
+.sliders { display: grid; gap: .35rem; font-family: "Inter", sans-serif; font-size: .8rem; }
+.sl { display: grid; grid-template-columns: 6.5rem 1fr 2.8rem; gap: .5rem; align-items: center; }
+.sl span:last-child { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.sl input { accent-color: var(--synth); margin: 0; }
+.fit { display: grid; gap: .45rem; font-family: "Inter", sans-serif; font-size: .85rem; margin-top: 1rem; }
+.fit .row { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--rule); padding-bottom: .3rem; }
+.fit b { font-variant-numeric: tabular-nums; }
+.grade { margin-top: .8rem; padding: .7rem .8rem; border-radius: 6px; font-size: 1rem; line-height: 1.4; }
+
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--paper); font-family: "Inter", sans-serif; font-size: .78rem; line-height: 1.45; padding: .5rem .65rem; border-radius: 4px; opacity: 0; transition: opacity .1s; z-index: 20; white-space: nowrap; }
+
+.legend { display: flex; gap: 1.2rem; flex-wrap: wrap; font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .6rem; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: .35rem; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.two > div { border-radius: 6px; padding: 1rem 1.1rem; font-size: 1rem; line-height: 1.45; }
+.two strong { font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .3rem; }
+
+.weights { width: 100%; border-collapse: collapse; font-family: "Inter", sans-serif; font-size: .85rem; margin: 1rem 0; }
+.weights th, .weights td { padding: .45rem .5rem; border-bottom: 1px solid var(--rule); text-align: left; }
+.weights th { color: var(--muted); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; }
+.weights td.n { text-align: right; font-variant-numeric: tabular-nums; }
+.bar { display: inline-block; height: 8px; background: var(--synth); border-radius: 2px; vertical-align: middle; margin-left: .4rem; }
+
+.takeaway { font-size: 1.55rem; line-height: 1.35; font-style: italic; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 1.4rem 0; margin: 2rem 0; }
+footer { border-top: 1px solid var(--rule); margin-top: 4rem; padding: 2rem 0 4rem; }
+footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; line-height: 1.5; }
+.btns { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.btn { font-family: "Inter", sans-serif; font-size: .85rem; font-weight: 600; text-decoration: none; padding: .55rem 1rem; border-radius: 4px; border: 1px solid var(--link); color: var(--link); }
+.btn.fill { background: var(--link); color: var(--paper); }
+
+@media (max-width: 760px) {
+  body { font-size: 1.1rem; }
+  h2 { font-size: 1.7rem; }
+  .builder, .two, .growth-out { grid-template-columns: 1fr; }
+  .hero-num { grid-template-columns: 1fr; }
+  .topbar .toc { display: none; }
+  .range-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Whose Miracle?</a>
+    <nav class="toc" aria-label="Sections">
+      <a href="#story">The story</a><a href="#counting">Counting</a><a href="#build">Build a Chile</a>
+      <a href="#result">Result</a><a href="#noise">Noise?</a><a href="#why">Why</a><a href="#lesson">Lesson</a><a href="#source">Source</a>
+    </nav>
+    <a href="/">← enriqueescalante.com</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">An interactive summary</div>
+    <h1>Whose Miracle?</h1>
+    <p class="dek">Chile became Latin America's growth star. Did it need a dictator to get there?</p>
+    <div class="byline">Edwar E. Escalante · "The Influence of Pinochet on the Chilean Miracle," <em>Latin American Research Review</em> (2022) · <a href="https://doi.org/10.1017/lar.2022.54">doi:10.1017/lar.2022.54</a></div>
+    <div class="hero-num">
+      <div><div class="v c-neg">−$1,124</div><div class="l">Chile's income per person in 1975 compared with a "synthetic Chile" that never had the coup</div></div>
+      <div><div class="v">15 years</div><div class="l">that Chile ran below its counterfactual after September 1973</div></div>
+      <div><div class="v" style="color:var(--pos)">1988</div><div class="l">the first year Chile pulled ahead, the year of the plebiscite that ended the regime</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- I -->
+<section id="story">
+  <div class="wrap">
+    <div class="chapter-num">Chapter I</div>
+    <h2>The story everyone tells</h2>
+    <p>On September 11, 1973, the Chilean armed forces overthrew Salvador Allende. The Allende years had ended in hyperinflation, rationing and a budget deficit of about 20% of GDP. Augusto Pinochet then ruled for seventeen years. His regime privatized state firms, opened trade, made the central bank independent and created private retirement accounts. It also held and tortured 38,254 political prisoners, according to the Valech Report.</p>
+    <p>Chile then grew faster than its neighbors, and many people concluded that the dictatorship produced the growth:</p>
+    <blockquote>"…free market reforms instituted by the administration of General Augusto Pinochet from 1973 to 1989."<cite>Robert Barro (2000), on the source of Chile's performance</cite></blockquote>
+    <p>Behind this is a broader idea: a <em>benevolent autocrat</em> can commit credibly to good policy and deliver growth that a democracy cannot. Pinochet is the textbook test case. But a test needs a comparison. <strong>What would Chile have looked like without him?</strong></p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- II -->
+<section id="counting">
+  <div class="wrap">
+    <div class="chapter-num">Chapter II</div>
+    <h2>A miracle depends on when you start counting</h2>
+    <p>Chile's growth record looks very different depending on the window you pick. Choose a start and end year to see Chile's average annual growth in income per person. The second number is the same figure for <span class="c-synth">synthetic Chile</span>, the counterfactual built in Chapter III.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Pick your window</h4>
+      <p class="sub">Real GDP per capita, World Bank constant 2010 US$.</p>
+      <div class="presets" id="growth-presets">
+        <button data-a="1985" data-b="1997">"Miracle years" 1985–97</button>
+        <button data-a="1976" data-b="1980">Friedman's boom 1976–80</button>
+        <button data-a="1973" data-b="1988">Under Pinochet 1973–88</button>
+        <button data-a="1990" data-b="1997">Back to democracy 1990–97</button>
+      </div>
+      <svg class="chart" id="growth-chart" viewBox="0 0 900 260" role="img" aria-label="Chile GDP per capita with selected window"></svg>
+      <div class="range-row">
+        <div><label for="ga"><span>Start year</span><b id="ga-v"></b></label><input type="range" id="ga" min="1960" max="1996" step="1" value="1985"></div>
+        <div><label for="gb"><span>End year</span><b id="gb-v"></b></label><input type="range" id="gb" min="1961" max="1997" step="1" value="1997"></div>
+      </div>
+      <div class="growth-out">
+        <div style="background:var(--chile-soft)"><div class="v c-chile" id="g-chile"></div><div class="l">Chile, average annual growth per person</div></div>
+        <div style="background:var(--synth-soft)"><div class="v c-synth" id="g-synth"></div><div class="l">Synthetic Chile (no coup), same window</div></div>
+      </div>
+      <div class="growth-verdict" id="g-verdict"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>Start the clock in 1985 and Chile is a miracle. Start it on the day of the coup and the regime spent its first fifteen years catching up to where Chile would plausibly have been anyway. Milton Friedman praised average growth of 8% in 1976–80, but that boom came right after a collapse, and the comparison countries were growing too.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- III -->
+<section id="build">
+  <div class="wrap">
+    <div class="chapter-num">Chapter III</div>
+    <h2>Build your own Chile</h2>
+    <p>No single country resembles pre-1973 Chile closely enough to serve as a twin. The <strong>synthetic control method</strong> (Abadie and Gardeazabal 2003; Abadie, Diamond and Hainmueller 2010) builds one. It takes a weighted average of donor countries, choosing the weights so that the blend tracks Chile's income, population growth, trade openness and schooling <em>before</em> the coup. If the blend matches Chile for thirteen years beforehand, its path after 1973 shows what Chile would have done without Pinochet.</p>
+    <p>Try it. Mix the donor countries and watch how closely your <span class="c-synth">synthetic Chile</span> follows the <span class="c-chile">real one</span> in 1960–72.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Mix a counterfactual</h4>
+      <p class="sub">Weights are rescaled to add up to 100%. The fit statistic covers income only; the paper's algorithm also matches population growth, trade openness and schooling.</p>
+      <div class="presets" id="build-presets">
+        <button data-p="equal">Equal weights</button>
+        <button data-p="argentina">Argentina only</button>
+        <button data-p="mexico">Mexico only</button>
+        <button data-p="paper">The paper's weights</button>
+      </div>
+      <div class="builder">
+        <svg class="chart" id="build-chart" viewBox="0 0 600 340" role="img" aria-label="Real versus your synthetic Chile"></svg>
+        <div>
+          <div class="sliders" id="sliders"></div>
+          <div class="fit">
+            <div class="row"><span>Average miss before 1973</span><b id="fit-pre"></b></div>
+            <div class="row"><span>Average gap, 1973–88</span><b id="fit-post"></b></div>
+          </div>
+          <div class="grade" id="grade"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>When the algorithm searched all eighteen donors (Latin American countries plus Spain and Portugal), it gave positive weight to only three:</p>
+    <table class="weights">
+      <thead><tr><th>Donor</th><th class="n">Weight</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Panama</td><td class="n">53.2%</td><td><span class="bar" style="width:106px"></span></td></tr>
+        <tr><td>Uruguay</td><td class="n">43.6%</td><td><span class="bar" style="width:87px"></span></td></tr>
+        <tr><td>Argentina</td><td class="n">3.2%</td><td><span class="bar" style="width:6px"></span></td></tr>
+        <tr><td style="color:var(--muted)">All others</td><td class="n" style="color:var(--muted)">0%</td><td></td></tr>
+      </tbody>
+    </table>
+    <p class="note">Before 1973, the blend matches Chile closely: average income of $4,218 vs. $4,037 and population growth of 1.97% vs. 2.10%. Schooling is close as well (Table 3 of the paper).</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- IV -->
+<section id="result">
+  <div class="wrap">
+    <div class="chapter-num">Chapter IV</div>
+    <h2>Fifteen years below the line</h2>
+    <p>Here is the result. The two lines move together until 1973 and then separate. Hover or tap the chart to read each year's values.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Real Chile vs. synthetic Chile</h4>
+      <p class="sub">GDP per capita, constant 2010 US$. The shaded area is the gap: income Chile did not have compared with its counterfactual.</p>
+      <div class="presets"><button class="toggle" id="extend" aria-pressed="false">Extend to 1997</button></div>
+      <svg class="chart" id="main-chart" viewBox="0 0 900 400" role="img" aria-label="Real and synthetic Chile GDP per capita, 1960 to 1988"></svg>
+      <div class="legend"><span><i style="background:var(--chile)"></i>Real Chile</span><span><i style="background:var(--synth)"></i>Synthetic Chile</span><span><i style="background:var(--neg-soft);border:1px solid var(--neg)"></i>Chile below</span><span><i style="background:var(--pos-soft);border:1px solid var(--pos)"></i>Chile above</span></div>
+      <p class="note" id="extend-note" style="display:none;margin-top:.8rem">Years after 1988 apply the same synthetic weights beyond the paper's main window (1960–1988). They are shown for context and are not part of the published estimates.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>By 1975 Chilean income per person was about <strong>$1,100 below</strong> its counterfactual. The gap stayed near $1,000 through 1983, then narrowed. Chile finally passed synthetic Chile in <strong>1988</strong>, fifteen years after the coup and the same year voters said "No" to eight more years of Pinochet.</p>
+    <p>The finding does not depend on one dataset. Switching to the Penn World Tables, extending the pre-coup period back to 1951, and adding copper producers such as the United States, Canada, Australia and South Africa to the donor pool produces the same pattern with a <em>larger</em> gap: more than $2,500 by 1975, reaching about $3,000 in later years.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- V -->
+<section id="noise">
+  <div class="wrap">
+    <div class="chapter-num">Chapter V</div>
+    <h2>Could it be noise?</h2>
+    <p>Any synthetic control will miss by something. To check whether Chile's miss is unusual, the paper runs <strong>placebo tests</strong>. It pretends each donor country had its own "Pinochet" in 1973, builds a synthetic version of that country, and measures its gap. If Chile's gap is larger than nearly all the fake ones, the effect is unlikely to be chance.</p>
+    <p>The p-value for each year is the share of countries whose placebo gap is at least as large as Chile's. With sixteen countries, the smallest possible value is 1/16 ≈ 0.06.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Estimated effect on Chilean income, by year</h4>
+      <p class="sub">Bars show Chile minus synthetic Chile, in US$. Color shows significance from the placebo ranking. Hover or tap a bar.</p>
+      <div class="presets"><button class="toggle" id="extend-p" aria-pressed="false">Extend to 1995</button></div>
+      <svg class="chart" id="pval-chart" viewBox="0 0 900 340" role="img" aria-label="Annual treatment effects with p-values"></svg>
+      <div class="legend">
+        <span><i style="background:var(--neg)"></i>p ≈ 0.06</span>
+        <span><i style="background:var(--synth)"></i>p ≈ 0.13</span>
+        <span><i style="background:var(--chile)"></i>p ≈ 0.19</span>
+        <span><i style="background:var(--grey)"></i>not significant</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>In 1973, 1975, 1976 and 1978, Chile's gap was the largest of all sixteen countries. The losses during the first decade are clearly distinguishable from noise. From the mid-1980s on, the effect fades and is no longer significant. The regime is associated with a <strong>significant early loss</strong> and, at best, a later return to where Chile would have been anyway.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VI -->
+<section id="why">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VI</div>
+    <h2>Two recessions and a promise</h2>
+    <p>Two downturns, both on the regime's watch, account for most of the gap.</p>
+    <div class="two">
+      <div style="background:var(--neg-soft)"><strong style="color:var(--neg)">1975: the shock</strong>To stop the hyperinflation left by Allende, the junta cut spending and the public payroll and tightened money. The economy shrank 13% in a single year (Muñoz 2008).</div>
+      <div style="background:var(--neg-soft)"><strong style="color:var(--neg)">1982: the crash</strong>After intervention in the banking system and a rapid opening to world markets, GDP per capita fell 14.3%. The regime responded by <em>nationalizing</em> banks and industries, a sharp break with its own free-market principles.</div>
+    </div>
+    <p><strong>What about Allende?</strong> Chile was already falling in 1972–73, and the first year or two of decline belong partly to the previous government. But inherited chaos is hard to stretch into fifteen years of underperformance. The 1975 and 1984 reform booms show up in the synthetic control too, so they were not unique to Chile.</p>
+    <h3>What actually changed in 1988</h3>
+    <p>The paper ends with a hypothesis that follows North and Weingast's (1989) account of England after the Glorious Revolution. Chile may have taken off because of a credible <em>commitment</em> rather than the general. The 1980 constitution scheduled the 1988 plebiscite. When "No" won, Pinochet accepted the result, and before the 1989 election the regime and the opposition agreed on <strong>fifty-four constitutional amendments</strong> that expanded political rights and kept the economic reforms. A transition that locked in the rules may have mattered more than the man who wrote them.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VII -->
+<section id="lesson">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VII</div>
+    <h2>The lesson</h2>
+    <p class="takeaway">Chile's remarkable growth in 1985–1997 did not depend on Pinochet's autocracy.</p>
+    <p>The study does not separate every policy, and it does not claim the market reforms were irrelevant. Its claim is narrower and harder to argue with: against a careful counterfactual, <em>the regime itself</em> shows no positive effect on income per person. It shows a large early loss.</p>
+    <p>That fits a wider literature. Easterly and Pennings (2018) find little evidence that individual leaders drive growth. Carden and Lawson (2010) find that human rights abuses slow economic liberalization rather than speed it up. Studies of Chile's return to democracy find a larger growth effect. In the paper's words:</p>
+    <blockquote>"If society can remove obstacles to the entrepreneurial spirit and unleash the market process, the results are similar most of the time. The presence of autocrats appears to have a secondary role."</blockquote>
+  </div>
+</section>
+
+<footer id="source">
+  <div class="wrap">
+    <div class="chapter-num">Source</div>
+    <div class="cite">Escalante, Edwar E. 2022. "The Influence of Pinochet on the Chilean Miracle." <em>Latin American Research Review</em>. https://doi.org/10.1017/lar.2022.54 (open access, CC BY 4.0).</div>
+    <div class="btns">
+      <a class="btn fill" href="https://www.cambridge.org/core/journals/latin-american-research-review/article/influence-of-pinochet-on-the-chilean-miracle/4DB3D0E252A7B70AC00E1AEC7E3F6A20">Read the article (free)</a>
+      <a class="btn" href="/nightwatchers/">Also: Night Watchers and Terrorists</a>
+      <a class="btn" href="/">Home</a>
+    </div>
+    <p class="note">The charts use the paper's replication data: World Bank real GDP per capita (constant 2010 US$) and the published synthetic-control weights (Panama 53.2%, Uruguay 43.6%, Argentina 3.2%), which reproduce the paper's estimated gaps and p-values. The "build your own" panel matches on income only, so it simplifies the paper's procedure. Growth rates are compound annual rates between the selected years. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
+  </div>
+</footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function () {
+  /* ---------- data: real GDP per capita, constant 2010 US$, 1960–1997 ---------- */
+  const Y0 = 1960, Y1 = 1997, T = 1973;
+  const D = {
+    Chile:[3630,3692,3797,3939,3955,3885,4180,4240,4307,4367,4373,4679,4559,4261,4295,3747,3815,4084,4324,4630,4934,5093,4500,4266,4537,4785,4972,5214,5503,5985,6106,6487,7169,7552,7864,8573,9080,9548],
+    Panama:[2119,2282,2398,2526,2561,2714,2835,2989,3106,3273,3402,3625,3686,3777,3765,3729,3693,3639,3897,3974,4387,4678,4815,4495,4513,4632,4693,4509,3823,3801,4023,4312,4570,4722,4759,4744,4837,5045],
+    Uruguay:[5475,5539,5384,5330,5398,5395,5503,5249,5300,5571,5671,5639,5559,5573,5730,6066,6280,6336,6633,6996,7354,7420,6652,5930,5825,5873,6350,6815,6872,6904,6877,7071,7576,7721,8222,8045,8433,9089],
+    Argentina:[5605,5815,5675,5291,5739,6251,6121,6227,6435,6955,7057,7336,7330,7407,7686,7559,7292,7681,7228,7849,8053,7478,6997,7154,7199,6550,6959,7054,6772,6174,5940,6599,7285,7613,7953,7630,7955,8501],
+    Mexico:[3686,3751,3805,3986,4324,4490,4621,4745,5036,5051,5213,5239,5490,5735,5881,6037,6128,6166,6547,7005,7471,7941,7717,7235,7339,7373,6951,6937,6882,7028,7237,7392,7509,7661,7869,7278,7565,7947],
+    Brazil:[3411,3651,3726,3647,3664,3669,3717,3796,4121,4407,4674,5074,5548,6172,6569,6747,7231,7384,7443,7759,8268,7721,7587,7163,7375,7793,8246,8376,8211,8328,7931,7918,7756,7993,8290,8524,8578,8732],
+    Peru:[2684,2800,2994,3035,3143,3226,3394,3427,3338,3361,3381,3442,3469,3591,3826,3887,3840,3752,3557,3608,3727,3838,3738,3271,3311,3303,3532,3790,3357,2880,2679,2683,2615,2699,2975,3140,3175,3328],
+    Colombia:[2213,2261,2314,2311,2391,2390,2444,2472,2556,2649,2760,2853,3001,3131,3238,3238,3318,3378,3581,3689,3753,3752,3703,3678,3718,3751,3888,4014,4094,4152,4320,4337,4473,4498,4679,4841,4862,4951],
+    "Costa Rica":[2857,2729,2847,2879,2896,3075,3211,3288,3457,3545,3707,3855,4066,4273,4400,4381,4507,4783,4952,5061,4966,4725,4264,4270,4416,4347,4482,4671,4730,4848,4912,4912,5229,5459,5563,5652,5585,5758]
+  };
+  const PAPER = { Panama: 53.2, Uruguay: 43.6, Argentina: 3.2 };
+  // Published annual effects (Chile − synthetic) and placebo p-values, 1973–1995.
+  const EFFECT = [
+    [1973,-415.4,.0625],[1974,-451.7,.1875],[1975,-1123.8,.0625],[1976,-1121.7,.0625],[1977,-860.9,.125],
+    [1978,-873.0,.0625],[1979,-785.4,.125],[1980,-863.8,.25],[1981,-870.7,.1875],[1982,-1185.6,.125],
+    [1983,-939.5,.25],[1984,-634.1,.375],[1985,-449.4,.5625],[1986,-515.5,.5],[1987,-381.6,.8125],
+    [1988,256.5,.875],[1989,755.1,.4375],[1990,776.6,.4375],[1991,899.3,.375],[1992,1201.5,.375],
+    [1993,1430.3,.25],[1994,1493.0,.125],[1995,2297.9,.0625]
+  ];
+  const years = Array.from({ length: Y1 - Y0 + 1 }, (_, i) => Y0 + i);
+  const at = (arr, y) => arr[y - Y0];
+  const blend = w => {
+    const tot = Object.values(w).reduce((a, b) => a + b, 0) || 1;
+    return years.map((_, i) => Object.keys(w).reduce((s, c) => s + (w[c] / tot) * D[c][i], 0));
+  };
+  const SYN = blend(PAPER);
+
+  /* ---------- helpers ---------- */
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent, text) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const fmt$ = v => (v < 0 ? "−$" : "$") + Math.abs(Math.round(v)).toLocaleString("en-US");
+  const fmtS$ = v => (v < 0 ? "−$" : "+$") + Math.abs(Math.round(v)).toLocaleString("en-US");
+  const pct = v => (v >= 0 ? "" : "−") + Math.abs(v * 100).toFixed(1) + "%";
+  const cagr = (arr, a, b) => Math.pow(at(arr, b) / at(arr, a), 1 / (b - a)) - 1;
+  const tip = document.getElementById("tip");
+  const showTip = (html, ev) => {
+    tip.innerHTML = html; tip.style.opacity = 1;
+    const x = Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+    tip.style.left = x + "px"; tip.style.top = (ev.clientY + 14) + "px";
+  };
+  const hideTip = () => tip.style.opacity = 0;
+
+  function axes(svg, X, Y, m, W, H, ymin, ymax, ystep, xticks, f) {
+    const rule = css("--rule");
+    for (let v = ymin; v <= ymax; v += ystep) {
+      el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: rule, "stroke-width": v === 0 ? 1.2 : 1 }, svg);
+      el("text", { ...f, x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, svg, f.fmt ? f.fmt(v) : "$" + (v / 1000) + "k");
+    }
+    xticks.forEach(y => el("text", { ...f, x: X(y), y: H - m.b + 18, "text-anchor": "middle" }, svg, y));
+  }
+  const line = (arr, X, Y, from, to) => {
+    let d = "";
+    for (let y = from; y <= to; y++) d += (y === from ? "M" : "L") + X(y).toFixed(1) + "," + Y(at(arr, y)).toFixed(1);
+    return d;
+  };
+
+  /* ---------- Chapter II: growth window ---------- */
+  const gSvg = document.getElementById("growth-chart"), ga = document.getElementById("ga"), gb = document.getElementById("gb");
+  function drawGrowth(src) {
+    let a = +ga.value, b = +gb.value;
+    if (a >= b) { if (src === "a") { b = a + 1; gb.value = b; } else { a = b - 1; ga.value = a; } }
+    document.querySelectorAll("#growth-presets button").forEach(btn => btn.setAttribute("aria-pressed", +btn.dataset.a === a && +btn.dataset.b === b));
+    document.getElementById("ga-v").textContent = a;
+    document.getElementById("gb-v").textContent = b;
+    const W = 900, H = 260, m = { l: 52, r: 16, t: 14, b: 30 };
+    const X = y => m.l + (y - Y0) / (Y1 - Y0) * (W - m.l - m.r);
+    const Y = v => H - m.b - (v - 2000) / 8000 * (H - m.t - m.b);
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted") };
+    gSvg.innerHTML = "";
+    el("rect", { x: X(a), y: m.t, width: X(b) - X(a), height: H - m.t - m.b, fill: css("--chile-soft") }, gSvg);
+    axes(gSvg, X, Y, m, W, H, 2000, 10000, 2000, [1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995], f);
+    el("line", { x1: X(T), x2: X(T), y1: m.t, y2: H - m.b, stroke: css("--muted"), "stroke-dasharray": "3 3" }, gSvg);
+    el("text", { ...f, x: X(T) + 5, y: m.t + 12 }, gSvg, "Coup");
+    el("path", { d: line(SYN, X, Y, Y0, Y1), fill: "none", stroke: css("--synth"), "stroke-width": 2, "stroke-dasharray": "6 4" }, gSvg);
+    el("path", { d: line(D.Chile, X, Y, Y0, Y1), fill: "none", stroke: css("--chile"), "stroke-width": 2.6 }, gSvg);
+    [a, b].forEach(y => el("circle", { cx: X(y), cy: Y(at(D.Chile, y)), r: 5, fill: css("--chile"), stroke: css("--paper"), "stroke-width": 2 }, gSvg));
+    const gc = cagr(D.Chile, a, b), gs = cagr(SYN, a, b);
+    document.getElementById("g-chile").textContent = pct(gc);
+    document.getElementById("g-synth").textContent = pct(gs);
+    const diff = (gc - gs) * 100;
+    let v;
+    if (b <= 1988 && a >= 1973 && diff < 0.3) v = "Within Pinochet's tenure, this window shows no growth premium over the counterfactual.";
+    else if (diff > 1) v = `Chile beats its counterfactual by ${diff.toFixed(1)} points a year in this window. If you start counting here, it looks like a miracle.`;
+    else if (diff < -1) v = `Chile trails its counterfactual by ${Math.abs(diff).toFixed(1)} points a year in this window.`;
+    else v = "Chile and its counterfactual grow at roughly the same pace in this window.";
+    if (a < 1973 && b > 1973) v += " This window straddles the coup.";
+    document.getElementById("g-verdict").textContent = v;
+  }
+  ga.addEventListener("input", () => drawGrowth("a"));
+  gb.addEventListener("input", () => drawGrowth("b"));
+  document.querySelectorAll("#growth-presets button").forEach(btn => btn.addEventListener("click", () => { ga.value = btn.dataset.a; gb.value = btn.dataset.b; drawGrowth(); }));
+
+  /* ---------- Chapter III: builder ---------- */
+  const donors = ["Panama", "Uruguay", "Argentina", "Mexico", "Brazil", "Peru", "Colombia", "Costa Rica"];
+  const w = {}; donors.forEach(c => w[c] = 0);
+  const presetsB = {
+    equal: () => donors.forEach(c => w[c] = 12.5),
+    argentina: () => donors.forEach(c => w[c] = c === "Argentina" ? 100 : 0),
+    mexico: () => donors.forEach(c => w[c] = c === "Mexico" ? 100 : 0),
+    paper: () => donors.forEach(c => w[c] = PAPER[c] || 0)
+  };
+  const slBox = document.getElementById("sliders");
+  donors.forEach(c => {
+    const row = document.createElement("div"); row.className = "sl";
+    const id = "w-" + c.replace(/\s/g, "");
+    row.innerHTML = `<label for="${id}">${c}</label><input type="range" id="${id}" min="0" max="100" step="0.1" value="0"><span id="${id}-v"></span>`;
+    slBox.appendChild(row);
+    row.querySelector("input").addEventListener("input", e => { w[c] = +e.target.value; drawBuild(null); });
+  });
+  const bSvg = document.getElementById("build-chart");
+  function drawBuild(preset) {
+    if (preset) { presetsB[preset](); donors.forEach(c => document.getElementById("w-" + c.replace(/\s/g, "")).value = w[c]); }
+    document.querySelectorAll("#build-presets button").forEach(btn => btn.setAttribute("aria-pressed", btn.dataset.p === preset));
+    const tot = donors.reduce((s, c) => s + w[c], 0);
+    donors.forEach(c => document.getElementById("w-" + c.replace(/\s/g, "") + "-v").textContent = tot ? Math.round(w[c] / tot * 100) + "%" : "—");
+    const W = 600, H = 340, m = { l: 52, r: 14, t: 14, b: 30 };
+    const X = y => m.l + (y - Y0) / (1988 - Y0) * (W - m.l - m.r);
+    const Y = v => H - m.b - (v - 2000) / 6000 * (H - m.t - m.b);
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted") };
+    bSvg.innerHTML = "";
+    el("rect", { x: m.l, y: m.t, width: X(T) - m.l, height: H - m.t - m.b, fill: css("--synth-soft"), opacity: .45 }, bSvg);
+    el("text", { ...f, x: m.l + 6, y: m.t + 14 }, bSvg, "Fitting period");
+    axes(bSvg, X, Y, m, W, H, 2000, 8000, 2000, [1960, 1965, 1970, 1975, 1980, 1985], f);
+    el("line", { x1: X(T), x2: X(T), y1: m.t, y2: H - m.b, stroke: css("--muted"), "stroke-dasharray": "3 3" }, bSvg);
+    el("path", { d: line(D.Chile, X, Y, Y0, 1988), fill: "none", stroke: css("--chile"), "stroke-width": 2.6 }, bSvg);
+    const fit = document.getElementById("fit-pre"), post = document.getElementById("fit-post"), grade = document.getElementById("grade");
+    if (!tot) {
+      fit.textContent = "—"; post.textContent = "—";
+      grade.textContent = "Move a slider to add a donor country."; grade.style.background = css("--bg");
+      return;
+    }
+    const S = blend(w);
+    el("path", { d: line(S, X, Y, Y0, 1988), fill: "none", stroke: css("--synth"), "stroke-width": 2.2, "stroke-dasharray": "6 4" }, bSvg);
+    el("text", { ...f, x: X(1988) - 4, y: Y(at(D.Chile, 1988)) - 8, "text-anchor": "end", fill: css("--chile"), "font-weight": 600 }, bSvg, "Real Chile");
+    el("text", { ...f, x: X(1988) - 4, y: Y(at(S, 1988)) + 16, "text-anchor": "end", fill: css("--synth"), "font-weight": 600 }, bSvg, "Your synthetic Chile");
+    let se = 0; for (let y = Y0; y < T; y++) se += Math.pow(at(D.Chile, y) - at(S, y), 2);
+    const rmse = Math.sqrt(se / (T - Y0));
+    let g = 0; for (let y = T; y <= 1988; y++) g += at(D.Chile, y) - at(S, y);
+    g /= (1988 - T + 1);
+    fit.textContent = "$" + Math.round(rmse).toLocaleString("en-US");
+    post.textContent = fmtS$(g);
+    if (rmse < 120) { grade.innerHTML = "<strong>Excellent fit.</strong> Your blend tracks Chile year by year before the coup, so its later path is a credible stand-in for Chile without Pinochet."; grade.style.background = css("--pos-soft"); }
+    else if (rmse < 300) { grade.innerHTML = "<strong>Decent fit.</strong> Close, but the pre-1973 misses are large enough to make the post-1973 gap less reliable."; grade.style.background = css("--synth-soft"); }
+    else { grade.innerHTML = "<strong>Poor fit.</strong> This blend doesn't look like Chile before 1973, so its post-1973 path tells you little about Chile."; grade.style.background = css("--neg-soft"); }
+  }
+  document.querySelectorAll("#build-presets button").forEach(btn => btn.addEventListener("click", () => drawBuild(btn.dataset.p)));
+
+  /* ---------- Chapter IV: main chart ---------- */
+  const mSvg = document.getElementById("main-chart"), extBtn = document.getElementById("extend");
+  let extended = false;
+  const events = [[1973, "Coup"], [1975, "Shock therapy: −13%"], [1982, "Banking crash"], [1988, "Plebiscite: \"No\""]];
+  function drawMain() {
+    const end = extended ? 1997 : 1988;
+    const W = 900, H = 400, m = { l: 56, r: 16, t: 34, b: 30 };
+    const X = y => m.l + (y - Y0) / (end - Y0) * (W - m.l - m.r);
+    const ymax = extended ? 10000 : 7000;
+    const Y = v => H - m.b - (v - 3000) / (ymax - 3000) * (H - m.t - m.b);
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted") };
+    mSvg.innerHTML = "";
+    axes(mSvg, X, Y, m, W, H, 3000, ymax, 1000, extended ? [1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995] : [1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988], f);
+    // gap polygons, year by year
+    for (let y = T; y < end; y++) {
+      const c0 = at(D.Chile, y), s0 = at(SYN, y), c1 = at(D.Chile, y + 1), s1 = at(SYN, y + 1);
+      const below = (c0 + c1) / 2 < (s0 + s1) / 2;
+      el("path", { d: `M${X(y)},${Y(c0)}L${X(y + 1)},${Y(c1)}L${X(y + 1)},${Y(s1)}L${X(y)},${Y(s0)}Z`, fill: below ? css("--neg-soft") : css("--pos-soft"), opacity: .9 }, mSvg);
+    }
+    if (extended) el("rect", { x: X(1988), y: m.t, width: X(1997) - X(1988), height: H - m.t - m.b, fill: css("--bg"), opacity: .35 }, mSvg);
+    events.forEach(([y, label], i) => {
+      el("line", { x1: X(y), x2: X(y), y1: m.t - 6 + (i % 2) * 14, y2: H - m.b, stroke: css("--muted"), "stroke-dasharray": "2 3", opacity: .7 }, mSvg);
+      el("text", { ...f, x: X(y) + (y === 1988 ? -4 : 4), y: m.t + 2 + (i % 2) * 14, "text-anchor": y === 1988 ? "end" : "start", fill: css("--ink") }, mSvg, label);
+    });
+    el("path", { d: line(SYN, X, Y, Y0, end), fill: "none", stroke: css("--synth"), "stroke-width": 2.4, "stroke-dasharray": "7 4" }, mSvg);
+    el("path", { d: line(D.Chile, X, Y, Y0, end), fill: "none", stroke: css("--chile"), "stroke-width": 3 }, mSvg);
+    el("text", { ...f, x: X(1979), y: Y(at(SYN, 1979)) - 10, fill: css("--synth"), "font-weight": 600, "text-anchor": "middle" }, mSvg, "Synthetic Chile");
+    el("text", { ...f, x: X(1977), y: Y(at(D.Chile, 1977)) + 22, fill: css("--chile"), "font-weight": 600, "text-anchor": "middle" }, mSvg, "Real Chile");
+    // hover
+    const cross = el("line", { y1: m.t, y2: H - m.b, stroke: css("--ink"), opacity: 0 }, mSvg);
+    const hit = el("rect", { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: "transparent" }, mSvg);
+    const move = ev => {
+      const r = mSvg.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * W;
+      const y = Math.max(Y0, Math.min(end, Math.round(Y0 + (px - m.l) / (W - m.l - m.r) * (end - Y0))));
+      cross.setAttribute("x1", X(y)); cross.setAttribute("x2", X(y)); cross.setAttribute("opacity", .35);
+      const c = at(D.Chile, y), s = at(SYN, y);
+      showTip(`<b>${y}</b><br>Real Chile: ${fmt$(c)}<br>Synthetic: ${fmt$(s)}<br>Gap: ${fmtS$(c - s)}`, ev);
+    };
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerdown", move);
+    hit.addEventListener("pointerleave", () => { hideTip(); cross.setAttribute("opacity", 0); });
+  }
+  extBtn.addEventListener("click", () => {
+    extended = !extended; extBtn.setAttribute("aria-pressed", extended);
+    document.getElementById("extend-note").style.display = extended ? "block" : "none";
+    drawMain();
+  });
+
+  /* ---------- Chapter V: p-values ---------- */
+  const pSvg = document.getElementById("pval-chart"), extP = document.getElementById("extend-p");
+  let extendedP = false;
+  function pColor(p) {
+    if (p < 0.07) return css("--neg");
+    if (p < 0.14) return css("--synth");
+    if (p < 0.2) return css("--chile");
+    return css("--grey");
+  }
+  function drawP() {
+    const rows = EFFECT.filter(r => extendedP || r[0] <= 1988);
+    const W = 900, H = 340, m = { l: 60, r: 16, t: 16, b: 30 };
+    const ymin = -1500, ymax = extendedP ? 2500 : 1000;
+    const Y = v => m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b);
+    const bw = (W - m.l - m.r) / rows.length;
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted"), fmt: v => (v > 0 ? "+" : "") + v.toLocaleString("en-US") };
+    pSvg.innerHTML = "";
+    axes(pSvg, () => 0, Y, m, W, H, ymin, ymax, 500, [], f);
+    if (extendedP) {
+      const x0 = m.l + bw * rows.findIndex(r => r[0] === 1989);
+      el("rect", { x: x0, y: m.t, width: bw * 7, height: H - m.t - m.b, fill: css("--bg"), opacity: .6 }, pSvg);
+      el("text", { ...f, x: x0 + 6, y: Y(-1200) }, pSvg, "Beyond the paper's main window");
+    }
+    rows.forEach(([yr, eff, p], i) => {
+      const x = m.l + i * bw + bw * 0.15, wdt = bw * 0.7;
+      const r = el("rect", { x, y: Math.min(Y(eff), Y(0)), width: wdt, height: Math.abs(Y(eff) - Y(0)), fill: pColor(p), rx: 2 }, pSvg);
+      el("text", { ...f, x: x + wdt / 2, y: eff < 0 ? Y(eff) + 13 : Y(eff) - 5, "text-anchor": "middle", "font-size": 9.5, fill: css("--ink") }, pSvg, p.toFixed(2));
+      if (yr % (extendedP ? 2 : 3) === 1 || yr === 1988) el("text", { ...f, x: x + wdt / 2, y: H - m.b + 18, "text-anchor": "middle" }, pSvg, yr);
+      const hit = el("rect", { x: m.l + i * bw, y: m.t, width: bw, height: H - m.t - m.b, fill: "transparent" }, pSvg);
+      const show = ev => { r.setAttribute("opacity", .75); showTip(`<b>${yr}</b><br>Effect: ${fmtS$(eff)}<br>p-value: ${p.toFixed(3)}<br>${Math.round(p * 16)} of 16 countries had a gap this large or larger`, ev); };
+      hit.addEventListener("pointermove", show);
+      hit.addEventListener("pointerdown", show);
+      hit.addEventListener("pointerleave", () => { r.setAttribute("opacity", 1); hideTip(); });
+    });
+  }
+  extP.addEventListener("click", () => { extendedP = !extendedP; extP.setAttribute("aria-pressed", extendedP); drawP(); });
+
+  const drawAll = () => { drawGrowth(); drawBuild(null); drawMain(); drawP(); };
+  drawBuild("equal");
+  drawAll();
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener ? mq.addEventListener("change", drawAll) : mq.addListener(drawAll);
+})();
+</script>
+</body>
+</html>
