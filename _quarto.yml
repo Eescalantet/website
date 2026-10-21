@@ -4,6 +4,7 @@ project:
   resources:
     - CNAME
     - cv/cv.pdf
+    - nightwatchers/index.html
 
 website:
   title: "Enrique Escalante"
