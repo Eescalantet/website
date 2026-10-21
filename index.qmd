@@ -42,10 +42,10 @@ Did Chile need a dictator to grow? A synthetic Chile without the 1973 coup out-e
 [Explore the interactive summary →](pinochet/){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-4 .theme-card}
-### Development economics
-How formal and informal institutions shape state capacity, fiscal capacity, and long-run development in low- and middle-income countries.
+### The rebel's dilemma
+Why do some insurgencies court the public while others hide in the shadows? Peru's Shining Path and MRTA show the trade-off between seeking legitimacy and keeping secrets.
 
-[Read the paper →](https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444){.stretched-link .card-cue}
+[Explore the interactive summary →](friends-or-foes/){.stretched-link .card-cue}
 :::
 :::
 

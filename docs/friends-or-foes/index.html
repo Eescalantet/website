@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Friends or Foes?</title>
+<meta name="description" content="An interactive summary of Escalante (2026), 'Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets,' World Development: why the Shining Path hid while the MRTA courted the public.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f3ee;
+  --paper: #fffefa;
+  --ink: #1c1b1f;
+  --muted: #66636b;
+  --rule: #dad6cd;
+  --excl: #9e2a2b;       /* Shining Path: exclusive, secret */
+  --incl: #2f6b6a;       /* MRTA: inclusive, open */
+  --gov: #8a8577;        /* government forces */
+  --ochre: #c48a1d;      /* exposure */
+  --excl-soft: #f1dcd9;
+  --incl-soft: #dbe9e7;
+  --ochre-soft: #f4e6c8;
+  --link: #1f4e79;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151418; --paper: #1d1c21; --ink: #e9e6e0; --muted: #a09ca5; --rule: #36343b;
+    --excl: #e07070; --incl: #6fb3b0; --gov: #8f8a80; --ochre: #e0ae4c;
+    --excl-soft: #3a1f21; --incl-soft: #1f3534; --ochre-soft: #3a2e15; --link: #8fb8e0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151418; --paper: #1d1c21; --ink: #e9e6e0; --muted: #a09ca5; --rule: #36343b;
+  --excl: #e07070; --incl: #6fb3b0; --gov: #8f8a80; --ochre: #e0ae4c;
+  --excl-soft: #3a1f21; --incl-soft: #1f3534; --ochre-soft: #3a2e15; --link: #8fb8e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Newsreader", Georgia, serif; font-size: 1.2rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--link); }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.topbar-inner { max-width: 1100px; margin: 0 auto; padding: .55rem 16px; display: flex; gap: 1rem; align-items: center; justify-content: space-between; font-family: "Inter", sans-serif; font-size: .8rem; }
+.topbar a { text-decoration: none; color: var(--muted); }
+.topbar a:hover { color: var(--ink); }
+.brand { font-weight: 600; color: var(--ink) !important; white-space: nowrap; }
+.toc { display: flex; gap: .9rem; overflow-x: auto; scrollbar-width: none; }
+.toc::-webkit-scrollbar { display: none; }
+.toc a { white-space: nowrap; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+.wide { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+section { padding: 3.5rem 0 1rem; }
+.chapter-num { font-family: "Inter", sans-serif; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+h1, h2, h3 { line-height: 1.15; font-weight: 600; }
+h2 { font-size: 2.1rem; margin: 0 0 1rem; }
+h3 { font-size: 1.35rem; margin: 2rem 0 .5rem; }
+hr.sep { border: 0; border-top: 1px solid var(--rule); max-width: 720px; margin: 2.5rem auto 0; }
+
+.hero { padding: 5rem 0 3rem; border-bottom: 1px solid var(--rule); }
+.hero .kicker { font-family: "Inter", sans-serif; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--excl); }
+.hero h1 { font-size: clamp(2.8rem, 8vw, 4.8rem); margin: .4rem 0 .6rem; letter-spacing: -.01em; }
+.hero .dek { font-size: 1.4rem; color: var(--muted); font-style: italic; margin: 0 0 1.5rem; }
+.byline { font-family: "Inter", sans-serif; font-size: .85rem; color: var(--muted); }
+.byline a { color: var(--muted); }
+.hero-split { display: grid; grid-template-columns: 1fr 1fr; margin-top: 2.5rem; border-radius: 6px; overflow: hidden; border: 1px solid var(--rule); }
+.hero-split div { padding: 1.2rem 1.3rem; font-size: 1rem; line-height: 1.45; }
+.hero-split .x { background: var(--excl-soft); }
+.hero-split .i { background: var(--incl-soft); }
+.hero-split strong { display: block; font-family: "Inter", sans-serif; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .3rem; }
+.hero-split .x strong { color: var(--excl); }
+.hero-split .i strong { color: var(--incl); }
+
+blockquote { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--rule); font-style: italic; }
+blockquote.x { border-color: var(--excl); }
+blockquote.i { border-color: var(--incl); }
+blockquote cite { display: block; font-style: normal; font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+.note { font-family: "Inter", sans-serif; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.cx { color: var(--excl); font-weight: 600; }
+.ci { color: var(--incl); font-weight: 600; }
+
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 1.4rem; margin: 2rem 0; }
+.panel h4 { margin: 0 0 .2rem; font-size: 1.15rem; }
+.panel .sub { font-family: "Inter", sans-serif; font-size: .82rem; color: var(--muted); margin: 0 0 1rem; }
+.chart { width: 100%; height: auto; display: block; }
+.chart text { font-family: "Inter", sans-serif; }
+
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; gap: 3px; font-family: "Inter", sans-serif; font-size: .85rem; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; color: var(--muted); padding: .4rem .9rem; border-radius: 999px; cursor: pointer; font: inherit; }
+.seg button[aria-pressed="true"].x { background: var(--excl); color: #fff; }
+.seg button[aria-pressed="true"].i { background: var(--incl); color: #fff; }
+.btn-sm { font-family: "Inter", sans-serif; font-size: .75rem; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); padding: .4rem .7rem; border-radius: 4px; cursor: pointer; }
+.btn-sm:hover { border-color: var(--muted); }
+button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+/* network sim */
+.sim-top { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: .6rem; }
+.sim-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.4rem; align-items: start; }
+#net circle.node { cursor: pointer; transition: fill .15s, opacity .15s; }
+#net circle.node:hover { stroke-width: 3; }
+.meter { font-family: "Inter", sans-serif; font-size: .82rem; margin-bottom: 1rem; }
+.meter .lab { display: flex; justify-content: space-between; color: var(--muted); margin-bottom: .3rem; }
+.meter .lab b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.meter .track { height: 10px; background: var(--rule); border-radius: 5px; overflow: hidden; }
+.meter .fill { height: 100%; width: 0; border-radius: 5px; transition: width .25s; }
+.sim-msg { font-size: 1.02rem; line-height: 1.45; padding: .8rem .9rem; border-radius: 6px; background: var(--bg); min-height: 5.5rem; }
+.legend { display: flex; gap: 1rem; flex-wrap: wrap; font-family: "Inter", sans-serif; font-size: .75rem; color: var(--muted); margin-top: .6rem; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: -1px; margin-right: .3rem; }
+
+/* compare table */
+.compare { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1rem; }
+.compare th { text-align: left; font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: .7rem .8rem .7rem 0; vertical-align: top; width: 28%; border-top: 1px solid var(--rule); }
+.compare td { padding: .7rem 0; border-top: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 2rem 0; }
+.stat { background: var(--paper); padding: 1rem 1.1rem; }
+.stat .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.stat .l { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: .3rem; }
+
+.waffle { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; max-width: 520px; margin: .8rem 0; }
+.waffle span { aspect-ratio: 1; border-radius: 2px; background: var(--incl-soft); border: 1px solid var(--incl); }
+.waffle span.r { background: var(--excl); border-color: var(--excl); }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.two > div { border-radius: 6px; padding: 1rem 1.1rem; font-size: 1rem; line-height: 1.45; }
+.two strong { font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .3rem; }
+
+.hyps { display: grid; gap: 1rem; margin: 1.5rem 0; }
+.hyp { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.hyp summary { list-style: none; cursor: pointer; padding: 1rem 1.2rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; }
+.hyp summary::-webkit-details-marker { display: none; }
+.hyp .hid { font-family: "Inter", sans-serif; font-weight: 600; font-size: .85rem; color: var(--muted); }
+.hyp .claim { font-size: 1.05rem; line-height: 1.35; }
+.hyp .plus { font-family: "Inter", sans-serif; color: var(--muted); font-size: 1.2rem; }
+.hyp[open] .plus { transform: rotate(45deg); }
+.hyp .body { border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; }
+.hyp .body > div { padding: .9rem 1.2rem 1.1rem; font-size: 1rem; line-height: 1.5; }
+.hyp .body strong { font-family: "Inter", sans-serif; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .2rem; }
+
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .8rem; margin: 1.2rem 0; }
+.cases div { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: .8rem .9rem; font-size: .98rem; line-height: 1.45; }
+.cases b { display: block; font-family: "Inter", sans-serif; font-size: .82rem; margin-bottom: .2rem; }
+
+.takeaway { font-size: 1.55rem; line-height: 1.35; font-style: italic; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 1.4rem 0; margin: 2rem 0; }
+footer { border-top: 1px solid var(--rule); margin-top: 4rem; padding: 2rem 0 4rem; }
+footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; line-height: 1.5; }
+.btns { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.btn { font-family: "Inter", sans-serif; font-size: .85rem; font-weight: 600; text-decoration: none; padding: .55rem 1rem; border-radius: 4px; border: 1px solid var(--link); color: var(--link); }
+.btn.fill { background: var(--link); color: var(--paper); }
+
+@media (max-width: 760px) {
+  body { font-size: 1.1rem; }
+  h2 { font-size: 1.7rem; }
+  .sim-grid, .two, .hero-split, .hyp .body { grid-template-columns: 1fr; }
+  .compare th { width: 34%; }
+  .topbar .toc { display: none; }
+  .hyp summary { grid-template-columns: 1fr auto; }
+  .hyp .hid { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Friends or Foes?</a>
+    <nav class="toc" aria-label="Sections">
+      <a href="#dilemma">Dilemma</a><a href="#two">Two insurgencies</a><a href="#capture">Capture game</a>
+      <a href="#shadows">Shining Path</a><a href="#spotlight">MRTA</a><a href="#tests">Hypotheses</a>
+      <a href="#winner">Who won?</a><a href="#today">Today</a><a href="#source">Source</a>
+    </nav>
+    <a href="/">← enriqueescalante.com</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">An interactive summary</div>
+    <h1>Friends or Foes?</h1>
+    <p class="dek">The insurgent's dilemma: seek legitimacy and risk exposure, or keep secrets and risk isolation.</p>
+    <div class="byline">Enrique Escalante · "Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets," <em>World Development</em> 199 (2026): 107258 · <a href="https://doi.org/10.1016/j.worlddev.2025.107258">doi:10.1016/j.worlddev.2025.107258</a></div>
+    <div class="hero-split">
+      <div class="x"><strong>Exclusive · Shining Path</strong>A splinter faction that went underground: noms de guerre, cells of three, a leader few ever saw, and no credit claimed.</div>
+      <div class="i"><strong>Inclusive · MRTA</strong>A coalition that sought the spotlight: uniforms, press interviews, Robin Hood raids, and credit claimed for every action.</div>
+    </div>
+  </div>
+</header>
+
+<!-- I -->
+<section id="dilemma">
+  <div class="wrap">
+    <div class="chapter-num">Chapter I</div>
+    <h2>Why hide, and why be seen?</h2>
+    <p>Insurgents need civilians. Legitimacy, which Weber called the recognized right to rule, brings food, shelter, recruits, intelligence and willing cooperation. Winning legitimacy means <em>telling people things</em>: who you are, what you want, what you have done.</p>
+    <p>Every disclosure is also a vulnerability. Information about leaders, operations and members can reach the state. So each rebel group faces a trade-off:</p>
+    <div class="two">
+      <div style="background:var(--incl-soft)"><strong class="ci">Reveal</strong>Gain popular support, resources and collaboration with non-combatants, and lower operating costs. The price is exposure to detection.</div>
+      <div style="background:var(--excl-soft)"><strong class="cx">Conceal</strong>Protect the group from defection and detection. The price is isolation, an image of opacity and deceit, and room for resistance to grow.</div>
+    </div>
+    <p>The paper's argument is that the binding constraint is <strong>the likelihood of splintering</strong>. A radical faction that split from a larger movement has more to lose from leaks. Its leaders are easy to identify, and one arrest or defection can bring down the whole group. A coalition of factions can afford to be seen, because losing one member or faction does not sink the movement.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- II -->
+<section id="two">
+  <div class="wrap">
+    <div class="chapter-num">Chapter II</div>
+    <h2>Same war, same enemy, opposite strategies</h2>
+    <p>Peru in the 1980s and 1990s is close to a natural comparison. Two communist insurgencies fought the same state, in the same country, with similar ideological inspiration and transformative goals. One chose secrecy and the other chose legitimacy.</p>
+  </div>
+  <div class="wrap">
+    <div class="panel">
+      <h4>Compare the insurgencies</h4>
+      <p class="sub">Based on Table 1 of the paper and the case evidence.</p>
+      <div class="seg" role="group" aria-label="Insurgency">
+        <button class="x" aria-pressed="true" data-g="sp">Shining Path</button>
+        <button class="i" aria-pressed="false" data-g="mrta">MRTA</button>
+      </div>
+      <table class="compare" id="compare"><tbody></tbody></table>
+    </div>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Who did the killing?</h4>
+      <p class="sub">Share of the conflict's deaths, according to Peru's Truth and Reconciliation Commission (TRC 2003). The conflict caused nearly seventy thousand deaths.</p>
+      <svg class="chart" id="deaths" viewBox="0 0 900 110" role="img" aria-label="Shares of conflict deaths"></svg>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- III -->
+<section id="capture">
+  <div class="wrap">
+    <div class="chapter-num">Chapter III</div>
+    <h2>The capture game</h2>
+    <p>The trade-off is easiest to see by trying to dismantle an insurgency. Below are two stylized organizations. The <span class="cx">exclusive</span> one follows the Shining Path's design: a central leadership, committees, and cells of three whose members know only each other. The <span class="ci">inclusive</span> one follows the MRTA's design: a coalition of two factions, a six-member directorate split evenly between them, and shared information within each faction.</p>
+    <p><strong>You are the intelligence service. Click any member to capture them.</strong></p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <div class="sim-top">
+        <div class="seg" role="group" aria-label="Organization">
+          <button class="x" aria-pressed="true" data-o="excl">Exclusive (secret)</button>
+          <button class="i" aria-pressed="false" data-o="incl">Inclusive (open)</button>
+        </div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <button class="btn-sm" id="cap-leader">Capture the top leader</button>
+          <button class="btn-sm" id="cap-reset">Reset</button>
+        </div>
+      </div>
+      <div class="sim-grid">
+        <div>
+          <svg class="chart" id="net" viewBox="0 0 600 330" role="img" aria-label="Insurgent network; click members to capture them"></svg>
+          <div class="legend">
+            <span><i style="background:var(--ink)"></i>Captured</span>
+            <span><i style="background:var(--ochre)"></i>Identified by captives</span>
+            <span><i style="background:var(--rule)"></i>Cut off from command</span>
+          </div>
+        </div>
+        <div>
+          <div class="meter"><div class="lab"><span>Members identified by captives</span><b id="m-exp">0</b></div><div class="track"><div class="fill" id="f-exp" style="background:var(--ochre)"></div></div></div>
+          <div class="meter"><div class="lab"><span>Members cut off from command</span><b id="m-cut">0</b></div><div class="track"><div class="fill" id="f-cut" style="background:var(--muted)"></div></div></div>
+          <div class="sim-msg" id="sim-msg"></div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:1rem">A stylized illustration of the paper's mechanism, not a model of the actual organizations' size. Cells of three overseen by small groups follow the Shining Path's structure as described in the paper; the six-member, evenly split directorate follows the MRTA after its 1986 merger with the MIR–Voz Rebelde.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>Secrecy keeps each capture small: an arrested cell member can name only a couple of comrades. But the structure has a single point of failure. In 1992 an elite police unit, the GEIN, captured Abimael Guzmán and his inner circle in Lima after years of surveillance. With its leadership dismantled, the Shining Path rapidly declined.</p>
+    <p>Openness spreads the risk the other way. No single arrest decapitates a coalition, but every captive or defector can name many people. That is how the MRTA eventually came apart: an amnesty law that offered reduced sentences for cooperation set off a wave of defection and betrayal.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- IV -->
+<section id="shadows">
+  <div class="wrap">
+    <div class="chapter-num">Chapter IV · Exclusive</div>
+    <h2>The Shining Path: a dwarf star</h2>
+    <p>By 1970 Abimael Guzmán had been pushed out of his party, and at least four groups claimed to be Peru's true Communist Party. His Red Faction started with just over a dozen members, led by a philosophy professor and a handful of students at the University of Huamanga in Ayacucho, far from Lima. Carlos Iván Degregori called it a <em>dwarf star</em>: small, but dense enough to have outsized influence.</p>
+    <p><strong>Secrecy as protection (H1).</strong> Recruits had to burn their bridges, often by taking part in punishing their own neighbors and authorities, and they took noms de guerre. One of the top leaders, Elena Iparraguirre, explained:</p>
+    <blockquote class="x">"We prepared internally, leaving the world, breaking completely with the system, and fully committing to the revolution… Much of our initial strength came from the break between our militants and the world around us, including our families."<cite>Elena Iparraguirre, in Zapata (2017, 114)</cite></blockquote>
+    <p><strong>Secrecy builds hierarchy (H2).</strong> Rising through the ranks meant gaining access to concealed information, so decision-making concentrated at the top. "The Party ends and begins with the Central Directorate and its leaders," Guzmán declared. He seldom appeared in public, and at one point the counterinsurgency believed he was dead. Unchecked leaders pushed the riskiest and most violent tasks onto lower-ranking members.</p>
+    <p><strong>Monitoring without exposure (H3).</strong> The party advertised its own secrecy. It claimed "one thousand eyes and one thousand ears," so members watched themselves. Cells of no more than three people reported to groups of five to nine who knew each other and no one else. "It could be your best friend," a villager said. Public sessions of "criticism and self-criticism" disciplined anyone who hesitated.</p>
+    <blockquote class="x">"I live a double life, teaching by day and organizing by night."<cite>Comrade José Vizcardo, in Starn and La Serna (2019, 221)</cite></blockquote>
+    <p>The Shining Path never tried to explain, justify or even take credit for its attacks. Its leaders also stayed away from the violence they ordered.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- V -->
+<section id="spotlight">
+  <div class="wrap">
+    <div class="chapter-num">Chapter V · Inclusive</div>
+    <h2>The MRTA: revolution as publicity</h2>
+    <p>The Túpac Amaru Revolutionary Movement grew out of a merger of established left-wing parties (the PSR-ML and the MIR–El Militante) whose stated aim was "to forge the broadest possible union with other left-wing parties and organizations." It worked with Chile's Miristas and Uruguay's Tupamaros and had foreign members in its ranks.</p>
+    <p><strong>Disclosure for legitimacy (H1).</strong> MRTA fighters wore uniforms, camped outside populated areas, invoked the Geneva Conventions, and chose targets for symbolic effect: the US embassy, Citibank, Kodak, and seven simultaneous attacks on KFC restaurants. They stole Peru's first coat of arms and its original independence flag to present themselves as heirs to a patriotic tradition. They also redistributed stolen chicken, milk and rice in Lima's shantytowns.</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Armed actions that put people at risk</h4>
+      <p class="sub">By 1992, only 17% of the MRTA's 1,772 armed actions could be classified as putting individuals or groups at risk (McCormick 1993). Each square is 1% of actions.</p>
+      <div class="waffle" id="waffle" role="img" aria-label="17 of 100 squares highlighted"></div>
+      <div class="legend"><span><i style="background:var(--excl);border-radius:2px"></i>Put people at risk (17%)</span><span><i style="background:var(--incl-soft);border:1px solid var(--incl);border-radius:2px"></i>Stylized attacks on symbols of the state, capitalism or imperialism</span></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p><strong>Consensus moderates (H2).</strong> MRTA militants had voting rights, and after the 1986 merger the directorate's six seats were split evenly between the MRTA and the MIR. Requiring more members to agree reduced the external costs imposed on any one of them and limited risky violence. It also made decisions slow:</p>
+    <blockquote class="i">"Because unity within the group is not a function of party hierarchy and party authority, it must be continually reinforced or renegotiated by ensuring that agreement is reached on matter of group policy… suboptimal policies will tend to be adopted to ensure group consensus."<cite>Gordon McCormick, report to the US Secretary of Defense (1993, 53)</cite></blockquote>
+    <p><strong>Openness replaces monitoring (H3).</strong> Shared information created common expectations, so the MRTA needed less surveillance. Its top leaders, Víctor Polay Campos and Peter Cárdenas, fought in the field and were both captured in action. When the MRTA took the town of Juanjui, population 12,000, the only people who pursued the insurgents were journalists.</p>
+    <blockquote class="i">"Reporters snapped pictures of the peasant women dancing the tunche, a local dance, with the bearded and mustachioed guerrillas, who never stopped clutching their guns as they danced the night away."<cite>La Serna (2020, 93)</cite></blockquote>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VI -->
+<section id="tests">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VI</div>
+    <h2>Three hypotheses, two cases</h2>
+    <p>Open each hypothesis to see how it plays out in each insurgency.</p>
+    <div class="hyps">
+      <details class="hyp" open>
+        <summary><span class="hid">H1</span><span class="claim">Splinter factions lean toward secrecy; groups that seek alliances lean toward revealing information.</span><span class="plus">+</span></summary>
+        <div class="body">
+          <div style="background:var(--excl-soft)"><strong class="cx">Shining Path</strong>A faction that split from the left. It cut recruits off from the outside world, refused alliances and foreign backing, and took its arms and supplies from its victims.</div>
+          <div style="background:var(--incl-soft)"><strong class="ci">MRTA</strong>A merger of parties that shared power with partners, kept channels open to outside organizations, and publicized its operations and motives.</div>
+        </div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H2</span><span class="claim">How an insurgency manages information and violence depends on the balance between external costs and decision-making costs.</span><span class="plus">+</span></summary>
+        <div class="body">
+          <div style="background:var(--excl-soft)"><strong class="cx">Shining Path</strong>Secrecy concentrated decisions at the top, so leaders could impose riskier and more brutal tasks on the rank and file.</div>
+          <div style="background:var(--incl-soft)"><strong class="ci">MRTA</strong>Consensus spread costs across members and moderated violence, at the price of slow, negotiated decisions and a short-lived 1985 truce.</div>
+        </div>
+      </details>
+      <details class="hyp">
+        <summary><span class="hid">H3</span><span class="claim">The more leaders' and operatives' preferences diverge, the more centralized insurgencies need mechanisms to align them.</span><span class="plus">+</span></summary>
+        <div class="body">
+          <div style="background:var(--excl-soft)"><strong class="cx">Shining Path</strong>"One thousand eyes" surveillance, cells of three, and criticism and self-criticism sessions. Even so, leaders disowned massacres such as Lucanamarca: "it was a mistake that cannot be repeated."</div>
+          <div style="background:var(--incl-soft)"><strong class="ci">MRTA</strong>Little need for monitoring. Leaders fought alongside members, credit was claimed openly, and the reputational costs and benefits of actions were shared.</div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VII -->
+<section id="winner">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VII</div>
+    <h2>Which strategy worked better?</h2>
+    <p>The secretive group mobilized far more people. Its brutality and secrecy gave it tighter control over a large constituency, and recruitment came to rely increasingly on coercion.</p>
+  </div>
+  <div class="wide">
+    <div class="stats">
+      <div class="stat"><div class="v cx">~4,000</div><div class="l">Shining Path combatants by 1992, with over 50,000 supporters</div></div>
+      <div class="stat"><div class="v ci">≥1,000</div><div class="l">MRTA rebels at its peak in the late 1980s, with several thousand active supporters</div></div>
+      <div class="stat"><div class="v">&gt;63%</div><div class="l">of captured Shining Path members (1983–86) had secondary, university or postgraduate education, vs. 26.9% of common criminals</div></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>Openness won sympathy but not commitment. Many people benefited from the MRTA's actions without paying any cost, and its urban strategy did not resonate in the countryside. When commanders were captured, MRTA fighters in Lima turned to kidnapping for ransom, which cost them more public support. By 1995 most remaining fighters had been captured. In December 1996 the group seized the Japanese ambassador's residence in Lima and took hundreds of officials and diplomats hostage. More than four months later a military raid freed the hostages and ended the MRTA insurgency.</p>
+    <p class="takeaway">Secrecy bought control and fragility. Openness bought sympathy and exposure.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VIII -->
+<section id="today">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VIII</div>
+    <h2>Why it matters now</h2>
+    <p>More than 180 armed conflicts around the world today involve both state and non-state actors. Insurgencies still walk the line between legitimacy and secrecy:</p>
+    <div class="cases">
+      <div><b>Hamas</b>Sought legitimacy through governance and public services while planning attacks from public institutions and laundering funds through charities.</div>
+      <div><b>Taliban</b>Decentralized decision-making, with governance built on ties to local religious and tribal leaders.</div>
+      <div><b>Hezbollah</b>Kept its members' affiliations secret until attacks on its communication network exposed their identities.</div>
+      <div><b>Hayʼat Tahrir al-Sham</b>Kept its collaborations with foreign intelligence secret while selectively revealing its leaders to retain legitimacy.</div>
+    </div>
+    <h3>What counterinsurgency should do</h3>
+    <div class="two">
+      <div style="background:var(--incl-soft)"><strong class="ci">Against inclusive insurgencies</strong>Compete for the population: bottom-up property rights, local governance alternatives, and government transparency.</div>
+      <div style="background:var(--excl-soft)"><strong class="cx">Against exclusive insurgencies</strong>Targeted intelligence: amplify internal divisions, sow distrust between leaders and operatives, and fund exit paths for disillusioned members.</div>
+    </div>
+  </div>
+</section>
+
+<footer id="source">
+  <div class="wrap">
+    <div class="chapter-num">Source</div>
+    <div class="cite">Escalante, Enrique. 2026. "Friends or Foes? The Insurgent's Dilemma of Seeking Legitimacy While Keeping Secrets." <em>World Development</em> 199: 107258. https://doi.org/10.1016/j.worlddev.2025.107258</div>
+    <div class="btns">
+      <a class="btn fill" href="https://www.sciencedirect.com/science/article/abs/pii/S0305750X25003444">Read the published article</a>
+      <a class="btn" href="/nightwatchers/">Also: Night Watchers and Terrorists</a>
+      <a class="btn" href="/pinochet/">Also: Whose Miracle?</a>
+    </div>
+    <p class="note">This page summarizes the published article for a general audience. All figures and quotations come from the article and the sources it cites (TRC 2003; McCormick 1993; La Serna 2020; Starn and La Serna 2019; Gorriti 2017; Zapata 2017; Weinstein 2007). The capture game is a stylized illustration of the paper's mechanism, not a model of either organization. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent, text) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+
+  /* ---------- Chapter II: compare ---------- */
+  const rows = {
+    sp: [
+      ["Origins", "A faction operating in rural areas, born of splits in the Peruvian left; just over a dozen founding members"],
+      ["Funding", "Educational institutions run as fronts; taxes on drug enterprises and in-kind contributions from coca growers and traffickers in the upper Huallaga valley"],
+      ["Visibility", "Clandestine networks, no insignia, noms de guerre; never explained, justified or claimed its attacks"],
+      ["Decisions", "Top-down: \"The Party ends and begins with the Central Directorate and its leaders\""],
+      ["Alliances", "Refused partnerships and foreign support; took arms and supplies from its victims"],
+      ["Leaders in combat", "No. The command stayed away from the violence"],
+      ["Lethality", "54% of the conflict's deaths (TRC 2003)"],
+      ["Demise", "1992: Guzmán and his inner circle captured in Lima by the police intelligence unit GEIN; the group then declined rapidly"]
+    ],
+    mrta: [
+      ["Origins", "A coalition operating in urban areas, formed by the merger of established left-wing parties"],
+      ["Funding", "Ransoms from kidnapping; taxes on coca production (in competition with the Shining Path)"],
+      ["Visibility", "Uniforms, media interviews, forced broadcasts on private radio and TV, credit claimed for every action"],
+      ["Decisions", "Consensus: voting rights for militants and a directorate split evenly among merged factions"],
+      ["Alliances", "Worked with Chile's Miristas and Uruguay's Tupamaros; offered a truce in 1985"],
+      ["Leaders in combat", "Yes. Polay Campos and Cárdenas were both captured during operations"],
+      ["Lethality", "1.8% of the conflict's deaths (TRC 2003)"],
+      ["Demise", "Defections after an amnesty law; December 1996 seizure of the Japanese ambassador's residence, ended by a military raid more than four months later"]
+    ]
+  };
+  const tbody = document.querySelector("#compare tbody");
+  const setG = g => {
+    document.querySelectorAll("[data-g]").forEach(b => b.setAttribute("aria-pressed", b.dataset.g === g));
+    tbody.innerHTML = rows[g].map(r => `<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  };
+  document.querySelectorAll("[data-g]").forEach(b => b.addEventListener("click", () => setG(b.dataset.g)));
+  setG("sp");
+
+  /* ---------- deaths bar ---------- */
+  function drawDeaths() {
+    const svg = document.getElementById("deaths"); svg.innerHTML = "";
+    const parts = [["Shining Path", 54, css("--excl")], ["MRTA", 1.8, css("--incl")], ["Government forces", 44.2, css("--gov")]];
+    const W = 900, x0 = 0, y = 34, h = 34;
+    let x = x0;
+    parts.forEach(([name, v, c], i) => {
+      const w = v / 100 * W;
+      el("rect", { x, y, width: w, height: h, fill: c }, svg);
+      const f = { "font-family": "Inter, sans-serif", "font-size": 13 };
+      if (i === 1) {
+        el("line", { x1: x + w / 2, x2: x + w / 2, y1: y + h, y2: y + h + 14, stroke: c }, svg);
+        el("text", { ...f, x: x + w / 2, y: y + h + 30, "text-anchor": "middle", fill: c, "font-weight": 600 }, svg, "MRTA 1.8%");
+      } else {
+        el("text", { ...f, x: x + 10, y: y + 22, fill: "#fff", "font-weight": 600 }, svg, `${name} ${v}%`);
+      }
+      x += w;
+    });
+    el("text", { "font-family": "Inter, sans-serif", "font-size": 11, x: W, y: 20, "text-anchor": "end", fill: css("--muted") }, svg, "Remaining deaths attributed by the TRC to government forces");
+  }
+
+  /* ---------- waffle ---------- */
+  const wf = document.getElementById("waffle");
+  wf.innerHTML = Array.from({ length: 100 }, (_, i) => `<span class="${i < 17 ? "r" : ""}"></span>`).join("");
+
+  /* ---------- Chapter III: capture game ---------- */
+  const net = document.getElementById("net");
+  let org = "excl", nodes = [], edges = [], captured = new Set();
+
+  function buildExcl() {
+    nodes = []; edges = [];
+    const add = (x, y, role, parent, extra = {}) => { const id = nodes.length; nodes.push({ id, x, y, role, parent, ...extra }); if (parent != null) edges.push([parent, id]); return id; };
+    const L = add(300, 30, "leader", null);
+    const regX = [120, 300, 480];
+    regX.forEach((rx, r) => {
+      const R = add(rx, 95, "committee", L);
+      [-45, 45].forEach((dz, z) => {
+        const Z = add(rx + dz, 165, "zone", R);
+        [-22, 22].forEach((dc, c) => {
+          const cx = rx + dz + dc, cy = 250, cell = `${r}-${z}-${c}`;
+          const pts = [[cx, cy - 12], [cx - 10, cy + 6], [cx + 10, cy + 6]];
+          const first = add(pts[0][0], pts[0][1], "cell", Z, { cell });
+          add(pts[1][0], pts[1][1], "cell", first, { cell });
+          add(pts[2][0], pts[2][1], "cell", first, { cell });
+        });
+      });
+    });
+  }
+  function buildIncl() {
+    nodes = []; edges = [];
+    const add = (x, y, role, faction) => { const id = nodes.length; nodes.push({ id, x, y, role, faction }); return id; };
+    const dir = [];
+    [0, 1].forEach(f => [0, 1, 2].forEach(k => dir.push(add(f === 0 ? 210 + k * 30 : 330 + k * 30, 40, "directorate", f))));
+    for (let i = 0; i < dir.length; i++) for (let j = i + 1; j < dir.length; j++) edges.push([dir[i], dir[j]]);
+    [0, 1].forEach(f => {
+      const leaders = dir.filter(d => nodes[d].faction === f);
+      for (let k = 0; k < 18; k++) {
+        const col = k % 6, row = Math.floor(k / 6);
+        const x = (f === 0 ? 60 : 340) + col * 40, y = 170 + row * 50;
+        const id = add(x, y, "member", f);
+        leaders.forEach(l => edges.push([l, id]));
+      }
+    });
+  }
+  function leaderId() { return org === "excl" ? 0 : null; }
+
+  // Who can a captive identify?
+  function knows(id) {
+    const n = nodes[id], out = new Set();
+    if (org === "excl") {
+      // Neighbors only: superior, direct subordinates, cellmates.
+      edges.forEach(([a, b]) => { if (a === id) out.add(b); if (b === id) out.add(a); });
+      if (n.cell) nodes.forEach(m => { if (m.cell === n.cell) out.add(m.id); });
+    } else {
+      // Shared information: everyone in one's own faction, plus the directorate.
+      nodes.forEach(m => { if (m.faction === n.faction || m.role === "directorate") out.add(m.id); });
+    }
+    out.delete(id);
+    return out;
+  }
+  // Who still has a chain to a free top-level node?
+  function connected() {
+    const tops = org === "excl" ? [0] : nodes.filter(n => n.role === "directorate").map(n => n.id);
+    const ok = new Set(), stack = tops.filter(t => !captured.has(t));
+    stack.forEach(t => ok.add(t));
+    while (stack.length) {
+      const v = stack.pop();
+      edges.forEach(([a, b]) => {
+        const w = a === v ? b : b === v ? a : null;
+        if (w != null && !captured.has(w) && !ok.has(w)) { ok.add(w); stack.push(w); }
+      });
+    }
+    return ok;
+  }
+
+  function draw() {
+    net.innerHTML = "";
+    const main = org === "excl" ? css("--excl") : css("--incl");
+    const ok = connected();
+    const exposed = new Set();
+    captured.forEach(c => knows(c).forEach(k => { if (!captured.has(k)) exposed.add(k); }));
+    edges.forEach(([a, b]) => el("line", { x1: nodes[a].x, y1: nodes[a].y, x2: nodes[b].x, y2: nodes[b].y, stroke: css("--rule"), "stroke-width": org === "incl" && nodes[b].role === "member" ? .6 : 1.2 }, net));
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: css("--muted") };
+    if (org === "excl") {
+      el("text", { ...f, x: 318, y: 34 }, net, "Central leadership");
+      el("text", { ...f, x: 8, y: 99 }, net, "Committees");
+      el("text", { ...f, x: 8, y: 169 }, net, "Zones");
+      el("text", { ...f, x: 8, y: 300 }, net, "Cells of three");
+    } else {
+      el("text", { ...f, x: 300, y: 20, "text-anchor": "middle" }, net, "Directorate: 3 + 3 seats");
+      el("text", { ...f, x: 160, y: 320, "text-anchor": "middle" }, net, "Faction A");
+      el("text", { ...f, x: 440, y: 320, "text-anchor": "middle" }, net, "Faction B");
+    }
+    nodes.forEach(n => {
+      const big = n.role === "leader" || n.role === "directorate" || n.role === "committee";
+      let fill = main, op = 1;
+      if (captured.has(n.id)) fill = css("--ink");
+      else if (exposed.has(n.id)) fill = css("--ochre");
+      else if (!ok.has(n.id)) { fill = css("--rule"); }
+      const c = el("circle", { class: "node", cx: n.x, cy: n.y, r: n.role === "leader" ? 11 : big ? 8 : 6.5, fill, stroke: css("--paper"), "stroke-width": 1.5, opacity: op, tabindex: 0 }, net);
+      c.addEventListener("click", () => capture(n.id));
+      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); capture(n.id); } });
+    });
+    const free = nodes.length - captured.size;
+    const cut = nodes.filter(n => !captured.has(n.id) && !ok.has(n.id)).length;
+    document.getElementById("m-exp").textContent = `${exposed.size} of ${free}`;
+    document.getElementById("m-cut").textContent = `${cut} of ${free}`;
+    document.getElementById("f-exp").style.width = (free ? exposed.size / free * 100 : 0) + "%";
+    document.getElementById("f-cut").style.width = (free ? cut / free * 100 : 0) + "%";
+    let msg;
+    if (!captured.size) msg = org === "excl"
+      ? "Try capturing a cell member at the bottom, then the leader at the top."
+      : "Try capturing a fighter, then a member of the directorate.";
+    else if (org === "excl" && captured.has(0)) msg = "<strong>Decapitated.</strong> With the central leadership gone, every cell loses its line of command. This is the GEIN's capture of Guzmán in 1992.";
+    else if (org === "excl") msg = `<strong>Contained.</strong> Your captives can name only ${exposed.size} member${exposed.size === 1 ? "" : "s"}. Secrecy limits the damage from each arrest, but the hierarchy still depends on one person.`;
+    else msg = `<strong>Exposed but standing.</strong> Shared information lets your captives name ${exposed.size} members, yet ${cut === 0 ? "no one" : cut + " members"} lost contact with the command. ${captured.size >= 3 ? "Turn enough captives into informants and the coalition unravels, which is what the amnesty law did to the MRTA." : "Capturing one leader doesn't decapitate a coalition."}`;
+    document.getElementById("sim-msg").innerHTML = msg;
+  }
+  function capture(id) { captured.add(id); draw(); }
+  function setOrg(o) {
+    org = o; captured = new Set();
+    document.querySelectorAll("[data-o]").forEach(b => b.setAttribute("aria-pressed", b.dataset.o === o));
+    document.getElementById("cap-leader").textContent = o === "excl" ? "Capture the top leader" : "Capture a directorate member";
+    o === "excl" ? buildExcl() : buildIncl();
+    draw();
+  }
+  document.querySelectorAll("[data-o]").forEach(b => b.addEventListener("click", () => setOrg(b.dataset.o)));
+  document.getElementById("cap-reset").addEventListener("click", () => { captured = new Set(); draw(); });
+  document.getElementById("cap-leader").addEventListener("click", () => {
+    if (org === "excl") capture(0);
+    else { const d = nodes.find(n => n.role === "directorate" && !captured.has(n.id)); if (d) capture(d.id); }
+  });
+
+  setOrg("excl");
+  drawDeaths();
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const redraw = () => { draw(); drawDeaths(); };
+  mq.addEventListener ? mq.addEventListener("change", redraw) : mq.addListener(redraw);
+})();
+</script>
+</body>
+</html>
