@@ -38,7 +38,7 @@ Why do some rebel groups court public legitimacy while others stay hidden? I mod
 ::::: {.pub-entry}
 **"A Self-Defense Network against Terrorism and Crime: Evidence from Peru"**\
 *Terrorism and Political Violence*, 2023\
-[Published version](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20) · [PDF](https://drive.google.com/file/d/1ZlAOnm5SeCuxz9jt62QFtl_KjsQHFw4G/view?usp=drive_link)
+[Interactive summary](self-defense-network/) · [Published version](https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704?journalCode=ftpv20) · [PDF](https://drive.google.com/file/d/1ZlAOnm5SeCuxz9jt62QFtl_KjsQHFw4G/view?usp=drive_link)
 
 :::: {.panel-tabset}
 ## English

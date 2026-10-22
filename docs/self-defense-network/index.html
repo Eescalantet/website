@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security from Below</title>
+<meta name="description" content="An interactive summary of Escalante, 'A Self-defense Network against Terrorism and Crime: Evidence from Peru,' Terrorism and Political Violence: how thousands of peasant communities scaled up security with no central direction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f3ee;
+  --paper: #fffefa;
+  --ink: #1b1d1c;
+  --muted: #646a66;
+  --rule: #d9d7cd;
+  --comm: #2f6b4f;       /* community level */
+  --conf: #3b4f8a;       /* confederation level */
+  --threat: #b5432a;
+  --ochre: #c48a1d;
+  --comm-soft: #dcebe2;
+  --conf-soft: #dfe3f1;
+  --threat-soft: #f3ddd5;
+  --ochre-soft: #f4e6c8;
+  --link: #1f4e79;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141615; --paper: #1c1f1d; --ink: #e7e8e3; --muted: #9da49f; --rule: #343a36;
+    --comm: #7cc39c; --conf: #9aaee6; --threat: #e27a5f; --ochre: #e0ae4c;
+    --comm-soft: #1c3226; --conf-soft: #1f2540; --threat-soft: #3b2219; --ochre-soft: #3a2e15; --link: #8fb8e0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141615; --paper: #1c1f1d; --ink: #e7e8e3; --muted: #9da49f; --rule: #343a36;
+  --comm: #7cc39c; --conf: #9aaee6; --threat: #e27a5f; --ochre: #e0ae4c;
+  --comm-soft: #1c3226; --conf-soft: #1f2540; --threat-soft: #3b2219; --ochre-soft: #3a2e15; --link: #8fb8e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Newsreader", Georgia, serif; font-size: 1.2rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--link); }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.topbar-inner { max-width: 1100px; margin: 0 auto; padding: .55rem 16px; display: flex; gap: 1rem; align-items: center; justify-content: space-between; font-family: "Inter", sans-serif; font-size: .8rem; }
+.topbar a { text-decoration: none; color: var(--muted); }
+.topbar a:hover { color: var(--ink); }
+.brand { font-weight: 600; color: var(--ink) !important; white-space: nowrap; }
+.toc { display: flex; gap: .9rem; overflow-x: auto; scrollbar-width: none; }
+.toc::-webkit-scrollbar { display: none; }
+.toc a { white-space: nowrap; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+.wide { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+section { padding: 3.5rem 0 1rem; }
+.chapter-num { font-family: "Inter", sans-serif; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+h1, h2, h3 { line-height: 1.15; font-weight: 600; }
+h2 { font-size: 2.1rem; margin: 0 0 1rem; }
+h3 { font-size: 1.35rem; margin: 2rem 0 .5rem; }
+hr.sep { border: 0; border-top: 1px solid var(--rule); max-width: 720px; margin: 2.5rem auto 0; }
+
+.hero { padding: 5rem 0 3rem; border-bottom: 1px solid var(--rule); }
+.hero .kicker { font-family: "Inter", sans-serif; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--comm); }
+.hero h1 { font-size: clamp(2.8rem, 8vw, 4.8rem); margin: .4rem 0 .6rem; letter-spacing: -.01em; }
+.hero .dek { font-size: 1.4rem; color: var(--muted); font-style: italic; margin: 0 0 1.5rem; }
+.byline { font-family: "Inter", sans-serif; font-size: .85rem; color: var(--muted); }
+.byline a { color: var(--muted); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 2rem 0; }
+.stat { background: var(--paper); padding: 1rem 1.1rem; }
+.stat .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.stat .l { font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: .3rem; }
+
+blockquote { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--comm); font-style: italic; }
+blockquote.c { border-color: var(--conf); }
+blockquote cite { display: block; font-style: normal; font-family: "Inter", sans-serif; font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+.note { font-family: "Inter", sans-serif; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.cc { color: var(--comm); font-weight: 600; }
+.cf { color: var(--conf); font-weight: 600; }
+
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 1.4rem; margin: 2rem 0; }
+.panel h4 { margin: 0 0 .2rem; font-size: 1.15rem; }
+.panel .sub { font-family: "Inter", sans-serif; font-size: .82rem; color: var(--muted); margin: 0 0 1rem; }
+.chart { width: 100%; height: auto; display: block; }
+.chart text { font-family: "Inter", sans-serif; }
+
+/* mobilization */
+.mob-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.4rem; align-items: start; }
+.levels { display: grid; gap: .4rem; }
+.lvl { text-align: left; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); border-radius: 6px; padding: .55rem .7rem; cursor: pointer; font-family: "Inter", sans-serif; font-size: .8rem; line-height: 1.3; }
+.lvl b { display: block; font-size: .85rem; }
+.lvl[aria-pressed="true"] { border-color: var(--threat); background: var(--threat-soft); }
+.mob-out { margin-top: 1rem; font-family: "Inter", sans-serif; font-size: .85rem; display: grid; gap: .4rem; }
+.mob-out .row { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--rule); padding-bottom: .3rem; }
+.mob-msg { margin-top: .8rem; font-size: 1.02rem; line-height: 1.45; padding: .7rem .8rem; border-radius: 6px; background: var(--bg); }
+#seg circle.v { cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.legend { display: flex; gap: 1rem; flex-wrap: wrap; font-family: "Inter", sans-serif; font-size: .75rem; color: var(--muted); margin-top: .6rem; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: -1px; margin-right: .3rem; }
+
+/* sorter */
+.sorter { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .6rem; }
+.card { border: 1px solid var(--rule); border-radius: 8px; padding: .8rem .9rem; background: var(--bg); }
+.card p { margin: 0 0 .55rem; font-size: 1.02rem; line-height: 1.3; }
+.card .b2 { display: flex; gap: .4rem; flex-wrap: wrap; }
+.card button { font-family: "Inter", sans-serif; font-size: .75rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: .3rem .6rem; border-radius: 4px; cursor: pointer; }
+.card .why { display: none; font-family: "Inter", sans-serif; font-size: .76rem; line-height: 1.4; color: var(--muted); margin-top: .5rem; }
+.card.done .why { display: block; }
+.card.comm.done { border-color: var(--comm); background: var(--comm-soft); }
+.card.conf.done { border-color: var(--conf); background: var(--conf-soft); }
+.card .tag { font-family: "Inter", sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.sort-score { font-family: "Inter", sans-serif; font-size: .85rem; color: var(--muted); margin-top: .8rem; }
+
+/* phases */
+.phases { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.phases button { font-family: "Inter", sans-serif; font-size: .78rem; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); padding: .45rem .75rem; border-radius: 4px; cursor: pointer; }
+.phases button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.phase-body { font-size: 1.04rem; line-height: 1.55; min-height: 13rem; }
+.phase-body h5 { font-size: 1.2rem; margin: 0 0 .4rem; }
+.phase-body .q { border-left: 3px solid var(--rule); padding-left: .9rem; font-style: italic; margin: .8rem 0 0; }
+.phase-body .q span { display: block; font-style: normal; font-family: "Inter", sans-serif; font-size: .76rem; color: var(--muted); margin-top: .3rem; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.two > div { border-radius: 6px; padding: 1rem 1.1rem; font-size: 1rem; line-height: 1.45; }
+.two strong { font-family: "Inter", sans-serif; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .3rem; }
+
+.takeaway { font-size: 1.55rem; line-height: 1.35; font-style: italic; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 1.4rem 0; margin: 2rem 0; }
+footer { border-top: 1px solid var(--rule); margin-top: 4rem; padding: 2rem 0 4rem; }
+footer .cite { font-family: "Inter", sans-serif; font-size: .85rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; line-height: 1.5; }
+.btns { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.btn { font-family: "Inter", sans-serif; font-size: .85rem; font-weight: 600; text-decoration: none; padding: .55rem 1rem; border-radius: 4px; border: 1px solid var(--link); color: var(--link); }
+.btn.fill { background: var(--link); color: var(--paper); }
+
+@media (max-width: 760px) {
+  body { font-size: 1.1rem; }
+  h2 { font-size: 1.7rem; }
+  .mob-grid, .two { grid-template-columns: 1fr; }
+  .topbar .toc { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Security from Below</a>
+    <nav class="toc" aria-label="Sections">
+      <a href="#puzzle">Puzzle</a><a href="#odds">Obstacles</a><a href="#layers">Two layers</a>
+      <a href="#mobilize">Mobilize</a><a href="#spread">How it spread</a><a href="#history">History</a><a href="#lesson">Lesson</a><a href="#source">Source</a>
+    </nav>
+    <a href="/">← enriqueescalante.com</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">An interactive summary</div>
+    <h1>Security from Below</h1>
+    <p class="dek">Self-governance is supposed to work only in small groups. Peru's peasants scaled it up to hundreds of thousands of people, with no one in charge.</p>
+    <div class="byline">Edwar E. Escalante · "A Self-defense Network against Terrorism and Crime: Evidence from Peru," <em>Terrorism and Political Violence</em> · <a href="https://doi.org/10.1080/09546553.2021.1982704">doi:10.1080/09546553.2021.1982704</a></div>
+  </div>
+</header>
+
+<!-- I -->
+<section id="puzzle">
+  <div class="wrap">
+    <div class="chapter-num">Chapter I</div>
+    <h2>Self-governance doesn't scale. Or does it?</h2>
+    <p>Economists and political scientists agree that small, close-knit communities can police themselves: everyone knows everyone, and reputation and ostracism do the work. They also tend to agree that this breaks down as groups grow. Free riding becomes easier, information spreads more slowly, and at some point a state is supposed to take over.</p>
+    <p>Peru in the 1980s is a counterexample. With crime spreading in the north and the Shining Path in the south, peasant communities formed patrols, the <em>rondas campesinas</em>. Those patrols then joined into multicommunity partnerships and confederations that grew into what the paper calls one of the most successful and massive rural movements in the Americas. No central authority directed it.</p>
+  </div>
+  <div class="wide">
+    <div class="stats">
+      <div class="stat"><div class="v" style="color:var(--comm)">4,205</div><div class="l">peasant patrols in 1993, with 235,465 patrollers</div></div>
+      <div class="stat"><div class="v" style="color:var(--comm)">~8,000</div><div class="l">legally recognized patrols in 2003, with about 500,000 patrollers, according to the Armed Forces</div></div>
+      <div class="stat"><div class="v">&gt;3,000</div><div class="l">towns in Ayacucho, Junín, Huancavelica, Andahuaylas and Apurímac had formed patrols by 1991</div></div>
+      <div class="stat"><div class="v" style="color:var(--conf)">16</div><div class="l">large patrol confederations still active under the most recent regulation</div></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>The question the paper asks: <strong>what determines whether security can be scaled up from below?</strong> And how do communities with no central direction discover where the boundaries of a broader partnership should be?</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- II -->
+<section id="odds">
+  <div class="wrap">
+    <div class="chapter-num">Chapter II</div>
+    <h2>Against the odds</h2>
+    <p>Almost everything about rural Peru argued against large-scale cooperation.</p>
+  </div>
+  <div class="wide">
+    <div class="stats">
+      <div class="stat"><div class="v" style="color:var(--threat)">~70,000</div><div class="l">deaths in the conflict, according to the Truth and Reconciliation Commission</div></div>
+      <div class="stat"><div class="v" style="color:var(--threat)">75%</div><div class="l">of victims were Quechua speakers, who were 16% of the population in the 1993 census</div></div>
+      <div class="stat"><div class="v" style="color:var(--threat)">79%</div><div class="l">of reported deaths were rural residents, who were 29% of the population</div></div>
+      <div class="stat"><div class="v">83 of 103</div><div class="l">types of ecological zones are found in Peru</div></div>
+      <div class="stat"><div class="v">0.638</div><div class="l">ethnic fractionalization (cultural: 0.506), both above the regional average; Peru is the region's second most culturally diverse country</div></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>Diversity makes cooperation across communities harder, because villagers don't know how strangers will behave. Distance and poverty made things worse: attending a confederation meeting meant villagers had to pay their own travel to a central location. Some neighboring communities were historical rivals. And both armed sides were hostile. The Shining Path wanted to destroy the networks between villages, which it saw as pillars of the countryside. The army at first treated the patrols as a threat:</p>
+    <blockquote style="border-color:var(--threat)">"If to kill two or three senderistas it is necessary to kill eighty innocents, then it does not matter… The peasants have to decide where they wish to die: with Sendero or the armed forces."<cite>Former minister of war Luis Cisneros</cite></blockquote>
+    <p>Security forces rarely left town at night to help a besieged community. Villagers understood that their only chance of survival was to group together.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- III -->
+<section id="layers">
+  <div class="wrap">
+    <div class="chapter-num">Chapter III</div>
+    <h2>Two layers of rules</h2>
+    <p>The paper's theory draws on Buchanan and Tullock and on Elinor Ostrom's idea of <strong>polycentric order</strong>: many autonomous units that cooperate and resolve conflicts with one another, with no single center. Collective action is best handled by the smallest unit that can do the job. Larger units are justified only where spillovers remain.</p>
+    <p>To meet a large threat while keeping their own internal order, communities built a <strong>second order of organization</strong> on top of the first:</p>
+    <div class="two">
+      <div style="background:var(--comm-soft)"><strong class="cc">Community level</strong>Explicit, detailed rules: who patrols, when, how leaders are chosen and how offenders are punished. Each community kept its own arrangements, democratic in the north and hierarchical in much of the south.</div>
+      <div style="background:var(--conf-soft)"><strong class="cf">Confederation level</strong>General rules: representation, coordination across communities, peace pacts, training and contact with the government and NGOs. The specifics were left to the communities.</div>
+    </div>
+    <p>The northern confederation's regulations draw the line explicitly:</p>
+    <blockquote class="c">"Everything that is not specified in the current regulations will be covered and solved by the Assemblies, Central Committees and Federations."<cite>Article 50, Confederation of the North, Cajamarca</cite></blockquote>
+    <p>Try it yourself. Which layer handled each of these tasks?</p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Community or confederation?</h4>
+      <p class="sub">Choose a level for each task to see what the paper found.</p>
+      <div class="sorter" id="sorter"></div>
+      <div class="sort-score" id="sort-score"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- IV -->
+<section id="mobilize">
+  <div class="wrap">
+    <div class="chapter-num">Chapter IV</div>
+    <h2>A network that expands with the threat</h2>
+    <p>In the Apurímac valley the patrols formed "a vast network whereby the militia of each community was interconnected through a hierarchical, segmentary system of command and communication." At the top was a regional committee, below it district committees, and below those the local militia committees. The network did not mobilize all at once:</p>
+    <blockquote>"The degree to which the system could be mobilized depended upon the gravity of the threat being faced at a particular moment: the graver the threat, the more of the segmentary system that would be mobilized."<cite>Fumerton, quoted in the paper</cite></blockquote>
+    <p><strong>Click a village to place an attack, then choose how grave the threat is.</strong></p>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>Mobilize the segmentary network</h4>
+      <p class="sub">A stylized network with a regional committee, three district committees and fifteen villages.</p>
+      <div class="mob-grid">
+        <div>
+          <svg class="chart" id="seg" viewBox="0 0 600 330" role="img" aria-label="Segmentary self-defense network"></svg>
+          <div class="legend">
+            <span><i style="background:var(--threat)"></i>Village under attack</span>
+            <span><i style="background:var(--comm)"></i>Mobilized militia</span>
+            <span><i style="background:var(--conf)"></i>Mobilized committee</span>
+            <span><i style="background:var(--rule)"></i>Stays home</span>
+          </div>
+        </div>
+        <div>
+          <div class="levels" id="levels">
+            <button class="lvl" data-l="1" aria-pressed="true"><b>Theft or a small raid</b>The village's own patrol handles it</button>
+            <button class="lvl" data-l="2" aria-pressed="false"><b>A Shining Path column nearby</b>Neighboring villages in the district respond</button>
+            <button class="lvl" data-l="3" aria-pressed="false"><b>An existential threat</b>The whole regional network mobilizes</button>
+          </div>
+          <div class="mob-out">
+            <div class="row"><span>Villages mobilized</span><b id="mo-v">—</b></div>
+            <div class="row"><span>Committees activated</span><b id="mo-c">—</b></div>
+          </div>
+          <div class="mob-msg" id="mo-msg"></div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:1rem">A stylized illustration of the segmentary system described in the paper, not a map of an actual network.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>The confederations were mainly coordination platforms, not courts of appeal. Disputes inside a community stayed there. Only when an offender broke agreements involving more than one community, or a case could not be solved by the communal assembly, did it go to the intercommunal Central Committee of Patrols, "not to revise the case but for the application of the punishment."</p>
+    <p>The cost of defense was shared too. In Ayacucho, each regional network kept a <em>grupo especial</em>, an elite force with one volunteer from every village. Its members, the <em>rentados</em>, were paid a small monthly salary from contributions pooled by all the families. "There are some communities with few comuneros, so two communities may join together to pay for one rentado."</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- V -->
+<section id="spread">
+  <div class="wrap">
+    <div class="chapter-num">Chapter V</div>
+    <h2>How good rules spread</h2>
+    <p>A single system of rules stifles innovation. A polycentric order lets many communities experiment and copy what works. In Peru the confederations acted as a platform for comparing and standardizing the best local arrangements, and the process ran in both directions:</p>
+    <div class="two">
+      <div style="background:var(--comm-soft)"><strong class="cc">Upward</strong>Communities brought what worked to meetings, festivals and conventions, where patrollers from distant places compared notes. "A patrol passes on easily to another one because there are constant meetings, either, festivals, gatherings or major events."</div>
+      <div style="background:var(--conf-soft)"><strong class="cf">Downward</strong>Confederations distributed manuals on how to form and govern a patrol, which became the standard model for new communities. They always stressed each patrol's autonomy.</div>
+    </div>
+    <p>Old rivalries were defused the same way:</p>
+    <blockquote>"In order to put an end to violent quarrels between communities, the juntas directivas of individual militias made official pacts of peace and collective defense with one another, which was repeated at the district level, and eventually at the highest level between autonomous regional committee headquarters (sede central) of adjacent regions."<cite>Fumerton, quoted in the paper</cite></blockquote>
+    <p><strong>Legitimacy came from below.</strong> Where the army set up defense organizations and ignored communities' independence, villagers sidelined the appointed authorities. By 1987, 80% of the military bases the armed forces had set up with peasant refugees were inoperative. The organizations that lasted were the ones where villagers chose their own rules and elected their own officers in open assembly.</p>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VI -->
+<section id="history">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VI</div>
+    <h2>Four phases</h2>
+  </div>
+  <div class="wide">
+    <div class="panel">
+      <h4>From rebellion to persistence</h4>
+      <p class="sub">Select a phase.</p>
+      <div class="phases" id="phases">
+        <button data-p="0" aria-pressed="true">1979–82 · The rebellion</button>
+        <button data-p="1" aria-pressed="false">1983–89 · Partnership</button>
+        <button data-p="2" aria-pressed="false">1989–92 · Alliance</button>
+        <button data-p="3" aria-pressed="false">1992–2000 · Persistence</button>
+      </div>
+      <div class="phase-body" id="phase-body"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VII -->
+<section id="lesson">
+  <div class="wrap">
+    <div class="chapter-num">Chapter VII</div>
+    <h2>The lesson</h2>
+    <p class="takeaway">Security can scale from below when communities keep their own rules and add a light second layer to coordinate.</p>
+    <p>The Peruvian confederations show that large coordination efforts are possible through continual trial and error. No central actor was needed to standardize rules or spread the patrols. Communities compared arrangements, copied the ones that fit, rejected the ones that didn't, and redrew their partnerships as the threat changed.</p>
+    <p>The confederations were not the only reason the Shining Path was defeated, but they were decisive. The paper describes Peru's as the only case of homegrown terrorism defeated with no foreign intervention. Security at the national level came from a polycentric order that gave legitimacy to patrols built on detailed knowledge of their own surroundings.</p>
+    <blockquote>"We are bringing peace back. Not the soldiers. Not the president."<cite>A confederation president in the Satipo jungle</cite></blockquote>
+  </div>
+</section>
+
+<footer id="source">
+  <div class="wrap">
+    <div class="chapter-num">Source</div>
+    <div class="cite">Escalante, Edwar E. "A Self-defense Network against Terrorism and Crime: Evidence from Peru." <em>Terrorism and Political Violence</em>. https://doi.org/10.1080/09546553.2021.1982704</div>
+    <div class="btns">
+      <a class="btn fill" href="https://www.tandfonline.com/doi/abs/10.1080/09546553.2021.1982704">Read the published article</a>
+      <a class="btn" href="/nightwatchers/">Companion: Night Watchers and Terrorists</a>
+      <a class="btn" href="/summaries.html">All interactive summaries</a>
+    </div>
+    <p class="note">This page summarizes the published article for a general audience. Figures and quotations come from the article and the sources it cites (Truth and Reconciliation Commission; Fumerton; Degregori; Starn; Coronel; Del Pino; peasant confederation documents). The segmentary network is a stylized illustration of the mechanism. Design inspired by Alex Tabarrok's visual essay <a href="https://mason.gmu.edu/~atabarro/RentControl/">"The Ceiling Trap."</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent, text) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+
+  /* ---------- Chapter III: sorter ---------- */
+  const tasks = [
+    ["Deciding who patrols tonight, and in which sector", "comm", "Community rules covered shifts, sectors and participation, and they differed between north and south."],
+    ["Electing patrol officers", "comm", "The organizations that lasted had villagers elect their own officers in open assembly with general assent."],
+    ["Settling a dispute between two neighbors in the same village", "comm", "Confederations were not courts of appeal. Disputes within a community stayed with the communal assembly."],
+    ["Punishing someone who broke agreements affecting several communities", "conf", "Such cases went to the intercommunal Central Committee of Patrols, \"not to revise the case but for the application of the punishment.\""],
+    ["Making peace between two historically rival villages", "conf", "Militias signed pacts of peace and collective defense, repeated at the district and regional levels."],
+    ["Writing a manual on how to start a new patrol", "conf", "The Central Association of Patrols in the North distributed manuals that became the standard model for new patrols."],
+    ["Negotiating with NGOs for training and legal assistance", "conf", "Confederations gave communities a voice and reached agreements with NGOs and research institutions for resources, training and legal education."],
+    ["Paying the rentados of the grupo especial", "conf", "Pay came from contributions pooled by all the families in the villages of the regional network, so it was a multicommunity task."]
+  ];
+  const sorter = document.getElementById("sorter");
+  let done = 0, right = 0;
+  tasks.forEach(([text, ans, why]) => {
+    const d = document.createElement("div"); d.className = "card";
+    d.innerHTML = `<p>${text}</p><div class="b2"><button data-a="comm">Community</button><button data-a="conf">Confederation</button></div><div class="why"></div>`;
+    d.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+      if (d.classList.contains("done")) return;
+      const ok = b.dataset.a === ans;
+      d.classList.add("done", ans);
+      const tag = ans === "comm" ? '<span class="tag cc">Community</span>' : '<span class="tag cf">Confederation</span>';
+      d.querySelector(".why").innerHTML = `${ok ? "Correct" : "Actually"}: ${tag}. ${why}`;
+      done++; if (ok) right++;
+      document.getElementById("sort-score").textContent = `${right} of ${done} correct`;
+    }));
+    sorter.appendChild(d);
+  });
+
+  /* ---------- Chapter IV: segmentary network ---------- */
+  const seg = document.getElementById("seg");
+  const R = { x: 300, y: 36 };
+  const D = [{ x: 110, y: 130 }, { x: 300, y: 130 }, { x: 490, y: 130 }];
+  const V = [];
+  D.forEach((d, di) => { for (let k = 0; k < 5; k++) V.push({ x: d.x - 72 + k * 36, y: 250 + (k % 2) * 34, d: di }); });
+  let attacked = 7, level = 1;
+
+  function drawSeg() {
+    seg.innerHTML = "";
+    const comm = css("--comm"), conf = css("--conf"), rule = css("--rule"), thr = css("--threat"), muted = css("--muted");
+    const ad = V[attacked].d;
+    const mobV = V.map((v, i) => level === 1 ? i === attacked : level === 2 ? v.d === ad : true);
+    const mobD = D.map((_, di) => level >= 3 || (level === 2 && di === ad));
+    const mobR = level === 3;
+    const f = { "font-family": "Inter, sans-serif", "font-size": 11, fill: muted };
+    D.forEach((d, di) => el("line", { x1: R.x, y1: R.y, x2: d.x, y2: d.y, stroke: mobR ? conf : rule, "stroke-width": mobR ? 2.2 : 1.2 }, seg));
+    V.forEach((v, i) => el("line", { x1: D[v.d].x, y1: D[v.d].y, x2: v.x, y2: v.y, stroke: mobD[v.d] && mobV[i] ? comm : rule, "stroke-width": mobD[v.d] && mobV[i] ? 1.8 : 1 }, seg));
+    el("rect", { x: R.x - 60, y: R.y - 15, width: 120, height: 30, rx: 6, fill: mobR ? conf : css("--paper"), stroke: conf, "stroke-width": 1.5 }, seg);
+    el("text", { ...f, x: R.x, y: R.y + 4, "text-anchor": "middle", fill: mobR ? "#fff" : conf, "font-weight": 600 }, seg, "Regional committee");
+    D.forEach((d, di) => {
+      el("rect", { x: d.x - 52, y: d.y - 13, width: 104, height: 26, rx: 5, fill: mobD[di] ? conf : css("--paper"), stroke: conf }, seg);
+      el("text", { ...f, x: d.x, y: d.y + 4, "text-anchor": "middle", fill: mobD[di] ? "#fff" : conf, "font-weight": 600 }, seg, `District ${di + 1}`);
+    });
+    V.forEach((v, i) => {
+      const fill = i === attacked ? thr : mobV[i] ? comm : rule;
+      const c = el("circle", { class: "v", cx: v.x, cy: v.y, r: i === attacked ? 11 : 9, fill, stroke: css("--paper"), "stroke-width": 2, tabindex: 0, role: "button", "aria-label": `Village ${i + 1}` }, seg);
+      c.addEventListener("click", () => { attacked = i; drawSeg(); });
+      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); attacked = i; drawSeg(); } });
+    });
+    if (level === 3) el("text", { ...f, x: 300, y: 318, "text-anchor": "middle", fill: comm, "font-weight": 600 }, seg, "Grupo especial: one volunteer from every village");
+    const nV = mobV.filter(Boolean).length, nC = mobD.filter(Boolean).length + (mobR ? 1 : 0);
+    document.getElementById("mo-v").textContent = `${nV} of ${V.length}`;
+    document.getElementById("mo-c").textContent = `${nC} of ${D.length + 1}`;
+    document.getElementById("mo-msg").innerHTML = [
+      "",
+      "<strong>Local.</strong> The village patrol deals with it under its own rules. The rest of the network stays home and keeps working the land.",
+      "<strong>District.</strong> The district committee calls up the neighboring villages. Communities that once fought each other now defend each other under their peace pacts.",
+      "<strong>Regional.</strong> The whole pyramid activates. The regional committee coordinates the districts, and the <em>grupo especial</em>, paid from pooled contributions, takes the field."
+    ][level];
+    document.querySelectorAll("#levels .lvl").forEach(b => b.setAttribute("aria-pressed", +b.dataset.l === level));
+  }
+  document.querySelectorAll("#levels .lvl").forEach(b => b.addEventListener("click", () => { level = +b.dataset.l; drawSeg(); }));
+
+  /* ---------- Chapter VI: phases ---------- */
+  const P = [
+    { h: "The rebellion (1979–82)",
+      t: "The Shining Path set itself up as the new authority in rural communities. It tried traditional authorities in \"people's courts\" and executed them, confiscated crops, and barred villagers from local fairs. The first organized patrol had appeared in 1976 in Cuyumalca, in the northern highlands, to fight cattle rustling. In 1982 peasants in the south and center turned against the Shining Path's rule. The 1983 massacre at Lucanamarca, which left sixty-nine villagers dead, ended whatever support the group still had.",
+      q: "\"They were ignorant about everything… The only thing they wanted was to be left alone. They never received us well, didn't like being asked for clothes or blankets.\"", s: "A Shining Path commander, describing the peasantry" },
+    { h: "The intercommunity partnership (1983–89)",
+      t: "Victims multiplied after the army was sent in, and it often failed to tell friends from foes. Communities began coordinating with their neighbors. Confederations registered members, called meetings and voiced the patrols' interests. In 1984 a rally of around 20,000 ronderos from Ocros and Concepción presented General Adrián Huamán with a signed declaration of a \"Civil Defense Front,\" a huge network of mutually supporting militias. In Ccatca, Cusco, one confederation brought together 9,956 villagers from 24 communities, and the police acknowledged its role in administering justice.",
+      q: "\"Each town was its own universe… [it was] connected to others through relative bonds and tradition… This way they started coordinating with other Iquichan towns like Cunya, Macabamba and the neighbor Huaychao to expel the terrorists.\"", s: "Quoted in the paper" },
+    { h: "Government alliance and spillovers (1989–92)",
+      t: "The government began delivering weapons to patrols in the Apurímac valley in 1989 and legalized the southern patrols in November 1991; the northern ones had been recognized in 1986. The patrols kept more autonomy than comparable groups in Guatemala. By 1991 more than three thousand towns had their own patrols. In the Tulumayo valley, forty-eight communities formed local committees within days and then wrote thirty-one articles of shared guidelines. Half a million people were displaced, and the Shining Path concentrated its attacks on communities without patrols.",
+      q: "\"Each of the fourteen patrols is independent, but for general matters and defense coordination, the fourteen are consolidated in a Central Committee of Anti-subversive Defense of the Apurimac Valley.\"", s: "Hugo Huillca, patrol confederation leader, Apurímac valley" },
+    { h: "Persistence and extended scope (1992–2000)",
+      t: "By 1994 the Shining Path's violent actions had fallen back to their 1982 level. New partnerships appeared, such as the Federation of Mother Clubs, with bases in eleven provinces. The law called the patrols \"transitory,\" but the confederations outlived the conflict, kept their reputation for providing order and justice, and saw several leaders win elections. The movement reached the Amazon, where the Asháninka and Nomatsiguenga organized their own patrols and partnerships.",
+      q: "\"We are an indigenous organization defending our people, make no mistake about what we do, neither the army, no movement, nor parties. It is our struggle, and we are not doing it for anybody.\"", s: "Apatyawaka Nampitsi Ashaninka Pichis, 1990" }
+  ];
+  function setP(i) {
+    document.querySelectorAll("#phases button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.p === i));
+    const p = P[i];
+    document.getElementById("phase-body").innerHTML = `<h5>${p.h}</h5><p>${p.t}</p><p class="q">${p.q}<span>${p.s}</span></p>`;
+  }
+  document.querySelectorAll("#phases button").forEach(b => b.addEventListener("click", () => setP(+b.dataset.p)));
+
+  drawSeg(); setP(0);
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener ? mq.addEventListener("change", drawSeg) : mq.addListener(drawSeg);
+})();
+</script>
+</body>
+</html>
