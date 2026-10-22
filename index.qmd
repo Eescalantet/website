@@ -49,6 +49,10 @@ Why do some insurgencies court the public while others hide in the shadows? Peru
 :::
 :::
 
+::: {style="margin-top: 1.4rem;"}
+[See all interactive summaries →](summaries.qmd){.btn-cta .btn-outline}
+:::
+
 ## Publications
 
 ::: {.media-item}

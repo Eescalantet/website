@@ -1,0 +1,41 @@
+---
+title: "Interactive summaries"
+page-layout: full
+---
+
+Short visual essays that explain each published paper for a general audience. Each one includes interactive charts or games built from the paper's evidence and links to the full article.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[World Development · 2026]{.summary-meta}
+
+### Friends or Foes?
+Why did the Shining Path hide while the MRTA sought the spotlight? Play the capture game to see the trade-off between seeking legitimacy and keeping secrets.
+
+[Explore →](friends-or-foes/){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[Latin American Research Review · 2022]{.summary-meta}
+
+### Whose Miracle?
+Did Chile need a dictator to grow? Build your own synthetic Chile and see how real Chile compared with its counterfactual after the 1973 coup.
+
+[Explore →](pinochet/){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[Journal of Economic Behavior and Organization · 2020]{.summary-meta}
+
+### Night Watchers and Terrorists
+Why were Peru's peasant patrols democratic in the north and run by commandos in the south? Move the time horizon and watch the least-cost way to govern a village change.
+
+[Explore →](nightwatchers/){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[Journal of Institutional Economics · 2020]{.summary-meta}
+
+### Fighting on Christmas
+How does a public fistfight keep the peace in the Peruvian highlands? Settle a dispute yourself and learn the rules of Takanakuy.
+
+[Explore →](takanakuy/){.stretched-link .card-cue}
+:::
+:::
