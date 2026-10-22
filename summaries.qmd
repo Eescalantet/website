@@ -15,6 +15,14 @@ Why did the Shining Path hide while the MRTA sought the spotlight? Play the capt
 [Explore →](friends-or-foes/){.stretched-link .card-cue}
 :::
 ::: {.g-col-12 .g-col-md-6 .theme-card}
+[Terrorism and Political Violence · 2023]{.summary-meta}
+
+### Security from Below
+How did thousands of peasant communities scale up their own security with no one in charge? Mobilize a segmentary self-defense network and sort which rules belonged to each layer.
+
+[Explore →](self-defense-network/){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
 [Latin American Research Review · 2022]{.summary-meta}
 
 ### Whose Miracle?
