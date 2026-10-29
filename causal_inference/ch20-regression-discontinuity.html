@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regression Discontinuity — The Effect, Ch. 20</title>
+<meta name="description" content="A short, interactive summary of Chapter 20 (Regression Discontinuity) of The Effect by Nick Huntington-Klein, written for ECON 4309.">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f2f0ea; --ink:#1d1f23; --ink-2:#4a4f58; --ink-3:#7a808a;
+  --line:#dcd8cf; --accent:#8c1d40; --accent-soft:#f5e6eb;
+  --treat:#c2410c; --control:#1d4ed8; --good:#15803d; --good-soft:#e7f4ec; --bad:#b91c1c; --bad-soft:#fbeaea;
+  --warn-soft:#fff6e0; --warn:#92600a;
+  --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+    --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+    --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+    --warn-soft:#3a3018; --warn:#f3c96b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+  --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+  --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+  --warn-soft:#3a3018; --warn:#f3c96b;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-size:1.4rem;margin:2.2em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;margin:1.4em 0 .4em}
+p{margin:.6em 0}
+a{color:var(--accent)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);padding:.1em .35em;border-radius:4px}
+pre{background:var(--surface-2);padding:12px 14px;border-radius:8px;overflow-x:auto;font:0.86rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.eyebrow{font-size:.85rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin:0}
+.lede{font-size:1.1rem;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{font-size:.8rem;background:var(--surface-2);color:var(--ink-2);padding:3px 10px;border-radius:999px}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 18px;margin:22px 0;box-shadow:var(--shadow)}
+.toc ol{margin:.3em 0;padding-left:1.3em}
+.toc li{margin:.15em 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.big-idea{border-left:5px solid var(--accent);background:var(--accent-soft)}
+.big-idea p:first-child{margin-top:0}.big-idea p:last-child{margin-bottom:0}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.term b{display:block;color:var(--accent);margin-bottom:2px}
+.term .ex{display:block;margin-top:6px;font-size:.88rem;color:var(--ink-2)}
+.callout{border-radius:var(--radius);padding:12px 16px;margin:14px 0}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout.good{background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.callout.bad{background:var(--bad-soft);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.callout .label{font-weight:700;display:block;margin-bottom:2px}
+.callout ul{margin:.3em 0;padding-left:1.2em}
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:16px 0;box-shadow:var(--shadow)}
+.lab-title{font-weight:700;margin:0 0 4px}
+.lab-sub{margin:0 0 10px;color:var(--ink-2);font-size:.92rem}
+.lab svg{width:100%;height:auto;display:block}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 18px;margin:10px 0 4px;font-size:.92rem}
+.controls label{display:block;font-weight:600;margin-bottom:2px}
+.controls input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:5px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed=true]{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed=true]{color:#15171a}}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:6px 12px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:8px;padding:8px 10px}
+.stat .k{font-size:.78rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.stat .v{font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums}
+.verdict{margin-top:8px;font-size:.95rem;min-height:1.6em}
+.try{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;padding-left:1.2em}
+.try li{margin:.2em 0}
+.ax text{fill:var(--ink-3);font-size:12px}
+.ax line,.ax path{stroke:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.formula{font-size:1.05rem;text-align:center;background:var(--surface-2);border-radius:8px;padding:10px;margin:10px 0}
+table.read{width:100%;border-collapse:collapse;font-size:.93rem}
+table.read td,table.read th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.read th{color:var(--ink-3);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+.pill{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.read{background:var(--good-soft);color:var(--good)}
+.pill.skim{background:var(--warn-soft);color:var(--warn)}
+.pill.skip{background:var(--surface-2);color:var(--ink-3)}
+footer{margin-top:48px;font-size:.85rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:14px}
+.print-only{display:none}
+@media (max-width:520px){body{font-size:16px}h1{font-size:1.6rem}}
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt}
+  main{max-width:none;padding:0}
+  .no-print,.controls,.btnrow,.toc{display:none!important}
+  .print-only{display:block}
+  .card,.lab,  h2{break-after:avoid}
+          a{color:#000}
+}
+</style>
+</head>
+<body>
+<main>
+
+<p class="eyebrow">ECON 4309 · Quantitative Methods for Social Sciences · Reading companion</p>
+<h1>Regression Discontinuity, in about 15 minutes</h1>
+<p class="lede">A plain-language guide to <a href="https://theeffectbook.net/ch-RegressionDiscontinuity.html">Chapter 20 of <i>The Effect</i></a> by Nick Huntington-Klein. Read this first, play with the two simulators, and then use the reading guide at the end to decide which parts of the chapter to read closely.</p>
+<div class="meta"><span class="chip">Pairs with Lecture 10: RDD I</span><span class="chip">Book: Ch. 20</span><span class="chip">~15 min</span></div>
+
+<p class="print-only"><b>Note:</b> This is the printable version. The interactive version, with the simulators, is on the course website.</p>
+
+<nav class="toc no-print" aria-label="Contents">
+<b>On this page</b>
+<ol>
+<li><a href="#idea">The big idea in 60 seconds</a></li>
+<li><a href="#terms">Six words you need</a></li>
+<li><a href="#sim">Simulator: draw the lines, measure the gap</a></li>
+<li><a href="#why">Why this counts as causal</a></li>
+<li><a href="#assume">What has to be true (and how to check it)</a></li>
+<li><a href="#fuzzy">Sharp vs. fuzzy RDD</a></li>
+<li><a href="#late">What you actually estimate: a LATE</a></li>
+<li><a href="#r">Doing it in R (with AI help)</a></li>
+<li><a href="#reading">How to read the chapter</a></li>
+</ol>
+</nav>
+
+<!-- 1 -->
+<h2 id="idea">1. The big idea in 60 seconds</h2>
+<div class="card big-idea">
+<p>The chapter opens in San Diego. If you drive 16 miles south from downtown to the border, household income falls gradually, from about $85,000 to about $50,000. Then you take <b>one step</b> across the border into Tijuana and income drops to about $20,000. Neighborhoods a few feet apart can't be that different "naturally," so the jump has to come from the <b>line itself</b>.</p>
+<p><b>Regression discontinuity (RDD)</b> uses the same logic. Many programs are handed out by a rule with a cutoff: score 70 or lower and you get a tutor; earn below $X and you get a check. People <i>just barely</i> on either side of that cutoff are almost identical. If their outcomes jump at the cutoff, the program caused the jump.</p>
+</div>
+<p>In the chapter's words, the recipe has three parts:</p>
+<ol>
+<li><b>Account for</b> how the running variable normally relates to the outcome (draw a line on each side).</li>
+<li><b>Focus on</b> the observations close to the cutoff.</li>
+<li><b>Compare</b> the just-barely-treated with the just-barely-untreated. The size of the gap is your estimate.</li>
+</ol>
+
+<!-- 2 -->
+<h2 id="terms">2. Six words you need</h2>
+<p>We'll use the tutoring example from Lecture 10 throughout: students take an entrance exam, those who score <b>70 or lower</b> get a free tutor, and at the end of the year everyone takes an exit exam.</p>
+<div class="terms">
+  <div class="term"><b>Running variable</b>(also called the "forcing variable") The number that decides who gets treated.<span class="ex">Tutoring: the entrance-exam score.</span></div>
+  <div class="term"><b>Cutoff</b>(also called the "threshold" or "cutpoint") The value of the running variable where treatment switches on.<span class="ex">Tutoring: a score of 70.</span></div>
+  <div class="term"><b>Bandwidth</b>How far from the cutoff you're willing to go and still call people "comparable."<span class="ex">Only use students who scored 65–75? 50–90?</span></div>
+  <div class="term"><b>Sharp vs. fuzzy</b>Sharp: the cutoff decides treatment completely (0% → 100%). Fuzzy: crossing the cutoff only <i>raises the chance</i> of treatment.<span class="ex">Fuzzy: some students at 68 skip the tutor; some at 75 hire one anyway.</span></div>
+  <div class="term"><b>Kernel</b>A weighting rule. Observations closer to the cutoff count more. The common "triangular" kernel gives full weight at the cutoff and fades to zero at the edge of the bandwidth.<span class="ex">A score of 69 counts more than a score of 61.</span></div>
+  <div class="term"><b>LATE</b>Local average treatment effect: the effect <i>for people near the cutoff</i>, not for everyone.<span class="ex">How much tutoring helps students who score about 70, not students who score 30.</span></div>
+</div>
+
+<!-- 3 -->
+<h2 id="sim">3. Simulator: draw the lines, measure the gap</h2>
+<p>The data below are simulated, so we know the truth: <b>tutoring raises the exit-exam score by exactly 10 points</b>. Your job is to estimate that 10 from the data. The estimate is the gap between the two fitted lines <i>at the cutoff</i>.</p>
+
+<div class="lab" id="lab1">
+  <p class="lab-title">Tutoring program: entrance exam vs. exit exam</p>
+  <p class="lab-sub">Students scoring ≤ 70 get a tutor (orange). Faded points are outside your bandwidth and aren't used.</p>
+  <svg id="rdPlot" viewBox="0 0 680 400" role="img" aria-label="Scatterplot of exit exam score against entrance exam score with fitted lines on each side of the cutoff at 70"></svg>
+  <div class="legend"><span><span class="dot" style="background:var(--treat)"></span>Tutored (score ≤ 70)</span><span><span class="dot" style="background:var(--control)"></span>Not tutored (score &gt; 70)</span><span>Vertical bracket = estimated effect</span></div>
+  <div class="controls">
+    <div><label for="bw">Bandwidth: ±<span id="bwVal">10</span> points around 70</label><input id="bw" type="range" min="2" max="45" step="1" value="10"></div>
+    <div><label>Shape of the lines</label><div class="seg" id="shapeSeg"><button data-v="1" aria-pressed="true">Straight</button><button data-v="2" aria-pressed="false">Curved (quadratic)</button></div></div>
+    <div><label>Kernel (weights)</label><div class="seg" id="kerSeg"><button data-v="u" aria-pressed="true">Equal</button><button data-v="t" aria-pressed="false">Triangular</button></div></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="newSample">Draw a new sample</button><button class="btn" id="repeat">Repeat 200 times</button></div>
+  <div class="readout">
+    <div class="stat"><div class="k">Your estimate</div><div class="v" id="estVal">—</div></div>
+    <div class="stat"><div class="k">True effect</div><div class="v">10.0</div></div>
+    <div class="stat"><div class="k">Students used</div><div class="v" id="nVal">—</div></div>
+  </div>
+  <div id="repeatBox" style="display:none;margin-top:12px">
+    <p class="lab-sub" style="margin:0 0 4px"><b>200 new samples, same settings.</b> Each dot is one estimate. A good method is <i>centered on 10</i> (no bias) and <i>tightly bunched</i> (precise).</p>
+    <svg id="stripPlot" viewBox="0 0 680 110" role="img" aria-label="Dot strip of 200 repeated estimates compared with the true effect of 10"></svg>
+    <div class="verdict" id="repeatVerdict"></div>
+  </div>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> Straight lines, bandwidth ±45 (all the data), then "Repeat 200 times." The dots bunch tightly, but around the wrong number. That's <b>bias</b>: far from 70, the straight line doesn't match the curve.</li>
+    <li><b>Try 2:</b> Bandwidth ±3. Now the dots center on 10 but spread out a lot. That's <b>noise</b>: there are only a few students near 70.</li>
+    <li><b>Try 3:</b> Find a middle setting (around ±8 to ±12) where the dots are both centered and fairly tight. Then switch to curved lines at a wide bandwidth and compare.</li>
+  </ul>
+</div>
+
+<div class="callout warn"><span class="label">The core tradeoff (the chapter returns to it several times)</span>
+A <b>wider bandwidth</b> gives you more data and a more precise estimate, but it brings in people who aren't really comparable, so the estimate is more likely to be <b>biased</b>. A <b>narrower bandwidth</b> is more believable but <b>noisier</b>. There's no single right answer. That's why researchers report results for several bandwidths (Lecture 10's advice: also try double and half your bandwidth).</div>
+
+<div class="callout bad"><span class="label">Don't fix a bad fit with a wild curve</span>
+If a straight line doesn't fit, it's tempting to use a 4th- or 6th-order polynomial. The chapter warns against that: high-order polynomials swing wildly near the edges of the data, which is exactly where the cutoff is. The book's rule of thumb is to <b>go no higher than quadratic</b>. If you need more flexibility, <b>zoom in</b> with a smaller bandwidth and keep the line simple (this is "local linear regression").</div>
+
+<!-- 4 -->
+<h2 id="why">4. Why this counts as causal</h2>
+<p>Here is the chapter's causal diagram (Figure 20.1), simplified. <b>Z</b> stands for everything we can't measure, such as motivation, family background, and test anxiety.</p>
+<div class="card">
+<svg viewBox="0 0 640 230" role="img" aria-label="Causal diagram: Z affects Entrance score and Exit score; Entrance score affects Exit score and Below cutoff; Below cutoff affects Tutoring, which affects Exit score">
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker></defs>
+  <g font-size="14" text-anchor="middle" fill="var(--ink)">
+    <rect x="250" y="12" width="140" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="320" y="36">Z (unmeasured)</text>
+    <rect x="30" y="96" width="160" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="110" y="120">Entrance score</text>
+    <rect x="450" y="96" width="160" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="530" y="120">Exit score</text>
+    <rect x="70" y="180" width="160" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="150" y="204">Score ≤ 70?</text>
+    <rect x="320" y="180" width="140" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="390" y="204">Tutoring</text>
+  </g>
+  <g stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#arr)">
+    <path d="M262,50 L160,94"/><path d="M378,50 L480,94"/>
+    <path d="M190,115 L446,115"/>
+    <path d="M120,134 L140,177"/>
+    <path d="M230,199 L316,199"/>
+    <path d="M460,190 L510,137" stroke="var(--accent)" stroke-width="2.4"/>
+  </g>
+</svg>
+<p style="margin:6px 0 0;font-size:.93rem;color:var(--ink-2)">Tutoring has a back door, because tutoring ← cutoff ← entrance score → exit score, and Z affects the entrance score too. RDD handles this by looking only <b>right at the cutoff</b>. There, a student at 69.5 and a student at 70.5 have essentially the same Z and the same "normal" relationship with the exit score. The only thing that changes is <b>tutoring</b>. So the jump isolates the tutoring → exit score arrow, <b>even though we never measured Z</b>.</p>
+</div>
+<div class="callout good"><span class="label">Why RDD papers usually skip control variables</span>If the cutoff really does assign treatment as good as randomly near 70, there are no back doors left to close, so there's nothing to control for. Adding many controls can even look suspicious, as if you didn't trust your own design. (Controls are more common in <i>fuzzy</i> designs, or to make the estimate more precise.)</div>
+
+<!-- 5 -->
+<h2 id="assume">5. What has to be true (and how to check it)</h2>
+<div class="card">
+<h3 style="margin-top:0">Assumption 1: Nothing else jumps at the cutoff</h3>
+<p>RDD really measures the effect of <i>crossing the line</i> and credits all of it to the treatment. If a score of 70 also got you into a summer camp, you couldn't separate tutoring from camp. The chapter's example: if a score of 95 gets you into both the gifted program <i>and</i> a museum field trip, RDD can't tell the two apart. You can't test this assumption directly. You have to <b>know your setting</b>.</p>
+<p><b>How to check it: placebo tests.</b> Run the same RDD on things tutoring <i>can't</i> affect, such as age, gender, or parents' education. They should <b>not</b> jump at 70. If they do, the two sides aren't comparable. (If you test 20 variables, one or two may "jump" by chance. That's normal.)</p>
+</div>
+<div class="card">
+<h3 style="margin-top:0">Assumption 2: Nobody manipulates the running variable</h3>
+<p>The design depends on people landing just above or just below the cutoff <i>by luck</i>. It breaks if:</p>
+<ul>
+<li><b>People control their own score.</b> The chapter's example: a store discounts tuna if you buy 12+ cans, and you choose how many cans to buy. Here, students who want a free tutor could deliberately underperform to score just below 70.</li>
+<li><b>Someone else nudges the score.</b> A teacher regrades a 94 to a 96 to get a student into the gifted program, or a friendly timer shaves two seconds off your mile.</li>
+<li><b>The cutoff is set after looking at who it affects.</b> A coach sets the team cutoff at 5:37 right after his son runs 5:35.</li>
+</ul>
+<p><b>How to check it: the density (McCrary) test.</b> Plot a histogram of the running variable. Without manipulation it should be smooth across the cutoff. A pile-up on one side and a hole on the other is a red flag.</p>
+</div>
+
+<div class="lab" id="lab2">
+  <p class="lab-title">Simulator: can you spot manipulation?</p>
+  <p class="lab-sub">The histogram shows how many students got each entrance-exam score. Slide up the share of students who know the cutoff and aim for "just under 70" to get the free tutor.</p>
+  <svg id="histPlot" viewBox="0 0 680 260" role="img" aria-label="Histogram of entrance exam scores around the cutoff of 70"></svg>
+  <div class="controls"><div><label for="manip">Students gaming the cutoff: <span id="manipVal">0</span>% of those scoring 71–76</label><input id="manip" type="range" min="0" max="80" step="5" value="0"></div></div>
+  <div class="verdict" id="manipVerdict"></div>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">Assumption 3 (practical): enough precise data near the cutoff</h3>
+<p>RDD throws most of the data away, so you need a lot of observations near the cutoff (the lecture calls RDD "greedy"). The running variable also has to be <b>measured precisely</b>. If scores were only reported in bins like "60–69" and "70–79," you couldn't compare a 69 with a 71.</p>
+</div>
+
+<!-- 6 -->
+<h2 id="fuzzy">6. Sharp vs. fuzzy RDD</h2>
+<p>In a <b>sharp</b> RDD everyone below the cutoff is treated and nobody above it is. Real life is often <b>fuzzy</b>: crossing the cutoff only makes treatment <i>more likely</i>. The chapter's example (Battistin et al., 2009) is retirement in Italy. When men become eligible for a pension, the share who are retired jumps by about 30 percentage points, not 100.</p>
+<p>If you ran a regular RDD on consumption, you'd see a <i>small</i> jump, because only 30% of people actually switched. The fix is to <b>scale up</b>: divide the jump in the outcome by the jump in the treatment rate. This is instrumental variables (IV), and you'll see it again in the IV lectures, with "being past the cutoff" as the instrument.</p>
+<div class="formula">Fuzzy RDD effect = <b>jump in the outcome</b> at the cutoff ÷ <b>jump in the share treated</b> at the cutoff</div>
+<div class="lab" id="lab3">
+  <p class="lab-title">Mini-calculator</p>
+  <div class="controls">
+    <div><label for="yj">Jump in outcome at cutoff: <span id="yjVal">3.0</span> points</label><input id="yj" type="range" min="0" max="10" step="0.5" value="3"></div>
+    <div><label for="tj">Jump in share treated: <span id="tjVal">30</span> percentage points</label><input id="tj" type="range" min="10" max="100" step="5" value="30"></div>
+  </div>
+  <div class="formula" id="fuzzyOut"></div>
+  <p class="lab-sub" style="margin:0">When the jump in treatment is 100 points (everyone switches), the fuzzy estimate equals the sharp estimate. The smaller the jump in treatment, the more you have to scale up, and the noisier the estimate gets.</p>
+</div>
+
+<!-- 7 -->
+<h2 id="late">7. What you actually estimate: a LATE</h2>
+<p>Because RDD only uses people near the cutoff, it tells you the effect <b>for people near the cutoff</b>, a local average treatment effect.</p>
+<div class="terms">
+  <div class="term"><b style="color:var(--good)">When that's useful</b>If the school is thinking about moving the cutoff from 70 to 72, the newly eligible students look just like the ones you studied. The LATE is exactly the number it needs.</div>
+  <div class="term"><b style="color:var(--bad)">When it's a limitation</b>The chapter's example: relief checks with a $75,000 income cutoff. RDD tells you the effect for people earning about $75,000, but <i>nothing</i> about the effect on people earning $20,000, who probably need the money most.</div>
+</div>
+
+<!-- 8 -->
+<h2 id="r">8. Doing it in R (with AI help)</h2>
+<p>In this class, AI writes most of the code. <b>Your job is the design and the checking.</b> These are the steps an RDD analysis should include and what to verify at each one:</p>
+<table class="read">
+<tr><th>Step</th><th>Typical R</th><th>What <i>you</i> check</th></tr>
+<tr><td>1. Center the running variable</td><td><code>mutate(entrance_centered = entrance_exam - 70)</code></td><td>Is the cutoff right, and is treatment on the correct side (≤ 70 here)?</td></tr>
+<tr><td>2. Plot it first</td><td><code>rdplot(y, x, c = 70)</code> or a binned scatter with ggplot</td><td>Can you see a jump with your own eyes?</td></tr>
+<tr><td>3. Simple regression</td><td><code>lm(exit_exam ~ entrance_centered + tutoring, data = filter(df, abs(entrance_centered) &lt;= 10))</code></td><td>The <code>tutoring</code> coefficient is the gap. Is its sign sensible?</td></tr>
+<tr><td>4. Robust estimate</td><td><code>rdrobust(y, x, c = 70)</code></td><td>What bandwidth did it choose? Does the estimate hold up at double and half that bandwidth?</td></tr>
+<tr><td>5. Manipulation test</td><td><code>rddensity(x, c = 70)</code>, <code>rdplotdensity()</code></td><td>Is there a pile-up or a hole at 70?</td></tr>
+<tr><td>6. Placebo tests</td><td>Repeat step 4 with a pre-treatment variable as <code>y</code></td><td>No jump in things tutoring can't affect.</td></tr>
+<tr><td>(Fuzzy only)</td><td><code>rdrobust(y, x, c = 70, fuzzy = treated)</code></td><td>Is there a clear jump in the share treated?</td></tr>
+</table>
+<div class="callout warn"><span class="label">Watch the sign with <code>rdrobust</code></span>It assumes treatment is on the <i>right</i> of the cutoff. When treatment is below the cutoff, as with tutoring, the sign of the estimate is flipped: a "−10" means tutoring <i>raised</i> scores by 10. The chapter also shows that <code>rdrobust</code> and a hand-built regression can give quite different answers when they use different bandwidths. A package doesn't make the decisions for you.</div>
+
+<div class="callout bad"><span class="label">Common mistakes</span>
+<ul>
+<li>Forgetting to center the running variable. The treatment coefficient is then no longer the gap at the cutoff.</li>
+<li>Using a 5th-order polynomial to "fit better."</li>
+<li>Reporting only one bandwidth.</li>
+<li>Claiming the effect applies to everyone (it's a LATE).</li>
+<li>Skipping the density test and the placebo tests.</li>
+<li>Clustering standard errors on the running variable. The chapter says this used to be common, but don't do it.</li>
+</ul></div>
+
+<!-- 9 -->
+<h2 id="reading">9. How to read the chapter</h2>
+<p>The chapter is long (about 20,000 words) and written partly for graduate students. Here's where to spend your time:</p>
+<table class="read">
+<tr><th>Section</th><th>What it covers</th><th></th></tr>
+<tr><td>20.1 How Does It Work?</td><td>The intuition, the vocabulary, the causal diagram, the assumptions, and the LATE. Everything on this page except the R.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>20.2.1 RDD with OLS</td><td>The regression equation, why to avoid high-order polynomials, local regression, kernels, and code. Read the text; you can skim the code.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>20.2.2 Fuzzy RDD</td><td>Scaling with IV, and the GI Bill/home-ownership example. The first half is the important part.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>20.2.3 Placebo Tests</td><td>Short and directly useful for your assignment.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>20.2.4 Density Test</td><td>Manipulation stories (tuna cans, track tryouts) and the density test.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>20.3.4 Dealing with Bandwidths</td><td>Three ways to choose a bandwidth (just pick one; try many; let the data choose).</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>20.3.1–20.3.3</td><td>Regression kink, multiple cutoffs, and heaping. Beyond this course.</td><td><span class="pill skip">Optional</span></td></tr>
+</table>
+
+<footer>
+Summary of Chapter 20 of Nick Huntington-Klein, <i>The Effect: An Introduction to Research Design and Causality</i> (free online at <a href="https://theeffectbook.net/">theeffectbook.net</a>). Examples credited to the book are paraphrased from it. The tutoring example and simulated data follow Lecture 10. This guide is a companion to the chapter, not a replacement for it. ECON 4309, Fall 2026.
+</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+var SVGNS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,attrs){var t=el("text",Object.assign({x:x,y:y},attrs||{}),parent);t.textContent=s;return t;}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+
+/* seeded RNG */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rand=mulberry32(20261028);
+function rnorm(){var u=1-rand(),v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+/* ---------- Lab 1: RDD simulator ---------- */
+var CUT=70,EFFECT=10,N=1000;
+function f0(d){return 62+0.45*d+0.00035*d*d*d;}
+function simulate(){
+  var pts=[];
+  for(var i=0;i<N;i++){
+    var x=Math.min(100,Math.max(25,68+14*rnorm()));
+    var d=x-CUT, t=d<=0;
+    var y=f0(d)+(t?EFFECT:0)+5*rnorm();
+    pts.push({x:x,d:d,t:t,y:Math.min(100,Math.max(0,y))});
+  }
+  return pts;
+}
+/* weighted least squares, polynomial order p in d; returns coefficients */
+function wls(ds,ys,ws,p){
+  var k=p+1,A=[],b=[],i,j,r;
+  for(i=0;i<k;i++){A.push(new Array(k).fill(0));b.push(0);}
+  for(r=0;r<ds.length;r++){
+    var pw=[1];for(i=1;i<k;i++)pw.push(pw[i-1]*ds[r]);
+    for(i=0;i<k;i++){b[i]+=ws[r]*pw[i]*ys[r];for(j=0;j<k;j++)A[i][j]+=ws[r]*pw[i]*pw[j];}
+  }
+  for(i=0;i<k;i++){ /* gaussian elimination with partial pivoting */
+    var m=i;for(r=i+1;r<k;r++)if(Math.abs(A[r][i])>Math.abs(A[m][i]))m=r;
+    var tmp=A[i];A[i]=A[m];A[m]=tmp;var tb=b[i];b[i]=b[m];b[m]=tb;
+    if(Math.abs(A[i][i])<1e-12)return null;
+    for(r=i+1;r<k;r++){var c=A[r][i]/A[i][i];for(j=i;j<k;j++)A[r][j]-=c*A[i][j];b[r]-=c*b[i];}
+  }
+  var beta=new Array(k).fill(0);
+  for(i=k-1;i>=0;i--){var s=b[i];for(j=i+1;j<k;j++)s-=A[i][j]*beta[j];beta[i]=s/A[i][i];}
+  return beta;
+}
+function fitSide(pts,left,h,p,ker){
+  var ds=[],ys=[],ws=[];
+  pts.forEach(function(q){if((left?q.d<=0:q.d>0)&&Math.abs(q.d)<=h){ds.push(q.d);ys.push(q.y);ws.push(ker==="t"?Math.max(0,1-Math.abs(q.d)/h):1);}});
+  var used=ws.filter(function(w){return w>0;}).length;
+  if(used<p+2)return {beta:null,n:used};
+  return {beta:wls(ds,ys,ws,p),n:used};
+}
+function estimate(pts,h,p,ker){
+  var L=fitSide(pts,true,h,p,ker),R=fitSide(pts,false,h,p,ker);
+  if(!L.beta||!R.beta)return {est:NaN,n:L.n+R.n,L:L,R:R};
+  return {est:L.beta[0]-R.beta[0],n:L.n+R.n,L:L,R:R};
+}
+function poly(beta,d){var s=0,pw=1;for(var i=0;i<beta.length;i++){s+=beta[i]*pw;pw*=d;}return s;}
+
+var state={h:10,p:1,ker:"u",pts:simulate()};
+var W=680,H=400,M={l:48,r:16,t:16,b:40};
+var sx=function(x){return M.l+(x-25)/(100-25)*(W-M.l-M.r);};
+var sy=function(y){return H-M.b-(y)/(100)*(H-M.t-M.b);};
+
+function axes(svg,xt,yt,xl,yl,sxf,syf,w,h,m){
+  var g=el("g",{"class":"ax"},svg);
+  el("line",{x1:m.l,x2:w-m.r,y1:h-m.b,y2:h-m.b},g);
+  el("line",{x1:m.l,x2:m.l,y1:m.t,y2:h-m.b},g);
+  xt.forEach(function(v){el("line",{x1:sxf(v),x2:sxf(v),y1:h-m.b,y2:h-m.b+5},g);txt(g,sxf(v),h-m.b+18,String(v),{"text-anchor":"middle"});});
+  yt.forEach(function(v){el("line",{x1:m.l-5,x2:m.l,y1:syf(v),y2:syf(v)},g);txt(g,m.l-8,syf(v)+4,String(v),{"text-anchor":"end"});});
+  if(xl)txt(g,(m.l+w-m.r)/2,h-4,xl,{"text-anchor":"middle"});
+  if(yl){var t=txt(g,14,(m.t+h-m.b)/2,yl,{"text-anchor":"middle",transform:"rotate(-90 14 "+((m.t+h-m.b)/2)+")"});}
+}
+
+function drawRD(){
+  var svg=document.getElementById("rdPlot");svg.innerHTML="";
+  var treat=css("--treat"),ctrl=css("--control"),ink=css("--ink"),acc=css("--accent"),surf2=css("--surface-2");
+  var lo=Math.max(25,CUT-state.h),hi=Math.min(100,CUT+state.h);
+  el("rect",{x:sx(lo),y:M.t,width:sx(hi)-sx(lo),height:H-M.t-M.b,fill:surf2,opacity:0.9},svg);
+  axes(svg,[30,40,50,60,70,80,90,100],[0,20,40,60,80,100],"Entrance exam score (running variable)","Exit exam score",sx,sy,W,H,M);
+  var g=el("g",{},svg);
+  state.pts.forEach(function(q){
+    var inside=Math.abs(q.d)<=state.h;
+    el("circle",{cx:sx(q.x).toFixed(1),cy:sy(q.y).toFixed(1),r:2.3,fill:q.t?treat:ctrl,"fill-opacity":inside?0.6:0.1},g);
+  });
+  el("line",{x1:sx(CUT),x2:sx(CUT),y1:M.t,y2:H-M.b,stroke:ink,"stroke-dasharray":"4 4","stroke-width":1.2},svg);
+  txt(svg,sx(CUT)+5,M.t+12,"cutoff = 70",{fill:css("--ink-2"),"font-size":"12"});
+  var r=estimate(state.pts,state.h,state.p,state.ker);
+  [["L",r.L,-state.h,0,treat],["R",r.R,0,state.h,ctrl]].forEach(function(s){
+    if(!s[1].beta)return;
+    var a=Math.max(s[2],25-CUT),b=Math.min(s[3],100-CUT),dpts=[];
+    for(var i=0;i<=40;i++){var d=a+(b-a)*i/40;dpts.push(sx(d+CUT).toFixed(1)+","+sy(poly(s[1].beta,d)).toFixed(1));}
+    el("polyline",{points:dpts.join(" "),fill:"none",stroke:s[4],"stroke-width":3.2},svg);
+  });
+  if(isFinite(r.est)){
+    var y1=sy(r.L.beta[0]),y2=sy(r.R.beta[0]),x=sx(CUT);
+    el("line",{x1:x,x2:x,y1:y1,y2:y2,stroke:acc,"stroke-width":3},svg);
+    el("line",{x1:x-6,x2:x+6,y1:y1,y2:y1,stroke:acc,"stroke-width":3},svg);
+    el("line",{x1:x-6,x2:x+6,y1:y2,y2:y2,stroke:acc,"stroke-width":3},svg);
+    txt(svg,x-10,(y1+y2)/2+4,"gap = "+r.est.toFixed(1),{"text-anchor":"end",fill:acc,"font-weight":"700","font-size":"14",stroke:css("--surface"),"stroke-width":5,"paint-order":"stroke","stroke-linejoin":"round"});
+  }
+  document.getElementById("estVal").textContent=isFinite(r.est)?r.est.toFixed(1):"—";
+  document.getElementById("nVal").textContent=r.n;
+  document.getElementById("bwVal").textContent=state.h;
+}
+
+function runRepeat(){
+  var ests=[];
+  for(var i=0;i<200;i++){var e=estimate(simulate(),state.h,state.p,state.ker).est;if(isFinite(e))ests.push(e);}
+  var svg=document.getElementById("stripPlot");svg.innerHTML="";
+  var w=680,h=110,m={l:48,r:16,t:10,b:30};
+  var lo=0,hi=20,sxx=function(v){return m.l+(Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*(w-m.l-m.r);};
+  axes(svg,[0,5,10,15,20],[],"Estimated effect",null,sxx,function(){return 0;},w,h,m);
+  var good=css("--good"),acc=css("--accent");
+  el("line",{x1:sxx(10),x2:sxx(10),y1:m.t,y2:h-m.b,stroke:good,"stroke-width":2.5},svg);
+  txt(svg,sxx(10)+4,m.t+10,"truth = 10",{fill:good,"font-size":"12","font-weight":"700"});
+  ests.forEach(function(e){el("circle",{cx:sxx(e).toFixed(1),cy:(m.t+14+rand()*(h-m.b-m.t-20)).toFixed(1),r:2.6,fill:acc,"fill-opacity":0.45},svg);});
+  var mean=ests.reduce(function(a,b){return a+b;},0)/ests.length;
+  var sd=Math.sqrt(ests.reduce(function(a,b){return a+(b-mean)*(b-mean);},0)/(ests.length-1));
+  el("line",{x1:sxx(mean),x2:sxx(mean),y1:m.t,y2:h-m.b,stroke:acc,"stroke-width":2,"stroke-dasharray":"5 3"},svg);
+  var bias=mean-10, msg;
+  var bTxt="Average estimate <b>"+mean.toFixed(1)+"</b> (bias "+(bias>=0?"+":"")+bias.toFixed(1)+"), typical miss from sample to sample ±<b>"+sd.toFixed(1)+"</b>. ";
+  if(Math.abs(bias)>1.2&&sd<1)msg="Precise but <b>biased</b>: the lines are the wrong shape this far from the cutoff.";
+  else if(sd>1.5&&Math.abs(bias)<=1.2)msg="About right on average but <b>noisy</b>: too few students in the bandwidth.";
+  else if(Math.abs(bias)<=1.2&&sd<=1.5)msg="<b>A good balance.</b> Centered on the truth and reasonably tight.";
+  else msg="Both biased and noisy. Try another combination.";
+  document.getElementById("repeatVerdict").innerHTML=bTxt+msg;
+  document.getElementById("repeatBox").style.display="block";
+}
+
+function seg(id,key,cast){
+  var box=document.getElementById(id);
+  box.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    box.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));});
+    state[key]=cast(b.dataset.v);drawRD();document.getElementById("repeatBox").style.display="none";
+  });
+}
+seg("shapeSeg","p",Number);seg("kerSeg","ker",String);
+document.getElementById("bw").addEventListener("input",function(e){state.h=+e.target.value;drawRD();document.getElementById("repeatBox").style.display="none";});
+document.getElementById("newSample").addEventListener("click",function(){state.pts=simulate();drawRD();});
+document.getElementById("repeat").addEventListener("click",runRepeat);
+
+/* ---------- Lab 2: manipulation histogram ---------- */
+var baseScores=[];(function(){var r2=mulberry32(7);for(var i=0;i<4000;i++){var u=1-r2(),v=r2();var z=Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);var s=Math.round(68+14*z);if(s>=50&&s<=90)baseScores.push({s:s,u:r2()});}})();
+function drawHist(){
+  var share=+document.getElementById("manip").value/100;
+  document.getElementById("manipVal").textContent=Math.round(share*100);
+  var counts={};for(var s=50;s<=90;s++)counts[s]=0;
+  baseScores.forEach(function(o){var s=o.s;if(s>=71&&s<=76&&o.u<share){s=67+Math.floor(o.u/share*4);}counts[s]++;});
+  var svg=document.getElementById("histPlot");svg.innerHTML="";
+  var w=680,h=260,m={l:48,r:16,t:14,b:40};
+  var maxC=0;for(s=50;s<=90;s++)maxC=Math.max(maxC,counts[s]);var top=Math.max(160,Math.ceil(maxC/40)*40);
+  var sxx=function(v){return m.l+(v-49.5)/(41)*(w-m.l-m.r);},syy=function(c){return h-m.b-c/top*(h-m.t-m.b);};
+  var ticks=[];for(var t=0;t<=top;t+=40)ticks.push(t);
+  axes(svg,[50,55,60,65,70,75,80,85,90],ticks,"Entrance exam score","Number of students",sxx,syy,w,h,m);
+  var treat=css("--treat"),ctrl=css("--control");
+  for(s=50;s<=90;s++){var x0=sxx(s-0.5)+1,x1=sxx(s+0.5)-1;el("rect",{x:x0,y:syy(counts[s]),width:x1-x0,height:h-m.b-syy(counts[s]),fill:s<=70?treat:ctrl,"fill-opacity":0.75},svg);}
+  el("line",{x1:sxx(70.5),x2:sxx(70.5),y1:m.t,y2:h-m.b,stroke:css("--ink"),"stroke-dasharray":"4 4"},svg);
+  var below=counts[67]+counts[68]+counts[69]+counts[70],above=counts[71]+counts[72]+counts[73]+counts[74];
+  var ratio=below/above,v=document.getElementById("manipVerdict");
+  v.innerHTML="Students scoring 67–70: <b>"+below+"</b> · scoring 71–74: <b>"+above+"</b>. "+(ratio>1.35?"<span style='color:var(--bad);font-weight:700'>Suspicious pile-up just below the cutoff and a hole just above it.</span> A density test would flag this, and RDD estimates near 70 can't be trusted, because the students who gamed their way in aren't comparable to those who didn't.":"<span style='color:var(--good);font-weight:700'>Smooth across the cutoff.</span> No sign of manipulation. (The two counts aren't equal because fewer students score in the 70s than in the 60s anyway. What you're looking for is a sudden break at 70.)");
+}
+document.getElementById("manip").addEventListener("input",drawHist);
+
+/* ---------- Lab 3: fuzzy calculator ---------- */
+function drawFuzzy(){
+  var yj=+document.getElementById("yj").value,tj=+document.getElementById("tj").value;
+  document.getElementById("yjVal").textContent=yj.toFixed(1);document.getElementById("tjVal").textContent=tj;
+  document.getElementById("fuzzyOut").innerHTML=yj.toFixed(1)+" ÷ "+(tj/100).toFixed(2)+" = <b>"+(yj/(tj/100)).toFixed(1)+" points</b> effect of actually being treated";
+}
+["yj","tj"].forEach(function(id){document.getElementById(id).addEventListener("input",drawFuzzy);});
+
+drawRD();drawHist();drawFuzzy();
+if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){drawRD();drawHist();});
+})();
+</script>
+</body>
+</html>

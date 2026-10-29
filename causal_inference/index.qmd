@@ -1,0 +1,49 @@
+---
+title: "Causal Inference: Reading Guides"
+page-layout: full
+---
+
+Short interactive summaries of chapters from [*The Effect*](https://theeffectbook.net/) by Nick Huntington-Klein, written for ECON 4309 (Quantitative Methods for the Social Sciences). Read each guide before the class where we cover the topic, then go to the full chapter.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[The Effect · Chapters 6–8]{.summary-meta}
+
+### Causal Diagrams
+How to draw a causal diagram, trace the paths between treatment and outcome, and close back doors.
+
+[Read →](ch06-08-causal-diagrams.html){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[The Effect · Chapter 14]{.summary-meta}
+
+### Matching
+Comparing treated and untreated observations that look alike on the variables that close back doors.
+
+[Read →](ch14-matching.html){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[The Effect · Chapter 18]{.summary-meta}
+
+### Difference-in-Differences
+Using the change over time in an untreated group as the counterfactual for a treated group.
+
+[Read →](ch18-difference-in-differences.html){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[The Effect · Chapter 19]{.summary-meta}
+
+### Instrumental Variables
+Isolating the part of treatment that is driven by something unrelated to the outcome's other causes.
+
+[Read →](ch19-instrumental-variables.html){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[The Effect · Chapter 20]{.summary-meta}
+
+### Regression Discontinuity
+Comparing units just above and just below a cutoff that determines treatment.
+
+[Read →](ch20-regression-discontinuity.html){.stretched-link .card-cue}
+:::
+:::

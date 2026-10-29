@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://enriqueescalante.com/summaries.html</loc>
-    <lastmod>2026-10-22T21:56:58.545Z</lastmod>
+    <loc>https://enriqueescalante.com/causal_inference/index.html</loc>
+    <lastmod>2026-10-29T03:29:34.169Z</lastmod>
   </url>
   <url>
-    <loc>https://enriqueescalante.com/media.html</loc>
-    <lastmod>2026-10-03T15:56:52.396Z</lastmod>
-  </url>
-  <url>
-    <loc>https://enriqueescalante.com/contact.html</loc>
-    <lastmod>2026-10-10T14:57:29.590Z</lastmod>
-  </url>
-  <url>
-    <loc>https://enriqueescalante.com/teaching.html</loc>
-    <lastmod>2026-09-24T03:28:00.670Z</lastmod>
-  </url>
-  <url>
-    <loc>https://enriqueescalante.com/research.html</loc>
-    <lastmod>2026-10-22T21:56:58.539Z</lastmod>
+    <loc>https://enriqueescalante.com/about.html</loc>
+    <lastmod>2026-09-21T04:12:48.393Z</lastmod>
   </url>
   <url>
     <loc>https://enriqueescalante.com/index.html</loc>
     <lastmod>2026-10-22T21:56:58.542Z</lastmod>
   </url>
   <url>
-    <loc>https://enriqueescalante.com/about.html</loc>
-    <lastmod>2026-09-21T04:12:48.393Z</lastmod>
+    <loc>https://enriqueescalante.com/research.html</loc>
+    <lastmod>2026-10-22T21:56:58.539Z</lastmod>
+  </url>
+  <url>
+    <loc>https://enriqueescalante.com/teaching.html</loc>
+    <lastmod>2026-10-29T03:29:34.673Z</lastmod>
+  </url>
+  <url>
+    <loc>https://enriqueescalante.com/contact.html</loc>
+    <lastmod>2026-10-10T14:57:29.590Z</lastmod>
+  </url>
+  <url>
+    <loc>https://enriqueescalante.com/media.html</loc>
+    <lastmod>2026-10-03T15:56:52.396Z</lastmod>
+  </url>
+  <url>
+    <loc>https://enriqueescalante.com/summaries.html</loc>
+    <lastmod>2026-10-22T21:56:58.545Z</lastmod>
   </url>
 </urlset>
