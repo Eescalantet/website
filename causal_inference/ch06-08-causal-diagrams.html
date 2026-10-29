@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Causal Diagrams — The Effect, Ch. 6–8</title>
+<meta name="description" content="A short, interactive summary of Chapters 6–8 (Causal Diagrams, Drawing Causal Diagrams, Causal Paths and Closing Back Doors) of The Effect by Nick Huntington-Klein, written for ECON 4309.">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f2f0ea; --ink:#1d1f23; --ink-2:#4a4f58; --ink-3:#7a808a;
+  --line:#dcd8cf; --accent:#8c1d40; --accent-soft:#f5e6eb;
+  --treat:#c2410c; --control:#1d4ed8; --good:#15803d; --good-soft:#e7f4ec; --bad:#b91c1c; --bad-soft:#fbeaea;
+  --warn-soft:#fff6e0; --warn:#92600a;
+  --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+    --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+    --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+    --warn-soft:#3a3018; --warn:#f3c96b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+  --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+  --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+  --warn-soft:#3a3018; --warn:#f3c96b;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-size:1.4rem;margin:2.2em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;margin:1.4em 0 .4em}
+p{margin:.6em 0}
+a{color:var(--accent)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);padding:.1em .35em;border-radius:4px}
+pre{background:var(--surface-2);padding:12px 14px;border-radius:8px;overflow-x:auto;font:0.86rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.eyebrow{font-size:.85rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin:0}
+.lede{font-size:1.1rem;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{font-size:.8rem;background:var(--surface-2);color:var(--ink-2);padding:3px 10px;border-radius:999px}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 18px;margin:22px 0;box-shadow:var(--shadow)}
+.toc ol{margin:.3em 0;padding-left:1.3em}
+.toc li{margin:.15em 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.big-idea{border-left:5px solid var(--accent);background:var(--accent-soft)}
+.big-idea p:first-child{margin-top:0}.big-idea p:last-child{margin-bottom:0}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.term b{display:block;color:var(--accent);margin-bottom:2px}
+.term .ex{display:block;margin-top:6px;font-size:.88rem;color:var(--ink-2)}
+.callout{border-radius:var(--radius);padding:12px 16px;margin:14px 0}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout.good{background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.callout.bad{background:var(--bad-soft);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.callout .label{font-weight:700;display:block;margin-bottom:2px}
+.callout ul{margin:.3em 0;padding-left:1.2em}
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:16px 0;box-shadow:var(--shadow)}
+.lab-title{font-weight:700;margin:0 0 4px}
+.lab-sub{margin:0 0 10px;color:var(--ink-2);font-size:.92rem}
+.lab svg{width:100%;height:auto;display:block}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 18px;margin:10px 0 4px;font-size:.92rem}
+.controls label{display:block;font-weight:600;margin-bottom:2px}
+.controls input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:5px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed=true]{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed=true]{color:#15171a}}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:6px 12px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:8px;padding:8px 10px}
+.stat .k{font-size:.78rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.stat .v{font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums}
+.verdict{margin-top:8px;font-size:.95rem;min-height:1.6em}
+.try{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;padding-left:1.2em}
+.try li{margin:.2em 0}
+.ax text{fill:var(--ink-3);font-size:12px}
+.ax line,.ax path{stroke:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.formula{font-size:1.05rem;text-align:center;background:var(--surface-2);border-radius:8px;padding:10px;margin:10px 0}
+table.read{width:100%;border-collapse:collapse;font-size:.93rem}
+table.read td,table.read th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.read th{color:var(--ink-3);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+.pill{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.read{background:var(--good-soft);color:var(--good)}
+.pill.skim{background:var(--warn-soft);color:var(--warn)}
+.pill.skip{background:var(--surface-2);color:var(--ink-3)}
+footer{margin-top:48px;font-size:.85rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:14px}
+.print-only{display:none}
+@media (max-width:520px){body{font-size:16px}h1{font-size:1.6rem}}
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt}
+  main{max-width:none;padding:0}
+  .no-print,.controls,.btnrow,.toc{display:none!important}
+  .print-only{display:block}
+  .card,.lab,  h2{break-after:avoid}
+          a{color:#000}
+}
+/* additions for the causal-diagram page */
+.dagnode{cursor:pointer}
+.dagnode:focus{outline:none}
+.dagnode:focus-visible rect{stroke-width:3}
+.dagnode.fixed{cursor:default}
+.paths{list-style:none;padding:0;margin:10px 0 0;font-size:.92rem}
+.paths li{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:7px 6px;border-bottom:1px solid var(--line)}
+.paths li:last-child{border-bottom:0}
+.paths .p{flex:1 1 320px;font:0.86rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.paths li.closed .p{color:var(--ink-3)}
+.paths .why{flex:1 1 100%;font-size:.84rem;color:var(--ink-2);padding-left:2px}
+.pill.badp{background:var(--bad-soft);color:var(--bad)}
+.pill.door{background:var(--surface-2);color:var(--ink-2);font-weight:600}
+.assoc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.assoc svg{width:100%;height:auto;display:block;margin:4px 0}
+table.read code{overflow-wrap:anywhere}
+@media (max-width:520px){table.read{font-size:.85rem}table.read td,table.read th{padding:6px 3px}.paths .p{flex-basis:100%}}
+</style>
+</head>
+<body>
+<main>
+
+<p class="eyebrow">ECON 4309 · Quantitative Methods for Social Sciences · Reading companion</p>
+<h1>Causal Diagrams, in about 15 minutes</h1>
+<p class="lede">A plain-language guide to three short chapters of <i>The Effect</i> by Nick Huntington-Klein: <a href="https://theeffectbook.net/ch-CausalDiagrams.html">Ch. 6 (Causal Diagrams)</a>, <a href="https://theeffectbook.net/ch-DrawingCausalDiagrams.html">Ch. 7 (Drawing Causal Diagrams)</a>, and <a href="https://theeffectbook.net/ch-CausalPaths.html">Ch. 8 (Causal Paths and Closing Back Doors)</a>. Read this first, play with the two simulators, and then use the reading guide at the end to decide which parts of the chapters to read closely.</p>
+<div class="meta"><span class="chip">Pairs with Lecture 4: Measurement and DAGs</span><span class="chip">Book: Ch. 6, 7, 8</span><span class="chip">~15 min</span></div>
+
+<p class="print-only"><b>Note:</b> This is the printable version. The interactive version, with the simulators, is on the course website.</p>
+
+<nav class="toc no-print" aria-label="Contents">
+<b>On this page</b>
+<ol>
+<li><a href="#idea">The big idea in 60 seconds</a></li>
+<li><a href="#terms">Words you need</a></li>
+<li><a href="#draw">Drawing a diagram (Ch. 7)</a></li>
+<li><a href="#sim">Simulator: open and close the paths</a></li>
+<li><a href="#three">Confounders, mediators, colliders</a></li>
+<li><a href="#sim2">Simulator: see the bias in data</a></li>
+<li><a href="#why">Why controlling works</a></li>
+<li><a href="#assume">What has to be true (and how to check it)</a></li>
+<li><a href="#estimate">What you actually estimate</a></li>
+<li><a href="#r">Doing it in R (with AI help)</a></li>
+<li><a href="#reading">How to read the chapters</a></li>
+</ol>
+</nav>
+
+<!-- 1 -->
+<h2 id="idea">1. The big idea in 60 seconds</h2>
+<div class="card big-idea">
+<p>Chapter 6 has a puzzle. You'd expect more police to mean less crime. But in the chapter's data on North Carolina counties, places with <b>more police per person also have more crime</b>. Do police cause crime?</p>
+<p>Probably not. The chapter's explanation is that <b>last year's crime</b> is part of the story. High-crime places get assigned more police, and high-crime places tend to stay high-crime. So police and crime move together even if police <i>lower</i> crime. The raw correlation mixes the effect you want with an <b>alternative explanation</b>.</p>
+<p>A <b>causal diagram</b> is a picture of how you think the data were generated: boxes for variables, arrows for "this causes that." Once it's drawn, you can list every <b>path</b> that links your treatment to your outcome, sort them into the ones that answer your question and the ones that don't, and figure out what to <b>control for</b> to shut the bad ones.</p>
+</div>
+<p>The book's working definition of a cause is worth memorizing: <b>X causes Y if, when you step in and change X, the distribution of Y changes.</b> The chapter's example: people wear shorts more on days they eat ice cream, but putting someone in shorts won't make them buy ice cream. Both are driven by something else (hot weather). Correlation without causation.</p>
+<p>The three chapters build one recipe:</p>
+<ol>
+<li><b>Draw</b> the diagram (Ch. 6 and 7). Include everything important, leave out the rest, and own those choices as assumptions.</li>
+<li><b>List</b> every path from treatment to outcome and mark each as Good or Bad (Ch. 8).</li>
+<li><b>Close</b> every Bad path by controlling for something on it, without closing a Good path and without controlling for a collider (Ch. 8).</li>
+</ol>
+
+<!-- 2 -->
+<h2 id="terms">2. Words you need</h2>
+<p>We'll use Lecture 4's running example throughout: <b>what is the effect of an extra year of education on earnings?</b> In the lecture's diagram, a person's background, location, and year of birth affect both education and earnings, and education affects earnings partly through job connections.</p>
+<div class="terms">
+  <div class="term"><b>Causal diagram (DAG)</b>A picture of the data generating process. <i>Directed</i>: arrows have one direction. <i>Acyclic</i>: following the arrows never brings you back where you started.<span class="ex">Education → Earnings, plus everything else that matters for either one.</span></div>
+  <div class="term"><b>Node and arrow</b>Each node is one variable (with all its possible values). An arrow means "causes." It says nothing about size or sign.<span class="ex">Background → Education: background changes how much school you get, in some direction.</span></div>
+  <div class="term"><b>Unobserved variable</b>Something that matters but you can't measure. When two things are related and neither causes the other, the book draws an unknown common cause, U1.<span class="ex">U1 links Background and Location in the lecture diagram.</span></div>
+  <div class="term"><b>Path</b>Any route from one variable to another along the arrows, ignoring which way they point. Each path is a reason the two variables could move together.<span class="ex">Education ← Year of birth → Earnings is one path.</span></div>
+  <div class="term"><b>Front door / back door</b>Front door: every arrow points away from the treatment. Back door: at least one arrow points back toward it. Usually front doors are the <strong>Good paths</strong> and back doors the <strong>Bad paths</strong>.<span class="ex">Education → Job connections → Earnings is a front door.</span></div>
+  <div class="term"><b>Controlling (adjusting)</b>Removing the variation in a variable, so it can't drive the relationship. Regression controls, matching, or picking a sample where it doesn't vary all do this.<span class="ex">Comparing people with the same background.</span></div>
+  <div class="term"><b>Open / closed</b>A path is open if everything on it is free to vary, so it carries association. Controlling for a variable on the path closes it.<span class="ex">Controlling for Year of birth closes Education ← Year → Earnings.</span></div>
+  <div class="term"><b>Collider</b>A variable where both arrows on a path point <i>into</i> it (→ C ←). A path with a collider is closed by default. Controlling for the collider <strong>opens</strong> it.<span class="ex">The lecture's example: being hired at a tech company is caused by both programming and social skills.</span></div>
+  <div class="term"><b>d-separated</b>The lecture's term for "every path between two variables is closed." If X and Y are d-separated, any relationship you then see between them must come from somewhere else.<span class="ex">Control for Background, Location, and Year, and the back doors are shut.</span></div>
+</div>
+
+<!-- 3 -->
+<h2 id="draw">3. Drawing a diagram (Ch. 7)</h2>
+<p>Chapter 7 walks through a study the author worked on: does taking an <b>online course</b> make community-college students more likely to <b>drop out</b>? The lecture follows the same steps for education and earnings:</p>
+<ol>
+<li><b>List variables.</b> Start with treatment and outcome. Then ask: what causes the treatment? What causes the outcome? What causes <i>those</i>? (For online classes: preferences, available time, work hours, internet access, past academics, demographics, and so on.)</li>
+<li><b>Draw arrows.</b> For each pair, ask whether one causes the other. If two things are related but neither causes the other, add a common cause like U1.</li>
+<li><b>Simplify.</b> The book's first draft is a hairball, so it trims it with four tests (each comes with a "probably," so think before you cut):
+  <ul>
+  <li><i>Unimportance:</i> tiny effects can go (the chapter's example: quiet cafés nearby might nudge a few students toward online classes, but not many).</li>
+  <li><i>Redundancy:</i> variables with exactly the same arrows in and out can be merged (Race and Gender become "Demographics"; the lecture groups socioeconomic status and demographics into "Background").</li>
+  <li><i>Mediators:</i> a variable that only passes an effect along (A → B → C, nothing else touching B) can be replaced by A → C, unless the mechanism is what you're studying.</li>
+  <li><i>Irrelevance:</i> a variable that sits on no path between treatment and outcome can go.</li>
+  </ul></li>
+<li><b>No cycles.</b> If it looks like A causes B and B causes A, add time. The book's example is a fistfight: my punch now causes your punch next period, which causes my punch the period after. The lecture's version: Wealth<sub>t−1</sub> → Power<sub>t</sub> → Wealth<sub>t</sub>.</li>
+</ol>
+<div class="callout warn"><span class="label">What's missing is an assumption too</span>Every variable you leave off says "this doesn't matter much." Every arrow you leave out says "these two don't directly cause each other." The book calls the ones your answer depends on <b>identifying assumptions</b>. Writing them down is scary because people can disagree with them. That is the point: your critics can see exactly what you assumed. Someone who refuses to draw a diagram is still making those assumptions, just without saying so.</div>
+
+<!-- 4 -->
+<h2 id="sim">4. Simulator: open and close the paths</h2>
+<p>This is the lecture's education-and-earnings diagram, with two additions so you can see every kind of variable: <b>Schooling laws</b> (from the lecture's variable list) and <b>Owns a home</b>, which we added as a collider. Owning a home is plausibly caused by both education and earnings. <b>Click a box to control for it.</b> The list below the diagram updates to show which paths are open.</p>
+
+<div class="lab" id="lab1">
+  <p class="lab-title">What is the effect of education on earnings?</p>
+  <p class="lab-sub">Click a variable to control for it (it turns dark). Click it again to un-control it. U1 is unobserved, so you can't control for it. Hover over a path in the list to highlight it.</p>
+  <svg id="dagSvg" viewBox="0 0 680 440" role="group" aria-label="Clickable causal diagram of education and earnings"></svg>
+  <div class="legend"><span><span class="dot" style="background:var(--accent)"></span>Treatment / outcome</span><span><span class="dot" style="background:var(--ink)"></span>Controlled</span><span><span class="dot" style="border:1.5px dashed var(--ink-3);width:12px;height:12px"></span>Unobserved</span></div>
+  <div class="btnrow"><button class="btn" id="dagReset">Clear all controls</button><button class="btn" id="dagLecture">Show the lecture's answer</button></div>
+  <div class="readout">
+    <div class="stat"><div class="k">Controlling for</div><div class="v" id="ctrlVal" style="font-size:1rem">nothing</div></div>
+    <div class="stat"><div class="k">Bad paths still open</div><div class="v" id="badOpen">—</div></div>
+    <div class="stat"><div class="k">Good paths still open</div><div class="v" id="goodOpen">—</div></div>
+  </div>
+  <div class="verdict" id="dagVerdict"></div>
+  <ul class="paths" id="pathList"></ul>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> Click <b>Background</b>. Three paths close. Which Bad paths are still open? Close them all with the fewest clicks. (The lecture's answer: Background, Location, and Year of birth.)</li>
+    <li><b>Try 2:</b> Now also click <b>Job connections</b>. The back doors stay closed, but you've just shut one of your Good paths. That's <b>overcontrolling</b>: you'd only measure the part of education's effect that doesn't run through job connections.</li>
+    <li><b>Try 3:</b> Un-click Job connections and click <b>Owns a home</b>. A path that was closed by default <b>opens</b>, because you controlled for a collider. Then click <b>Schooling laws</b>: nothing changes, because it isn't on any path to earnings.</li>
+  </ul>
+</div>
+
+<div class="callout good"><span class="label">The rule, in one sentence</span>If you control for at least one variable on every Bad path, control for nothing on a Good path, and leave colliders alone, then whatever relationship is left between treatment and outcome is the causal effect you asked about (assuming your diagram is right).</div>
+
+<p>The book practices this on its own example: does <b>drinking wine</b> make you live longer? Its diagram has two front doors (Wine → Lifespan, and Wine → Drugs → Lifespan) and four back doors that run through Income and Health, which share an unobserved cause U1. Controlling for Income closes three of the back doors. Adding Health closes the fourth. Note that you never had to control for U1, which is lucky, because you can't.</p>
+<div class="callout warn"><span class="label">How to find every path (the book's walking method)</span>Start at the treatment. Follow any arrow, in or out. Keep walking from node to node. If you reach the outcome, write the path down. If you'd revisit a node, that's a loop, not a path. Back up and try the next arrow until you've tried them all. It's tedious at first. After a few diagrams you'll spot paths by eye, and software can do it for you (section 10).</div>
+
+<!-- 5 -->
+<h2 id="three">5. Confounders, mediators, colliders</h2>
+<p>The lecture sorts the associations in a diagram into three types. The middle variable plays a different role in each, and the right move is different:</p>
+<div class="assoc">
+  <div class="card" style="margin:0">
+    <svg viewBox="0 0 220 90" aria-label="Confounding: Z causes X and Y"><g font-size="13" text-anchor="middle" fill="var(--ink)"><text x="110" y="18">Z</text><text x="25" y="80">X</text><text x="195" y="80">Y</text></g><g stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#am)"><path d="M100,24 L35,66"/><path d="M120,24 L185,66"/><path d="M40,76 L180,76"/></g><defs><marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker></defs></svg>
+    <b>Confounder (common cause)</b><br>X ← Z → Y. Z opens a back door.<br><span style="color:var(--good);font-weight:700">Control for it.</span><br><span style="font-size:.88rem;color:var(--ink-2)">Lecture: candidate quality drives both campaign money and win margin.</span>
+  </div>
+  <div class="card" style="margin:0">
+    <svg viewBox="0 0 220 90" aria-label="Mediation: X causes Z which causes Y"><g font-size="13" text-anchor="middle" fill="var(--ink)"><text x="110" y="18">Z</text><text x="25" y="80">X</text><text x="195" y="80">Y</text></g><g stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#am)"><path d="M35,66 L100,26"/><path d="M120,26 L185,66"/><path d="M40,76 L180,76"/></g></svg>
+    <b>Mediator</b><br>X → Z → Y. Z is part of the effect.<br><span style="color:var(--bad);font-weight:700">Usually don't control for it.</span><br><span style="font-size:.88rem;color:var(--ink-2)">Lecture: job connections, between education and earnings.</span>
+  </div>
+  <div class="card" style="margin:0">
+    <svg viewBox="0 0 220 90" aria-label="Collision: X and Y both cause Z"><g font-size="13" text-anchor="middle" fill="var(--ink)"><text x="110" y="18">Z</text><text x="25" y="80">X</text><text x="195" y="80">Y</text></g><g stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#am)"><path d="M35,66 L100,26"/><path d="M185,66 L120,26"/></g></svg>
+    <b>Collider</b><br>X → Z ← Y. The path is already closed.<br><span style="color:var(--bad);font-weight:700">Don't control for it.</span><br><span style="font-size:.88rem;color:var(--ink-2)">Lecture: getting hired at a tech company.</span>
+  </div>
+</div>
+<p><b>Why does controlling for a collider create a link?</b> The book uses a sandwich. Suppose your boss sometimes buys lunch for the office, but always announces it after you've ordered. Buying a sandwich and being given one are unrelated. But if you know someone <i>ate</i> a sandwich, the two become linked: if they didn't buy one, they must have been given one. Knowing the collider makes its causes predict each other.</p>
+<p>The lecture's version: survey workers at a tech company and you'll find that people with better programming skills have worse social skills. That's not because coding ruins your social life. The company hires people who are strong in <i>at least one</i> of the two, so among the hired, a person weak in one is probably strong in the other. Similarly, height seems unrelated to basketball skill <i>among NBA players</i>. The book adds a warning: choosing a sample <i>is</i> controlling. Study only college students and you have controlled for college attendance, whether you meant to or not.</p>
+
+<!-- 6 -->
+<h2 id="sim2">6. Simulator: see the bias in data</h2>
+<p>The diagram tells you which paths are open. This simulator shows what an open path does to your numbers. All the data here are <b>simulated</b>, made up so we know the true answer. They are not from the book or the lecture.</p>
+
+<div class="lab" id="lab2">
+  <p class="lab-title" id="lab2Title">Confounding: campaign money and win margin</p>
+  <p class="lab-sub" id="lab2Sub"></p>
+  <div class="controls" style="margin-top:0">
+    <div><label>Story</label><div class="seg" id="modeSeg"><button data-v="conf" aria-pressed="true">Confounder</button><button data-v="coll" aria-pressed="false">Collider</button></div></div>
+    <div id="viewBox"><label>Show</label><div class="seg" id="viewSeg"><button data-v="raw" aria-pressed="true">Raw data</button><button data-v="res" aria-pressed="false">Quality removed</button></div></div>
+  </div>
+  <svg id="scatter" viewBox="0 0 680 400" role="img" aria-label="Scatterplot of simulated data with fitted lines"></svg>
+  <div class="legend" id="lab2Legend"></div>
+  <div class="controls">
+    <div id="strBox"><label for="str">How strongly quality drives money and margin: <span id="strVal">1.0</span></label><input id="str" type="range" min="0" max="2" step="0.1" value="1"></div>
+    <div id="hireBox" style="display:none"><label for="hire">Share of applicants the company hires: <span id="hireVal">30</span>%</label><input id="hire" type="range" min="5" max="100" step="5" value="30"></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="newSample2">Draw a new sample</button></div>
+  <div class="readout">
+    <div class="stat"><div class="k" id="k1">—</div><div class="v" id="v1">—</div></div>
+    <div class="stat"><div class="k" id="k2">—</div><div class="v" id="v2">—</div></div>
+    <div class="stat"><div class="k" id="k3">—</div><div class="v" id="v3">—</div></div>
+  </div>
+  <div class="verdict" id="lab2Verdict"></div>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> In <b>Confounder</b>, drag the strength to 0. The naive slope and the adjusted slope both sit near the true 1.0. Now drag it to 2. The naive slope climbs toward 1.8, while the adjusted slope stays near 1.0.</li>
+    <li><b>Try 2:</b> Switch the view to <b>Quality removed</b>. This is the lecture's recipe: take out the part of money explained by quality, take out the part of win margin explained by quality, and look at what's left. The slope of that cloud <i>is</i> the adjusted estimate.</li>
+    <li><b>Try 3:</b> Switch to <b>Collider</b> and set hiring to 100%. Programming and social skills are unrelated. Now lower it to 20%. Among the people hired, a clear negative relationship appears. Nobody's skills changed. Only <i>who you're looking at</i> changed.</li>
+  </ul>
+</div>
+
+<!-- 7 -->
+<h2 id="why">7. Why controlling works</h2>
+<p>Every open path is a story for why treatment and outcome move together. The Ch. 6 police example has two Bad stories (last year's crime, and local "law and order" politics, each of which affects both police and crime) and Good ones (police reduce crime directly, and by making crime less likely to pay off). To get at the Good stories, you need to <b>get rid of the variation</b> that comes from the Bad ones.</p>
+<p>A path carries association only if every variable on it is free to vary. The book's example: in a sample where <i>nobody</i> uses drugs, Wine → Drugs → Lifespan can't explain anything, because Drugs never changes. Controlling for a variable does the same thing statistically. The lecture describes it in two equivalent ways and lists the tools for doing it:</p>
+<ul>
+<li><b>Hold it constant:</b> compare candidates <i>as if</i> they had the same quality.</li>
+<li><b>Remove what it predicts:</b> strip out the part of money and the part of win margin that quality explains, then relate what's left (Simulator 2's "Quality removed" view).</li>
+<li><b>Ways to do it:</b> add it to a regression (<code>margin ~ money + quality</code>), matching, stratifying, or inverse probability weighting. You'll meet these later in the course.</li>
+</ul>
+<p>Colliders are the exception. A collider doesn't <i>cause</i> anything on its path, so it can't supply an alternative story. It is the thing being caused, which is why its path starts out closed. Controlling for it makes its causes related to each other, and that opens the path.</p>
+
+<!-- 8 -->
+<h2 id="assume">8. What has to be true (and how to check it)</h2>
+<div class="card">
+<h3 style="margin-top:0">Assumption 1: The diagram is close enough to being right</h3>
+<p>Everything above holds <i>if</i> the diagram is correct, and no diagram is perfect. The Ch. 6 police diagram leaves out the poverty rate, and the book admits that probably belongs on it. The goal is a diagram that's useful: everything important, as little else as possible. Too many variables and nothing can be identified. Too few and you miss a back door.</p>
+<p><b>How to check it:</b> the book's Ch. 7 advice is to treat each assumption as "probably true" or "probably false" rather than proven, and to ask what evidence would convince a skeptical reader. Its example: in a study of door-knocking and votes, if a reader asks "doesn't campaign money pay for door-knocking?", look at prior studies, or check whether money and door-knocking are correlated in your data. And show your diagram to someone who knows the setting.</p>
+</div>
+<div class="card">
+<h3 style="margin-top:0">Assumption 2: You can measure what you need to control for</h3>
+<p>A back door through something unobserved (like U1) can only be closed if another variable on the same path is measured. If <i>every</i> variable on a Bad path is unobserved, controlling can't save you, and you need a different research design. Most of the rest of the course is about those designs.</p>
+</div>
+<div class="card">
+<h3 style="margin-top:0">Check: placebo tests (testable implications)</h3>
+<p>Your diagram makes claims you can test. Pick two variables that the diagram says should be unrelated once you control for certain things, and check whether they actually are. The lecture writes this as <b>X ⊥ Y | Z</b>: "X is independent of Y, given Z."</p>
+<p>The book's example: the wine diagram implies that Income and Drug use are related <i>only</i> through Wine. So after controlling for Wine, they should be unrelated. That seems unlikely, and if the data show a relationship, the diagram is missing something. Failing a placebo test doesn't end the project, since every diagram leaves something out. A small leftover relationship is a minor worry. A big one means back to the drawing board.</p>
+</div>
+
+<!-- 9 -->
+<h2 id="estimate">9. What you actually estimate</h2>
+<p>Which paths count as Good depends on <b>your research question</b>, not on the diagram.</p>
+<div class="terms">
+  <div class="term"><b style="color:var(--good)">Total effect</b>"Does wine change lifespan, by any route?" Both front doors are Good, so you leave Drugs alone. In the lecture example, leave Job connections alone.</div>
+  <div class="term"><b style="color:var(--control)">Direct effect</b>"Does wine change lifespan <i>other than</i> through drug use?" Now Wine → Drugs → Lifespan is a path you don't want, so you'd control for Drugs. Only Treatment → Outcome is Good.</div>
+</div>
+<p>The book is explicit that either question can be valid. Just decide which one you're asking <i>before</i> you pick your controls. Controlling for a mediator by accident (the lecture calls it <b>overcontrolling</b>) quietly changes your question from "total" to "direct."</p>
+
+<!-- 10 -->
+<h2 id="r">10. Doing it in R (with AI help)</h2>
+<p>In this class, AI writes most of the code. <b>Your job is the design and the checking.</b> The <code>dagitty</code> and <code>ggdag</code> packages (or the website dagitty.net) will find paths and adjustment sets for you, but only for the diagram <i>you</i> give them.</p>
+<table class="read">
+<tr><th>Step</th><th>Typical R</th><th>What <i>you</i> check</th></tr>
+<tr><td>1. Write the diagram</td><td><code>dag &lt;- dagify(Earnings ~ Education + JobConnections + Background + Location + Year, JobConnections ~ Education, Education ~ Background + Location + Year + SchoolLaws, Background ~ U1, Location ~ U1, exposure = "Education", outcome = "Earnings", latent = "U1")</code></td><td>Is every arrow one you believe? Is every <i>missing</i> arrow an assumption you can defend? Are unobserved variables marked latent?</td></tr>
+<tr><td>2. Plot it</td><td><code>ggdag(dag)</code>, <code>isAcyclic(dag)</code></td><td>Does the picture match your story? Any cycles? (If so, add time.)</td></tr>
+<tr><td>3. List the paths</td><td><code>paths(dag, "Education", "Earnings")</code> or <code>ggdag_paths(dag)</code></td><td>Same paths you found by hand? Which are front doors, and which are open?</td></tr>
+<tr><td>4. Find what to control for</td><td><code>adjustmentSets(dag, effect = "total")</code> or <code>ggdag_adjustment_set(dag)</code></td><td>No mediators or colliders in the set. Do you actually <i>have</i> those variables in your data?</td></tr>
+<tr><td>5. Check your control set</td><td><code>paths(dag, Z = c("Background", "Location", "Year"))</code></td><td>Every back door closed, every front door still open.</td></tr>
+<tr><td>6. Test the diagram</td><td><code>impliedConditionalIndependencies(dag)</code>, then <code>localTests(dag, data = df)</code></td><td>Placebo tests. Small violations are normal; big ones mean the diagram is missing something.</td></tr>
+<tr><td>7. Estimate</td><td><code>lm(earnings ~ education + background + location + year, data = df)</code></td><td>The controls in the regression should be the adjustment set, not "everything I have."</td></tr>
+</table>
+<div class="callout warn"><span class="label">The software only knows your diagram</span><code>adjustmentSets()</code> gives the right answer for the diagram you typed in. If you left out an important variable or arrow, it will confidently give you the wrong answer. AI is the same: ask it "what should I control for?" without a diagram and it may suggest "everything you have," which can include mediators and colliders.</div>
+
+<div class="callout bad"><span class="label">Common mistakes</span>
+<ul>
+<li><b>Kitchen-sink regressions.</b> Throwing in every available control can close Good paths (mediators) and open Bad ones (colliders).</li>
+<li><b>Thinking "collider" is a type of variable.</b> The book stresses that it depends on the path: the same variable can be a collider on one path and not on another.</li>
+<li><b>Forgetting that sample selection is controlling.</b> Studying only employees, only college students, or only NBA players can open a collider path.</li>
+<li><b>Treating an arrow as "positive."</b> An arrow means "causes," with no sign and no size.</li>
+<li><b>Leaving out unobserved variables</b> because you can't measure them. They still belong on the diagram, and they decide whether a back door can be closed.</li>
+<li><b>Drawing a cycle</b> (A → B → A). Break it with time periods.</li>
+<li><b>Reading "linked to" as "causes."</b> The book lists these "weasel words": <i>linked to</i>, <i>predicts</i>, <i>is followed by</i>, <i>people who X are more likely to Y</i>.</li>
+</ul></div>
+
+<!-- 11 -->
+<h2 id="reading">11. How to read the chapters</h2>
+<p>Together the three chapters run about 16,000 words, but they're among the most readable in the book, and Ch. 8 is the foundation for everything after it. Here's where to spend your time:</p>
+<table class="read">
+<tr><th>Section</th><th>What it covers</th><th></th></tr>
+<tr><td>6.1 Causality</td><td>The "intervene and the distribution changes" definition, causal vs. weasel words, ice cream and shorts.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>6.2 Causal Diagrams</td><td>Nodes, arrows, unobserved variables, U1. The coin-flip-for-cake example builds up step by step.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>6.3 On an Omission Mission</td><td>The police-and-crime diagram, and why everything left off is an assumption.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>6.4 Research Questions</td><td>Direct vs. indirect effects in the police diagram.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>6.5 Moderators</td><td>How interactions fit (awkwardly) into diagrams.</td><td><span class="pill skip">Optional</span></td></tr>
+<tr><td>7.1–7.2 Thinking Through the DGP</td><td>Building the online-classes diagram variable by variable. Follow the logic; don't memorize the list.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>7.3 Simplify</td><td>The four simplification tests.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>7.4–7.5 Cycles; Assumptions</td><td>Breaking cycles with time; convincing a skeptical reader.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>8.1–8.3 Paths; Good and Bad</td><td>What a path is, how to find them all, front and back doors. Work the wine example yourself before reading the answer.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>8.4 Open and Closed Paths</td><td>Controlling closes paths. The core rule for identification.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>8.5 Colliders</td><td>Why colliders close paths and controlling for them reopens them. Read the sandwich footnote.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>8.6 Testing Your Diagram</td><td>Placebo tests from the diagram's own implications.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>8.7 Path Glossary</td><td>One-line definitions. Good for review before the quiz.</td><td><span class="pill skim">Skim</span></td></tr>
+</table>
+
+<footer>
+Summary of Chapters 6, 7, and 8 of Nick Huntington-Klein, <i>The Effect: An Introduction to Research Design and Causality</i> (free online at <a href="https://theeffectbook.net/">theeffectbook.net</a>). Examples credited to the book are paraphrased from it. The education-and-earnings, campaign-money, and tech-hiring examples follow Lecture 4; the "Owns a home" node and all simulated data are added for this page. This guide is a companion to the chapters, not a replacement for them. ECON 4309, Fall 2026.
+</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+var SVGNS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,attrs){var t=el("text",Object.assign({x:x,y:y},attrs||{}),parent);t.textContent=s;return t;}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+
+/* seeded RNG */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rand=mulberry32(20261028);
+function rnorm(){var u=1-rand(),v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+/* ---------- Lab 1: clickable DAG ---------- */
+var NODES={
+  edu:{label:"Education",x:115,y:190,role:"T"},
+  earn:{label:"Earnings",x:565,y:190,role:"Y"},
+  job:{label:"Job connections",x:340,y:122},
+  home:{label:"Owns a home",x:340,y:34},
+  year:{label:"Year of birth",x:340,y:240},
+  law:{label:"Schooling laws",x:78,y:300},
+  bg:{label:"Background",x:205,y:348},
+  loc:{label:"Location",x:475,y:348},
+  u1:{label:"U1 (unobserved)",x:340,y:410,latent:true}
+};
+var EDGES=[["law","edu"],["bg","edu"],["bg","earn"],["loc","edu"],["loc","earn"],["year","edu"],["year","earn"],["u1","bg"],["u1","loc"],["edu","job"],["job","earn"],["edu","earn"],["edu","home"],["earn","home"]];
+var BH=36;
+Object.keys(NODES).forEach(function(k){var n=NODES[k];n.w=Math.max(96,n.label.length*8.2+24);});
+function hasEdge(a,b){return EDGES.some(function(e){return e[0]===a&&e[1]===b;});}
+function nbrs(v){var out=[];EDGES.forEach(function(e){if(e[0]===v)out.push(e[1]);if(e[1]===v)out.push(e[0]);});return out;}
+function desc(v){var seen={},st=[v];while(st.length){var x=st.pop();EDGES.forEach(function(e){if(e[0]===x&&!seen[e[1]]){seen[e[1]]=1;st.push(e[1]);}});}return Object.keys(seen);}
+function allPaths(from,to){
+  var res=[];
+  (function walk(p){var v=p[p.length-1];if(v===to){res.push(p.slice());return;}
+    nbrs(v).forEach(function(n){if(p.indexOf(n)<0){p.push(n);walk(p);p.pop();}});})([from]);
+  return res;
+}
+var PATHS=allPaths("edu","earn").sort(function(a,b){
+  var fa=isFront(a),fb=isFront(b);if(fa!==fb)return fa?-1:1;return a.length-b.length;});
+function isFront(p){for(var i=0;i<p.length-1;i++)if(!hasEdge(p[i],p[i+1]))return false;return true;}
+var Z={};
+function pathStatus(p){
+  /* returns {open:bool, why:string} */
+  var closers=[],openedBy=[],blockedCollider=[];
+  for(var i=1;i<p.length-1;i++){
+    var v=p[i],a=p[i-1],b=p[i+1];
+    var coll=hasEdge(a,v)&&hasEdge(b,v);
+    if(coll){
+      var act=Z[v]||desc(v).some(function(d){return Z[d];});
+      if(act)openedBy.push(v);else blockedCollider.push(v);
+    }else if(Z[v])closers.push(v);
+  }
+  var lab=function(v){return NODES[v].label;};
+  if(closers.length)return {open:false,why:"Closed: you controlled for "+closers.map(lab).join(" and ")+"."};
+  if(blockedCollider.length)return {open:false,why:"Closed by default: "+blockedCollider.map(lab).join(", ")+" is a collider on this path (both arrows point into it)."};
+  if(openedBy.length)return {open:true,why:"Opened! "+openedBy.map(lab).join(", ")+" is a collider here, and you controlled for it."};
+  return {open:true,why:null};
+}
+function pathString(p){
+  var s=NODES[p[0]].label;
+  for(var i=1;i<p.length;i++)s+=(hasEdge(p[i-1],p[i])?" → ":" ← ")+NODES[p[i]].label;
+  return s;
+}
+function edgeEnds(a,b){
+  var A=NODES[a],B=NODES[b],dx=B.x-A.x,dy=B.y-A.y;
+  function clip(N,sx,sy){var tx=Math.abs(sx)>1e-9?(N.w/2+3)/Math.abs(sx):1e9,ty=Math.abs(sy)>1e-9?(BH/2+3)/Math.abs(sy):1e9;var t=Math.min(tx,ty);return [N.x+sx*t,N.y+sy*t];}
+  var p1=clip(A,dx,dy),p2=clip(B,-dx,-dy);
+  return [p1,p2];
+}
+var hiPath=null;
+function drawDAG(){
+  var svg=document.getElementById("dagSvg");svg.innerHTML="";
+  var ink=css("--ink"),ink2=css("--ink-2"),ink3=css("--ink-3"),acc=css("--accent"),accSoft=css("--accent-soft"),surf=css("--surface"),surf2=css("--surface-2"),line=css("--line"),bg=css("--bg"),bad=css("--bad");
+  var defs=el("defs",{},svg);
+  [["arrN",ink3],["arrH",acc]].forEach(function(m){var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto"},defs);el("path",{d:"M0,0 L10,5 L0,10 z",fill:m[1]},mk);});
+  var hiEdges={};
+  if(hiPath)for(var i=0;i<hiPath.length-1;i++){hiEdges[hiPath[i]+">"+hiPath[i+1]]=1;hiEdges[hiPath[i+1]+">"+hiPath[i]]=1;}
+  var ge=el("g",{},svg);
+  EDGES.forEach(function(e){
+    var ends=edgeEnds(e[0],e[1]),h=hiEdges[e[0]+">"+e[1]];
+    el("line",{x1:ends[0][0].toFixed(1),y1:ends[0][1].toFixed(1),x2:ends[1][0].toFixed(1),y2:ends[1][1].toFixed(1),stroke:h?acc:ink3,"stroke-width":h?3:1.6,"marker-end":"url(#"+(h?"arrH":"arrN")+")"},ge);
+  });
+  Object.keys(NODES).forEach(function(k){
+    var n=NODES[k],fixed=n.role||n.latent;
+    var g=el("g",{"class":"dagnode"+(fixed?" fixed":""),"data-k":k},svg);
+    if(!fixed){g.setAttribute("tabindex","0");g.setAttribute("role","button");g.setAttribute("aria-pressed",String(!!Z[k]));g.setAttribute("aria-label","Control for "+n.label);}
+    var fill=surf2,stroke=line,tcol=ink,dash=null;
+    if(n.role){fill=accSoft;stroke=acc;}
+    if(n.latent){fill=surf;stroke=ink3;tcol=ink3;dash="5 4";}
+    if(Z[k]){fill=ink;stroke=ink;tcol=bg;}
+    var r=el("rect",{x:(n.x-n.w/2).toFixed(1),y:n.y-BH/2,width:n.w.toFixed(1),height:BH,rx:8,fill:fill,stroke:stroke,"stroke-width":(n.role||Z[k])?2:1.4},g);
+    if(dash)r.setAttribute("stroke-dasharray",dash);
+    txt(g,n.x,n.y+5,n.label,{"text-anchor":"middle","font-size":"14",fill:tcol,"font-weight":(n.role||Z[k])?"700":"400"});
+    if(n.role)txt(svg,n.role==="T"?n.x-n.w/2+2:n.x+n.w/2-2,n.y-BH/2-6,n.role==="T"?"treatment":"outcome",{"text-anchor":n.role==="T"?"start":"end","font-size":"11",fill:acc});
+  });
+  renderPaths();
+}
+function renderPaths(){
+  var ul=document.getElementById("pathList");ul.innerHTML="";
+  var badOpen=0,goodOpen=0,goodTotal=0;
+  PATHS.forEach(function(p,idx){
+    var front=isFront(p),st=pathStatus(p);
+    if(front){goodTotal++;if(st.open)goodOpen++;}else if(st.open)badOpen++;
+    var li=document.createElement("li");li.className=st.open?"open":"closed";
+    li.innerHTML="<span class='p'>"+pathString(p)+"</span>"+
+      "<span class='pill door'>"+(front?"Front door · Good":"Back door · Bad")+"</span>"+
+      "<span class='pill "+(st.open?(front?"read":"badp"):"skip")+"'>"+(st.open?"Open":"Closed")+"</span>"+
+      (st.why?"<span class='why'>"+st.why+"</span>":"");
+    li.addEventListener("mouseenter",function(){hiPath=p;drawDAGOnly();});
+    li.addEventListener("mouseleave",function(){hiPath=null;drawDAGOnly();});
+    ul.appendChild(li);
+  });
+  var names=Object.keys(Z).filter(function(k){return Z[k];}).map(function(k){return NODES[k].label;});
+  document.getElementById("ctrlVal").textContent=names.length?names.join(", "):"nothing";
+  document.getElementById("badOpen").textContent=badOpen;
+  document.getElementById("goodOpen").textContent=goodOpen+" of "+goodTotal;
+  var v=document.getElementById("dagVerdict"),msg;
+  if(badOpen===0&&goodOpen===goodTotal)msg="<span style='color:var(--good);font-weight:700'>Identified.</span> Every Bad path is closed and both Good paths are open. Whatever relationship is left between education and earnings is the total causal effect (if the diagram is right).";
+  else if(badOpen===0)msg="<span style='color:var(--warn);font-weight:700'>Back doors closed, but you closed a front door too.</span> Controlling for a mediator (overcontrolling) means you'd measure only the effect that <i>doesn't</i> run through job connections. That's fine only if the direct effect is your research question.";
+  else msg="<span style='color:var(--bad);font-weight:700'>Not identified yet.</span> "+badOpen+" Bad path"+(badOpen>1?"s are":" is")+" still open, so part of the education–earnings relationship is an alternative explanation.";
+  v.innerHTML=msg;
+}
+function drawDAGOnly(){drawDAGsvg();}
+/* draw SVG without rebuilding the list (keeps hover stable) */
+function drawDAGsvg(){var f=renderPaths;renderPaths=function(){};drawDAG();renderPaths=f;}
+function toggle(k){var n=NODES[k];if(!n||n.role||n.latent)return;Z[k]=!Z[k];drawDAG();var g=document.querySelector('.dagnode[data-k="'+k+'"]');if(g&&document.activeElement!==g&&lastKey)g.focus();}
+var lastKey=false;
+var dagSvg=document.getElementById("dagSvg");
+dagSvg.addEventListener("click",function(e){var g=e.target.closest(".dagnode");if(g){lastKey=false;toggle(g.getAttribute("data-k"));}});
+dagSvg.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var g=e.target.closest(".dagnode");if(g){e.preventDefault();lastKey=true;toggle(g.getAttribute("data-k"));}}});
+document.getElementById("dagReset").addEventListener("click",function(){Z={};drawDAG();});
+document.getElementById("dagLecture").addEventListener("click",function(){Z={bg:true,loc:true,year:true};drawDAG();});
+
+/* ---------- Lab 2: confounder / collider data ---------- */
+var N2=300,mode="conf",view="raw",seed2=1;
+function ols(x,y){var n=x.length,mx=0,my=0,i;for(i=0;i<n;i++){mx+=x[i];my+=y[i];}mx/=n;my/=n;var sxy=0,sxx=0,syy=0;for(i=0;i<n;i++){sxy+=(x[i]-mx)*(y[i]-my);sxx+=(x[i]-mx)*(x[i]-mx);syy+=(y[i]-my)*(y[i]-my);}return {b:sxy/sxx,a:my-sxy/sxx*mx,r:sxy/Math.sqrt(sxx*syy),mx:mx,my:my};}
+function resid(y,x){var f=ols(x,y);return y.map(function(v,i){return v-f.a-f.b*x[i];});}
+var base2=null;
+function newBase(){var e=[];for(var i=0;i<N2;i++)e.push([rnorm(),rnorm(),rnorm()]);base2=e;}
+function niceTicks(lo,hi){var span=hi-lo,step=Math.pow(10,Math.floor(Math.log10(span/5)));[1,2,5,10].some(function(m){if(span/(step*m)<=7){step*=m;return true;}return false;});var t=[];for(var v=Math.ceil(lo/step)*step;v<=hi+1e-9;v+=step)t.push(+v.toFixed(6));return t;}
+function axes(svg,xt,yt,xl,yl,sxf,syf,w,h,m){
+  var g=el("g",{"class":"ax"},svg);
+  el("line",{x1:m.l,x2:w-m.r,y1:h-m.b,y2:h-m.b},g);
+  el("line",{x1:m.l,x2:m.l,y1:m.t,y2:h-m.b},g);
+  xt.forEach(function(v){el("line",{x1:sxf(v),x2:sxf(v),y1:h-m.b,y2:h-m.b+5},g);txt(g,sxf(v),h-m.b+18,String(v),{"text-anchor":"middle"});});
+  yt.forEach(function(v){el("line",{x1:m.l-5,x2:m.l,y1:syf(v),y2:syf(v)},g);txt(g,m.l-8,syf(v)+4,String(v),{"text-anchor":"end"});});
+  if(xl)txt(g,(m.l+w-m.r)/2,h-4,xl,{"text-anchor":"middle"});
+  if(yl){txt(g,14,(m.t+h-m.b)/2,yl,{"text-anchor":"middle",transform:"rotate(-90 14 "+((m.t+h-m.b)/2)+")"});}
+}
+function fmt(v){return (v>=0?"":"−")+Math.abs(v).toFixed(2);}
+function drawLab2(){
+  var svg=document.getElementById("scatter");svg.innerHTML="";
+  var W=680,H=400,M={l:52,r:16,t:16,b:42};
+  var treat=css("--treat"),ctrl=css("--control"),acc=css("--accent"),ink3=css("--ink-3"),surf=css("--surface"),good=css("--good");
+  var xs,ys,cols,ops,xl,yl,lines=[],readK,readV,verdict,legend;
+  if(mode==="conf"){
+    var s=+document.getElementById("str").value;
+    document.getElementById("strVal").textContent=s.toFixed(1);
+    var q=base2.map(function(r){return r[0];});
+    var money=base2.map(function(r,i){return s*q[i]+r[1];});
+    var margin=base2.map(function(r,i){return 1*money[i]+s*q[i]+r[2];});
+    var naive=ols(money,margin);
+    var rm=resid(money,q),rmar=resid(margin,q),adj=ols(rm,rmar);
+    if(view==="raw"){xs=money;ys=margin;xl="Campaign money (simulated units)";yl="Win margin (simulated units)";
+      lines.push({f:naive,c:acc,d:null,lab:"naive slope "+naive.b.toFixed(2)});}
+    else{xs=rm;ys=rmar;xl="Money not explained by quality";yl="Margin not explained by quality";
+      lines.push({f:adj,c:good,d:null,lab:"adjusted slope "+adj.b.toFixed(2)});}
+    cols=q.map(function(v){return v>0?treat:ctrl;});ops=q.map(function(){return 0.55;});
+    readK=["Naive slope (no controls)","Adjusted for quality","True effect"];
+    readV=[naive.b.toFixed(2),adj.b.toFixed(2),"1.00"];
+    var gap=naive.b-1;
+    verdict=s<0.15?"Quality barely matters here, so there's no back door to worry about: the naive slope is already about right.":
+      "The naive slope is off by about <b>"+(gap>=0?"+":"")+gap.toFixed(2)+"</b> because the back door through quality is open: high-quality candidates raise more money <i>and</i> win by more. Controlling for quality closes it, and the adjusted slope lands near the true 1.0.";
+    legend="<span><span class='dot' style='background:var(--treat)'></span>Above-average quality</span><span><span class='dot' style='background:var(--control)'></span>Below-average quality</span><span>Line = "+(view==="raw"?"naive":"adjusted")+" fit</span>";
+  }else{
+    var share=+document.getElementById("hire").value/100;
+    document.getElementById("hireVal").textContent=Math.round(share*100);
+    var prog=base2.map(function(r){return r[0];}),soc=base2.map(function(r){return r[1];});
+    var tot=prog.map(function(v,i){return v+soc[i];}),sorted=tot.slice().sort(function(a,b){return b-a;});
+    var cut=share>=1?-Infinity:sorted[Math.max(0,Math.round(share*N2)-1)];
+    var hired=tot.map(function(v){return v>=cut;});
+    var hp=[],hs=[];prog.forEach(function(v,i){if(hired[i]){hp.push(v);hs.push(soc[i]);}});
+    var all=ols(prog,soc),hf=hp.length>3?ols(hp,hs):null;
+    xs=prog;ys=soc;xl="Programming skill (simulated)";yl="Social skill (simulated)";
+    cols=hired.map(function(h){return h?treat:ctrl;});ops=hired.map(function(h){return h?0.75:0.18;});
+    lines.push({f:all,c:ink3,d:"6 4",lab:"everyone",xr:null});
+    if(hf)lines.push({f:hf,c:acc,d:null,lab:"hired only",xr:[Math.min.apply(null,hp),Math.max.apply(null,hp)]});
+    readK=["Correlation, all applicants","Correlation, hired only","True link"];
+    readV=[fmt(all.r),hf?fmt(hf.r):"—","0 (none)"];
+    verdict=share>=1?"Everyone is hired, so nobody is selected on the collider. The two skills are unrelated, as they really are.":
+      "Among the "+hp.length+" people hired, the correlation is <b>"+(hf?fmt(hf.r):"—")+"</b>, even though the skills were generated independently. Looking only at hires is controlling for the collider, and it creates a fake negative relationship.";
+    legend="<span><span class='dot' style='background:var(--treat)'></span>Hired</span><span><span class='dot' style='background:var(--control);opacity:.4'></span>Not hired</span><span>Solid line = hired only · dashed = everyone</span>";
+  }
+  var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs),ymin=Math.min.apply(null,ys),ymax=Math.max.apply(null,ys);
+  var px=(xmax-xmin)*0.05,py=(ymax-ymin)*0.05;xmin-=px;xmax+=px;ymin-=py;ymax+=py;
+  var sx=function(v){return M.l+(v-xmin)/(xmax-xmin)*(W-M.l-M.r);},sy=function(v){return H-M.b-(v-ymin)/(ymax-ymin)*(H-M.t-M.b);};
+  axes(svg,niceTicks(xmin,xmax),niceTicks(ymin,ymax),xl,yl,sx,sy,W,H,M);
+  var g=el("g",{},svg);
+  xs.forEach(function(x,i){el("circle",{cx:sx(x).toFixed(1),cy:sy(ys[i]).toFixed(1),r:3,fill:cols[i],"fill-opacity":ops[i]},g);});
+  lines.forEach(function(L){
+    var a=L.xr?L.xr[0]:xmin,b=L.xr?L.xr[1]:xmax;
+    /* clip to plot box */
+    function yAt(x){return L.f.a+L.f.b*x;}
+    var pts=[];for(var k=0;k<=60;k++){var x=a+(b-a)*k/60,y=yAt(x);if(y>=ymin&&y<=ymax)pts.push(sx(x).toFixed(1)+","+sy(y).toFixed(1));}
+    var at={points:pts.join(" "),fill:"none",stroke:L.c,"stroke-width":3.2};if(L.d)at["stroke-dasharray"]=L.d;
+    el("polyline",at,svg);
+  });
+  if(mode==="conf"){var L=lines[0];txt(svg,M.l+10,M.t+14,L.lab,{"text-anchor":"start",fill:L.c,"font-weight":"700","font-size":"14",stroke:surf,"stroke-width":5,"paint-order":"stroke","stroke-linejoin":"round"});}
+  for(var i=0;i<3;i++){document.getElementById("k"+(i+1)).textContent=readK[i];document.getElementById("v"+(i+1)).textContent=readV[i];}
+  document.getElementById("lab2Verdict").innerHTML=verdict;
+  document.getElementById("lab2Legend").innerHTML=legend;
+}
+function setMode(m){
+  mode=m;
+  var c=m==="conf";
+  document.getElementById("lab2Title").textContent=c?"Confounding: campaign money and win margin":"Collider: hiring at a tech company";
+  document.getElementById("lab2Sub").innerHTML=c?"Simulated candidates. Quality → Money, Quality → Margin, and Money → Margin with a <b>true effect of 1.0</b>. A naive regression of margin on money leaves the back door through quality open.":
+    "Simulated applicants. Programming and social skills are drawn <b>independently</b> (true link: none). The company hires the applicants with the highest combined skills, so Hired is a collider: Programming → Hired ← Social.";
+  document.getElementById("strBox").style.display=c?"":"none";
+  document.getElementById("viewBox").style.display=c?"":"none";
+  document.getElementById("hireBox").style.display=c?"none":"";
+  drawLab2();
+}
+function segBtns(id,fn){var box=document.getElementById(id);box.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;box.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));});fn(b.dataset.v);});}
+segBtns("modeSeg",setMode);
+segBtns("viewSeg",function(v){view=v;drawLab2();});
+document.getElementById("str").addEventListener("input",drawLab2);
+document.getElementById("hire").addEventListener("input",drawLab2);
+document.getElementById("newSample2").addEventListener("click",function(){newBase();drawLab2();});
+
+newBase();drawDAG();setMode("conf");
+if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){drawDAG();drawLab2();});
+})();
+</script>
+</body>
+</html>

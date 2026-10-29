@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matching — The Effect, Ch. 14</title>
+<meta name="description" content="A short, interactive summary of Chapter 14 (Matching) of The Effect by Nick Huntington-Klein, written for ECON 4309.">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f2f0ea; --ink:#1d1f23; --ink-2:#4a4f58; --ink-3:#7a808a;
+  --line:#dcd8cf; --accent:#8c1d40; --accent-soft:#f5e6eb;
+  --treat:#c2410c; --control:#1d4ed8; --good:#15803d; --good-soft:#e7f4ec; --bad:#b91c1c; --bad-soft:#fbeaea;
+  --warn-soft:#fff6e0; --warn:#92600a;
+  --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+    --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+    --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+    --warn-soft:#3a3018; --warn:#f3c96b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+  --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+  --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+  --warn-soft:#3a3018; --warn:#f3c96b;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-size:1.4rem;margin:2.2em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;margin:1.4em 0 .4em}
+p{margin:.6em 0}
+a{color:var(--accent)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);padding:.1em .35em;border-radius:4px}
+pre{background:var(--surface-2);padding:12px 14px;border-radius:8px;overflow-x:auto;font:0.86rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.eyebrow{font-size:.85rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin:0}
+.lede{font-size:1.1rem;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{font-size:.8rem;background:var(--surface-2);color:var(--ink-2);padding:3px 10px;border-radius:999px}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 18px;margin:22px 0;box-shadow:var(--shadow)}
+.toc ol{margin:.3em 0;padding-left:1.3em}
+.toc li{margin:.15em 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.big-idea{border-left:5px solid var(--accent);background:var(--accent-soft)}
+.big-idea p:first-child{margin-top:0}.big-idea p:last-child{margin-bottom:0}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.term b{display:block;color:var(--accent);margin-bottom:2px}
+.term .ex{display:block;margin-top:6px;font-size:.88rem;color:var(--ink-2)}
+.callout{border-radius:var(--radius);padding:12px 16px;margin:14px 0}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout.good{background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.callout.bad{background:var(--bad-soft);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.callout .label{font-weight:700;display:block;margin-bottom:2px}
+.callout ul{margin:.3em 0;padding-left:1.2em}
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:16px 0;box-shadow:var(--shadow)}
+.lab-title{font-weight:700;margin:0 0 4px}
+.lab-sub{margin:0 0 10px;color:var(--ink-2);font-size:.92rem}
+.lab svg{width:100%;height:auto;display:block}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 18px;margin:10px 0 4px;font-size:.92rem}
+.controls label{display:block;font-weight:600;margin-bottom:2px}
+.controls input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:5px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed=true]{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed=true]{color:#15171a}}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:6px 12px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:8px;padding:8px 10px}
+.stat .k{font-size:.78rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.stat .v{font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums}
+.verdict{margin-top:8px;font-size:.95rem;min-height:1.6em}
+.try{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;padding-left:1.2em}
+.try li{margin:.2em 0}
+.ax text{fill:var(--ink-3);font-size:12px}
+.ax line,.ax path{stroke:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.formula{font-size:1.05rem;text-align:center;background:var(--surface-2);border-radius:8px;padding:10px;margin:10px 0}
+table.read{width:100%;border-collapse:collapse;font-size:.93rem}
+table.read td,table.read th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.read th{color:var(--ink-3);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+.pill{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.read{background:var(--good-soft);color:var(--good)}
+.pill.skim{background:var(--warn-soft);color:var(--warn)}
+.pill.skip{background:var(--surface-2);color:var(--ink-3)}
+footer{margin-top:48px;font-size:.85rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:14px}
+.print-only{display:none}
+@media (max-width:520px){body{font-size:16px}h1{font-size:1.6rem}}
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt}
+  main{max-width:none;padding:0}
+  .no-print,.controls,.btnrow,.toc{display:none!important}
+  .print-only{display:block}
+  .card,.lab,  h2{break-after:avoid}
+          a{color:#000}
+}
+</style>
+</head>
+<body>
+<main>
+
+<p class="eyebrow">ECON 4309 · Quantitative Methods for Social Sciences · Reading companion</p>
+<h1>Matching, in about 15 minutes</h1>
+<p class="lede">A plain-language guide to <a href="https://theeffectbook.net/ch-Matching.html">Chapter 14 of <i>The Effect</i></a> by Nick Huntington-Klein. Read this first, play with the two simulators, and then use the reading guide at the end to decide which parts of the chapter to read closely.</p>
+<div class="meta"><span class="chip">Pairs with Lecture 7: Randomization and matching</span><span class="chip">Builds on Lecture 5: do() and potential outcomes</span><span class="chip">Book: Ch. 14</span><span class="chip">~15 min</span></div>
+
+<p class="print-only"><b>Note:</b> This is the printable version. The interactive version, with the simulators, is on the course website.</p>
+
+<nav class="toc no-print" aria-label="Contents">
+<b>On this page</b>
+<ol>
+<li><a href="#idea">The big idea in 60 seconds</a></li>
+<li><a href="#terms">Seven words you need</a></li>
+<li><a href="#sim">Simulator: pick a caliper, check the balance</a></li>
+<li><a href="#why">Why this counts as causal</a></li>
+<li><a href="#assume">What has to be true (and how to check it)</a></li>
+<li><a href="#ipw">Matching vs. inverse probability weighting</a></li>
+<li><a href="#att">What you actually estimate: ATT, ATU, or ATE</a></li>
+<li><a href="#r">Doing it in R (with AI help)</a></li>
+<li><a href="#reading">How to read the chapter</a></li>
+</ol>
+</nav>
+
+<!-- 1 -->
+<h2 id="idea">1. The big idea in 60 seconds</h2>
+<div class="card big-idea">
+<p>The chapter opens with a job-training program. The people who could sign up were half men and half women, but the program happened to be advertised mostly to men, so the people who actually enrolled were <b>80% men</b>. Men and women also had different job-finding rates to begin with. So gender sits on a back door: <i>job outcome ← gender → training</i>.</p>
+<p>In the chapter's numbers, 72% of trainees found jobs versus 62.5% of non-trainees, a raw gap of <b>9.5 points</b>. <b>Matching</b> builds a comparison group that looks like the trainees: it counts each untreated man more and each untreated woman less until the comparison group is also 80% men. Now the comparison group's job rate is 67%, and the gap shrinks to <b>5 points</b>. The other 4.5 points came from the gender back door, not from training.</p>
+</div>
+<p>That's the whole chapter in miniature. Matching closes back doors by <b>choosing (or weighting) untreated observations so they look like the treated ones</b> on the variables that sit on back doors. Then you compare outcomes. The rest of the chapter is about the many choices hidden in "look like":</p>
+<ol>
+<li><b>What does "similar" mean?</b> Close on the variables themselves (distance matching) or equally likely to be treated (propensity score)?</li>
+<li><b>Pick matches or weight everyone?</b> Keep the best controls "in" and the rest "out," or give every control a weight that depends on how similar it is?</li>
+<li><b>How bad a match will you accept?</b> That's the caliper, and it brings a tradeoff between bias and precision.</li>
+</ol>
+
+<!-- 2 -->
+<h2 id="terms">2. Seven words you need</h2>
+<p>We'll use the mosquito-net example from class throughout. Households choose whether to use a bed net, and we want the effect of nets on <b>malaria risk</b> (0–100). The data are observational: richer, healthier households, and households in places with different nighttime temperatures, are more or less likely to use nets <i>and</i> have different malaria risk anyway.</p>
+<div class="terms">
+  <div class="term"><b>Matching variables</b>The variables you make treated and control look alike on. They should be the ones that close the back doors in your DAG.<span class="ex">Nets: income, health, and nighttime temperature.</span></div>
+  <div class="term"><b>Distance matching</b>"Similar" means close on the matching variables themselves. With several variables, the usual yardstick is the <strong>Mahalanobis distance</strong>, a straight-line distance after putting every variable on the same scale.<span class="ex">A net user earning $950 is matched to a non-user earning $940 with similar health and temperature.</span></div>
+  <div class="term"><b>Propensity score</b>The probability of being treated given the matching variables, usually estimated with a logit. "Similar" means equally likely to be treated.<span class="ex">A household with a 0.70 chance of using a net, whether or not it actually did.</span></div>
+  <div class="term"><b>Caliper</b>(also called the bandwidth) The worst match you'll accept. A treated unit with no control inside the caliper gets dropped.<span class="ex">"Only match if incomes are within 0.1 standard deviations."</span></div>
+  <div class="term"><b>Common support</b>Overlap. For the kinds of treated units you have, there are untreated units like them too.<span class="ex">If <i>every</i> rich household used a net, there are no rich non-users to compare against.</span></div>
+  <div class="term"><b>Balance</b>After matching, the treated and control groups have (nearly) the same distribution of each matching variable. That's how you check that the back doors really closed.<span class="ex">Average income of net users ≈ average income of matched non-users.</span></div>
+  <div class="term"><b>Inverse probability weight (IPW)</b>A weight built from the propensity score. Units that got the treatment they were <i>unlikely</i> to get count more.<span class="ex">A household with a 0.10 chance of using a net that used one anyway gets weight 1/0.10 = 10.</span></div>
+</div>
+
+<!-- 3 -->
+<h2 id="sim">3. Simulator: pick a caliper, check the balance</h2>
+<p>The data below are <b>simulated</b>, so we know the truth: <b>using a net lowers malaria risk by exactly 10 points</b> for every household (the same −10 built into the class example). Richer households are both more likely to use a net and less at risk anyway, so <b>income is a confounder</b>. To keep the picture simple, income is the only one here.</p>
+<p>The simulator uses <b>radius matching</b>, one of the chapter's options: every net user is compared with the average of <i>all</i> non-users whose income falls inside the caliper. If none do, that net user is dropped.</p>
+
+<div class="lab" id="lab1">
+  <p class="lab-title">Mosquito nets: income vs. malaria risk (simulated data)</p>
+  <p class="lab-sub">Orange = used a net, blue = didn't. Faded blue points are non-users that aren't anyone's match. Hollow orange rings are net users dropped because no non-user is close enough.</p>
+  <svg id="mPlot" viewBox="0 0 680 400" role="img" aria-label="Scatterplot of malaria risk against household income, net users in orange and non-users in blue, with unmatched units faded"></svg>
+  <div class="legend"><span><span class="dot" style="background:var(--treat)"></span>Net user (kept)</span><span><span class="dot" style="border:2px solid var(--treat);background:transparent"></span>Net user dropped (no match)</span><span><span class="dot" style="background:var(--control)"></span>Non-user used as a match</span><span><span class="dot" style="background:var(--control);opacity:.25"></span>Non-user not used</span></div>
+  <div class="controls">
+    <div><label for="cal">Caliper: ±<span id="calVal">0.10</span> SD of income (±$<span id="calDol">25</span>)</label><input id="cal" type="range" min="0" max="15" step="1" value="5"></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="newSample">Draw a new sample</button><button class="btn" id="repeat">Repeat 200 times</button></div>
+  <div class="readout">
+    <div class="stat"><div class="k">Naive difference</div><div class="v" id="naiveVal">—</div></div>
+    <div class="stat"><div class="k">Matched estimate</div><div class="v" id="estVal">—</div></div>
+    <div class="stat"><div class="k">True effect</div><div class="v">−10.0</div></div>
+    <div class="stat"><div class="k">Net users kept</div><div class="v" id="keptVal">—</div></div>
+    <div class="stat"><div class="k">Income gap before</div><div class="v" id="gapB">—</div></div>
+    <div class="stat"><div class="k">Income gap after</div><div class="v" id="gapA">—</div></div>
+  </div>
+  <div class="verdict" id="balVerdict"></div>
+  <div id="repeatBox" style="display:none;margin-top:12px">
+    <p class="lab-sub" style="margin:0 0 4px"><b>200 new samples, same caliper.</b> Each dot is one matched estimate. A good method is <i>centered on −10</i> (no bias) and <i>tightly bunched</i> (precise).</p>
+    <svg id="stripPlot" viewBox="0 0 680 110" role="img" aria-label="Dot strip of 200 repeated matched estimates compared with the true effect of minus 10"></svg>
+    <div class="verdict" id="repeatVerdict"></div>
+  </div>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> Look at the naive difference first. It's far more negative than −10, because net users are richer, and richer households have lower risk anyway. Then compare the income gap before and after matching.</li>
+    <li><b>Try 2:</b> Slide the caliper all the way right (±2 SD), then "Repeat 200 times." Nobody gets dropped and the dots are tight, but they center well below −10, and the income gap after matching is large. Wide calipers let in <b>bad matches</b>, so the back door stays partly open. That's <b>bias</b>.</li>
+    <li><b>Try 3:</b> Slide it all the way left, then repeat. Balance is nearly perfect and the dots center on −10, but most net users are dropped (watch the high-income rings) and the dots spread out. That's <b>noise</b>. Find a middle caliper where the dots are both centered and fairly tight.</li>
+  </ul>
+</div>
+
+<div class="callout warn"><span class="label">The core tradeoff (the chapter comes back to it in almost every choice)</span>
+<b>Fewer but better matches</b> mean less bias but less precision. <b>More but worse matches</b> mean more precision but more bias. The same tradeoff shows up in the caliper, in how many neighbors you take (one-to-one vs. <i>k</i>-nearest-neighbor), and in whether a control can be reused (with or without replacement). There's no single right setting, so report how many treated units you lost and check balance.</div>
+
+<div class="callout bad"><span class="label">Dropping treated units changes who you're learning about</span>
+In this simulator every household has the same −10 effect, so dropping the rich net users only costs precision. In real data the effect might differ for rich households. If a narrow caliper drops most of them, your estimate describes the net users who <i>could</i> be matched, not all net users. The chapter makes this point about coarsened exact matching, which often drops many treated observations.</div>
+
+<!-- 4 -->
+<h2 id="why">4. Why this counts as causal</h2>
+<p>Here's a simplified version of the mosquito-net DAG from class. Income, health, and nighttime temperature each affect both net use and malaria risk, so each one opens a back door.</p>
+<div class="card">
+<svg viewBox="0 0 640 230" role="img" aria-label="Causal diagram: income, health, and temperature each affect mosquito net use and malaria risk; income affects health; net use affects malaria risk">
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker></defs>
+  <g font-size="14" text-anchor="middle" fill="var(--ink)">
+    <rect x="30" y="12" width="150" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="105" y="36">Income</text>
+    <rect x="245" y="12" width="150" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="320" y="36">Health</text>
+    <rect x="460" y="12" width="150" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="535" y="36">Temperature</text>
+    <rect x="70" y="176" width="160" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="150" y="200">Mosquito net</text>
+    <rect x="410" y="176" width="160" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="490" y="200">Malaria risk</text>
+  </g>
+  <g stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#arr)">
+    <path d="M180,31 L241,31"/>
+    <path d="M110,50 L140,172"/><path d="M150,50 L440,173"/>
+    <path d="M300,50 L190,172"/><path d="M340,50 L470,172"/>
+    <path d="M500,50 L220,174"/><path d="M540,50 L500,172"/>
+    <path d="M230,195 L406,195" stroke="var(--accent)" stroke-width="2.4"/>
+  </g>
+</svg>
+<p style="margin:6px 0 0;font-size:.93rem;color:var(--ink-2)">If we compare net users with non-users who have the <b>same income, health, and temperature</b>, those three variables no longer differ between the groups. A variable that doesn't vary between the groups can't create a difference between them, so those back doors are closed. What's left is the net → malaria arrow. This is the same back-door adjustment from Lecture 5. Matching is just a different <i>way</i> to do it than adding controls to a regression.</p>
+</div>
+
+<h3>Every matching method is really a set of weights</h3>
+<p>The chapter's unifying idea: matching gives every observation a <b>weight</b>, then compares the <b>weighted average outcome</b> of the treated with the weighted average outcome of the controls. Selecting matches is the special case where controls get weight 1 ("in") or 0 ("out"). The job-training example used weights of 0.16 for untreated men and 0.04 for untreated women. The weights are chosen so the matching variables look the same in both groups.</p>
+
+<h3>Distance or propensity score?</h3>
+<div class="terms">
+  <div class="term"><b>Distance matching</b>Find controls whose matching variables are actually close to the treated unit's. It's intuitive and forces balance on each variable. The catch is the <strong>curse of dimensionality</strong>: the more variables you match on, the harder it is to find anyone close on all of them. The chapter's picture is two coworkers who look side by side on a floor plan but turn out to be 21 floors apart.</div>
+  <div class="term"><b>Propensity score</b>Collapse all the matching variables into one number, the predicted probability of treatment, and treat units with similar scores as comparable. It handles many variables easily, but now you have to get the logit model right. The chapter recommends using the score for <strong>weighting</strong> (IPW), not for picking one-to-one matches.</div>
+</div>
+<div class="callout good"><span class="label">Matching vs. regression</span>Both rely on the same key assumption: your variables are enough to close every back door. Their other assumptions differ. Matching doesn't need a straight-line relationship between the controls and the outcome, and it makes it easy to choose which average effect you get (ATT, ATU, or ATE; see section 7). The chapter's view is that neither one is always better, and they can be combined (see "doubly robust" in 14.7.2).</div>
+
+<!-- 5 -->
+<h2 id="assume">5. What has to be true (and how to check it)</h2>
+<div class="card">
+<h3 style="margin-top:0">Assumption 1: Conditional independence (all back doors are closed)</h3>
+<p>This is matching's name for "no open back doors." Your matching variables have to cover every back door. If net users are also more careful about draining standing water and you never measured that, matching on income, health, and temperature <b>won't fix it</b>. Matching can only balance what you measured.</p>
+<p><b>How to check it:</b> you can't test it with the data. You defend it with your <b>DAG</b> and what you know about the setting. Also match only on variables that sit on back doors, not on things the treatment causes (mediators) or colliders.</p>
+</div>
+<div class="card">
+<h3 style="margin-top:0">Assumption 2: Common support (there's someone to match with)</h3>
+<p>Every kind of treated unit needs comparable untreated units. The chapter's example is an early-release program for prisoners where everyone with a behavior score of 8–10 is released early and nobody with 1–7 is. There are no un-released 9s to compare with the released 9s, so matching has nothing to work with. If only a <i>handful</i> of un-released 9s exist, they get huge weights and the estimate becomes noisy.</p>
+<p><b>How to check it:</b> plot the distribution of each matching variable (or of the propensity score) for treated and control together and look for regions where only one group shows up. When selecting matches, count how many treated units find no match. A few percent is fine; most of them is a failure. The usual fix is to <b>trim</b> to the range where both groups exist, which, again, changes who your estimate describes.</p>
+</div>
+
+<div class="lab" id="lab2">
+  <p class="lab-title">Simulator: when do the matches run out?</p>
+  <p class="lab-sub">Each bar shows what share of a group has a given propensity score (chance of using a net). Net users are on top, non-users on the bottom. The data are simulated, so these are the <i>true</i> scores; in real data you'd estimate them with a logit. Red shading marks scores where there are net users but no non-users at all. Slide right to make net users more and more different from non-users.</p>
+  <svg id="psPlot" viewBox="0 0 680 300" role="img" aria-label="Mirrored histograms of propensity scores for net users above the axis and non-users below the axis"></svg>
+  <div class="controls"><div><label for="shift">How different are net users from non-users? <span id="shiftVal">1.0</span></label><input id="shift" type="range" min="0" max="4" step="0.25" value="1"></div></div>
+  <div class="readout">
+    <div class="stat"><div class="k">Net users with 5+ close matches</div><div class="v" id="supVal">—</div></div>
+    <div class="stat"><div class="k">Largest IPW weight</div><div class="v" id="maxW">—</div></div>
+    <div class="stat"><div class="k">Scores &lt; .02 or &gt; .98</div><div class="v" id="extVal">—</div></div>
+  </div>
+  <div class="verdict" id="supVerdict"></div>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> At 0 the two groups look identical (like a randomized experiment). Every net user has plenty of matches and no weight is large.</li>
+    <li><b>Try 2:</b> Move to about 1.5. The groups overlap less and support is getting thin at the high end. Notice how fast the largest IPW weight climbs.</li>
+    <li><b>Try 3:</b> Move to 3 or more. The right end of the net-user distribution (shaded red) has no non-users at all. Those net users can't be matched, and the few non-users with high scores get enormous IPW weights. Trimming would throw away a big chunk of the treated group.</li>
+  </ul>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">Assumption 3: Balance (did the matching actually work?)</h3>
+<p>After matching, the treated and matched-control groups should look the same on every matching variable. Unlike conditional independence, <b>you can check this</b>, and if it fails you go back and change the matching (add variables, change the propensity model, tighten the caliper) and try again. The chapter treats this as a normal, repeated loop.</p>
+<p><b>How to check it:</b></p>
+<ul>
+<li><b>Balance table:</b> means of each matching variable for treated vs. control, before and after matching, often with a <b>standardized difference</b> (the gap divided by a pooled standard deviation, so variables on different scales can be compared). You want the "after" gaps to be tiny.</li>
+<li><b>Plot the whole distribution.</b> The chapter warns that equal means aren't enough: two groups can have the same average income but very different shapes. Overlay the treated and control densities after matching. For propensity scores, this plot is almost required.</li>
+</ul>
+</div>
+
+<!-- 6 -->
+<h2 id="ipw">6. Matching vs. inverse probability weighting</h2>
+<p>Your IPW assignment uses the other big tool in the chapter. <b>Inverse probability weighting doesn't pick matches at all.</b> It estimates each unit's propensity score <i>p</i> and then weights every unit by the inverse of the probability of what actually happened to it:</p>
+<div class="formula">Treated (used a net): weight = <b>1 / p</b> &nbsp;&nbsp;·&nbsp;&nbsp; Untreated: weight = <b>1 / (1 − p)</b></div>
+<p>In Lecture 7's words, IPW weights units by how "weird" they are. A household with a 0.9 chance of using a net that <i>didn't</i> use one looks a lot like the net users, so it gets a big weight (1/0.1 = 10) and stands in for them in the control group. A household with a 0.1 chance that didn't use one is unsurprising and gets a weight near 1.</p>
+<table class="read">
+<tr><th></th><th>Matching (e.g., nearest neighbor)</th><th>Inverse probability weighting</th></tr>
+<tr><td><b>What it does</b></td><td>Finds similar controls for each treated unit; unmatched units are dropped (weight 0).</td><td>Keeps everyone, with weights from the propensity score.</td></tr>
+<tr><td><b>Main choices</b></td><td>Distance measure, number of matches, replacement, caliper.</td><td>Mostly just the propensity-score model (which variables, which terms).</td></tr>
+<tr><td><b>Main danger</b></td><td>Throwing away lots of data; bad matches if the caliper is too wide.</td><td>Huge weights when scores are near 0 or 1, which make the estimate unstable.</td></tr>
+<tr><td><b>Usual fix</b></td><td>Report how many units were dropped; check balance.</td><td>Trim scores near 0 or 1, or cap the largest weights (class used a cap); check balance with the weights applied.</td></tr>
+<tr><td><b>In the class example</b></td><td>Mahalanobis matching without the matching weights gave about −12.7.</td><td>IPW gave about −10.1, close to the true −10.</td></tr>
+</table>
+<p style="font-size:.93rem;color:var(--ink-2)">The chapter's author says that when people ask him how to do matching, he usually suggests IPW with a propensity score or entropy balancing (a newer method that picks weights so the means of the matching variables come out exactly equal). He also notes that in large samples with a flexible propensity model, weighting is the most precise approach.</p>
+
+<!-- 7 -->
+<h2 id="att">7. What you actually estimate: ATT, ATU, or ATE</h2>
+<p>Recall from Lecture 5: the <b>ATT</b> is the average effect for the treated, the <b>ATU</b> for the untreated, and the <b>ATE</b> for everyone, with ATE = (share treated × ATT) + (share untreated × ATU). One nice feature of matching is that <b>you can choose which one you get</b>:</p>
+<div class="terms">
+  <div class="term"><b>ATT</b>Build controls that look like the <strong>treated</strong> (what we've done all along). With IPW: treated get weight 1, controls get <i>p</i> / (1 − <i>p</i>).<span class="ex">Effect of nets on the households that use them.</span></div>
+  <div class="term"><b>ATU</b>Flip it: find treated units that look like the <strong>untreated</strong>. With IPW: controls get weight 1, treated get (1 − <i>p</i>) / <i>p</i>.<span class="ex">Effect nets would have on households that don't use them now. Useful for deciding whether to hand out more nets.</span></div>
+  <div class="term"><b>ATE</b>Do both and average them. The standard 1/<i>p</i> and 1/(1 − <i>p</i>) IPW weights from class give the <strong>ATE</strong>.<span class="ex">Effect of nets averaged over all households.</span></div>
+</div>
+<div class="callout warn"><span class="label">Check which one your software reports</span>The chapter warns that packages have different defaults. Some give the ATE unless you ask otherwise, while <code>MatchIt</code> defaults to the ATT. Also, even the "ATT" from matching is weighted toward the most <b>common</b> kinds of treated units. In the chapter's example, the matched estimate (2.34) lands much closer to the men's effect (2) than the women's (4) because most of the treated are men.</div>
+
+<!-- 8 -->
+<h2 id="r">8. Doing it in R (with AI help)</h2>
+<p>In this class, AI writes most of the code. <b>Your job is the design and the checking.</b> These are the steps a matching or IPW analysis should include and what to verify at each one (variable names follow the mosquito-net example):</p>
+<table class="read">
+<tr><th>Step</th><th>Typical R</th><th>What <i>you</i> check</th></tr>
+<tr><td>1. Choose matching variables</td><td><code>adjustmentSets(mosquito_dag)</code> (dagitty)</td><td>Are they all on back doors? None caused by the treatment?</td></tr>
+<tr><td>2. Naive comparison</td><td><code>lm(malaria_risk ~ net, data = nets)</code></td><td>Just a baseline. Not causal.</td></tr>
+<tr><td>3. Match</td><td><code>m &lt;- matchit(net ~ income + temperature + health, data = nets, method = "nearest", distance = "mahalanobis", replace = TRUE)</code></td><td><code>summary(m)</code>: how many treated were matched, how many controls used, how many discarded?</td></tr>
+<tr><td>4. Check balance</td><td><code>bal.tab(m, un = TRUE)</code>, <code>love.plot(m)</code> (cobalt)</td><td>Are standardized differences near zero after matching? Plot distributions too, not just means.</td></tr>
+<tr><td>5. Estimate (matching)</td><td><code>lm(malaria_risk ~ net, data = match.data(m), weights = weights)</code></td><td>Did you use the <code>weights</code> column? With <code>replace = TRUE</code>, leaving it out overcounts reused controls.</td></tr>
+<tr><td>6. Propensity score</td><td><code>glm(net ~ income + temperature + health, family = binomial(link = "logit"))</code>, then <code>augment_columns(..., type.predict = "response")</code></td><td>Are all scores between 0 and 1? (Without <code>"response"</code> you get log-odds.) Do the treated and control score distributions overlap?</td></tr>
+<tr><td>7. IPW weights and estimate</td><td><code>mutate(ipw = net_num / propensity + (1 - net_num) / (1 - propensity))</code>, then <code>lm(malaria_risk ~ net, weights = ipw)</code>; or <code>weightit(..., estimand = "ATE")</code> (WeightIt)</td><td>What is the largest weight? Does capping it (e.g., at 10) change the answer much? ATE or ATT?</td></tr>
+<tr><td>8. Standard errors</td><td>The package's own matching SEs, or a bootstrap that redoes the whole weighting each time</td><td>Plain <code>lm</code> SEs ignore that the weights were estimated. The chapter says bootstrapping works for weighting but not for in/out match selection.</td></tr>
+</table>
+<div class="callout warn"><span class="label">Don't stop at one number</span>Have the AI run the naive estimate, the matching estimate, and the IPW estimate side by side (e.g., <code>modelsummary()</code>), as the class example did. If they disagree a lot, figure out why. Check balance, overlap, the extreme weights, and how many units were dropped before you trust any of them.</div>
+
+<div class="callout bad"><span class="label">Common mistakes</span>
+<ul>
+<li>Thinking matching fixes <b>unmeasured</b> confounders. It only balances what you matched on.</li>
+<li>Matching on a variable the treatment affects (a mediator) or a collider.</li>
+<li>Not reporting how many treated units were dropped, then claiming the result applies to all of them.</li>
+<li>Checking balance only on means, or not checking it at all.</li>
+<li>Using the propensity score to pick one-to-one matches (the chapter advises weighting instead).</li>
+<li>Forgetting <code>type.predict = "response"</code>, so the "propensity scores" are actually log-odds.</li>
+<li>Ignoring enormous IPW weights from scores near 0 or 1.</li>
+<li>Calling the result "the ATE" when your method gave the ATT, or the reverse.</li>
+</ul></div>
+
+<!-- 9 -->
+<h2 id="reading">9. How to read the chapter</h2>
+<p>The chapter is long (over 20,000 words counting the code) and written partly for graduate students. Here's where to spend your time:</p>
+<table class="read">
+<tr><th>Section</th><th>What it covers</th><th></th></tr>
+<tr><td>14.1 Another Way to Close Back Doors</td><td>What matching is, the job-training example, and matching vs. regression.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>14.2 Weighted Averages</td><td>Matching as weights; the 9.5 → 5 point worked example.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>14.3 Matching in Concept</td><td>The five big choices (distance vs. propensity, select vs. weight, how many matches, kernels and IPW, calipers) using credit-card data. The heart of the chapter. You can skim the kernel formula.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>14.4 / 14.4.1 Multiple Matching Variables</td><td>Mahalanobis distance, the curse of dimensionality, coarsened exact matching. Read the intuition and skip the matrix algebra and the code.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>14.4.2 Entropy Balancing</td><td>A newer weighting method. Short.</td><td><span class="pill skip">Optional</span></td></tr>
+<tr><td>14.5 Propensity Score Weighting</td><td>How to build the propensity model (logit, what to include, machine-learning options).</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>14.6 Assumptions for Matching</td><td>Conditional independence, common support (the early-release example), balance tables and density plots. Directly useful for your assignment.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>14.7.1 Estimating Mean Differences</td><td>Getting the estimate, and why standard errors are tricky (bootstrap).</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>14.7.2 Combining Matching and Regression</td><td>Matching weights inside a regression; doubly robust estimation.</td><td><span class="pill skip">Optional</span></td></tr>
+<tr><td>14.8 Matching and Treatment Effects</td><td>Getting the ATT, ATU, or ATE from matching and from IPW weights.</td><td><span class="pill read">Read</span></td></tr>
+</table>
+
+<footer>
+Summary of Chapter 14 of Nick Huntington-Klein, <i>The Effect: An Introduction to Research Design and Causality</i> (free online at <a href="https://theeffectbook.net/">theeffectbook.net</a>). Examples credited to the book are paraphrased from it. The mosquito-net example and its estimates come from the class matching/IPW example (Lecture 7). The simulators use simulated data. This guide is a companion to the chapter, not a replacement for it. ECON 4309, Fall 2026.
+</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+var SVGNS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,attrs){var t=el("text",Object.assign({x:x,y:y},attrs||{}),parent);t.textContent=s;return t;}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function fmt(v){return (v<0?"−":"")+Math.abs(v).toFixed(1);}
+
+/* seeded RNG */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rand=mulberry32(20261028);
+function rnorm(){var u=1-rand(),v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+/* ---------- Lab 1: radius matching with a caliper ---------- */
+var N=300,EFFECT=-10;
+var CALS=[0.005,0.01,0.02,0.03,0.05,0.1,0.15,0.2,0.3,0.4,0.5,0.75,1,1.25,1.5,2];
+function simulate(){
+  var pts=[];
+  for(var i=0;i<N;i++){
+    var inc=Math.min(1500,Math.max(300,900+250*rnorm()));
+    var p=1/(1+Math.exp(-(inc-1050)/100));
+    var t=rand()<p;
+    var y=80-0.045*inc+(t?EFFECT:0)+8*rnorm();
+    pts.push({x:inc,t:t,y:Math.min(100,Math.max(0,y)),kept:false,used:false});
+  }
+  return pts;
+}
+function mean(a){return a.reduce(function(s,v){return s+v;},0)/a.length;}
+function variance(a){var m=mean(a);return a.reduce(function(s,v){return s+(v-m)*(v-m);},0)/a.length;}
+function match(pts,calSD){
+  var all=pts.map(function(q){return q.x;});
+  var sd=Math.sqrt(variance(all)),c=calSD*sd;
+  var T=pts.filter(function(q){return q.t;}),C=pts.filter(function(q){return !q.t;});
+  pts.forEach(function(q){q.kept=false;q.used=false;});
+  var diffs=[],xT=[],xC=[];
+  T.forEach(function(q){
+    var sy=0,sx=0,n=0;
+    C.forEach(function(r){if(Math.abs(r.x-q.x)<=c){sy+=r.y;sx+=r.x;n++;r.used=true;}});
+    if(n>0){q.kept=true;diffs.push(q.y-sy/n);xT.push(q.x);xC.push(sx/n);}
+  });
+  var tx=T.map(function(q){return q.x;}),cx=C.map(function(q){return q.x;});
+  var pooled=Math.sqrt((variance(tx)+variance(cx))/2);
+  return {
+    est:diffs.length?mean(diffs):NaN, kept:diffs.length, nT:T.length, calDol:c,
+    naive:mean(T.map(function(q){return q.y;}))-mean(C.map(function(q){return q.y;})),
+    gapB:mean(tx)-mean(cx), gapA:diffs.length?mean(xT)-mean(xC):NaN, pooled:pooled
+  };
+}
+
+var state={ci:5,pts:simulate()};
+var W=680,H=400,M={l:48,r:16,t:16,b:40};
+var sx=function(x){return M.l+(x-300)/(1500-300)*(W-M.l-M.r);};
+var sy=function(y){return H-M.b-y/100*(H-M.t-M.b);};
+
+function axes(svg,xt,yt,xl,yl,sxf,syf,w,h,m,xfmt){
+  var g=el("g",{"class":"ax"},svg);
+  el("line",{x1:m.l,x2:w-m.r,y1:h-m.b,y2:h-m.b},g);
+  el("line",{x1:m.l,x2:m.l,y1:m.t,y2:h-m.b},g);
+  xt.forEach(function(v){el("line",{x1:sxf(v),x2:sxf(v),y1:h-m.b,y2:h-m.b+5},g);txt(g,sxf(v),h-m.b+18,xfmt?xfmt(v):String(v),{"text-anchor":"middle"});});
+  yt.forEach(function(v){el("line",{x1:m.l-5,x2:m.l,y1:syf(v),y2:syf(v)},g);txt(g,m.l-8,syf(v)+4,String(v),{"text-anchor":"end"});});
+  if(xl)txt(g,(m.l+w-m.r)/2,h-4,xl,{"text-anchor":"middle"});
+  if(yl){txt(g,14,(m.t+h-m.b)/2,yl,{"text-anchor":"middle",transform:"rotate(-90 14 "+((m.t+h-m.b)/2)+")"});}
+}
+
+function drawM(){
+  var svg=document.getElementById("mPlot");svg.innerHTML="";
+  var cal=CALS[state.ci],r=match(state.pts,cal);
+  var treat=css("--treat"),ctrl=css("--control"),ink2=css("--ink-2"),acc=css("--accent");
+  axes(svg,[300,500,700,900,1100,1300,1500],[0,20,40,60,80,100],"Household monthly income (matching variable)","Malaria risk",sx,sy,W,H,M,function(v){return "$"+v;});
+  var g=el("g",{},svg);
+  state.pts.filter(function(q){return !q.t;}).forEach(function(q){
+    el("circle",{cx:sx(q.x).toFixed(1),cy:sy(q.y).toFixed(1),r:2.6,fill:ctrl,"fill-opacity":q.used?0.7:0.13},g);
+  });
+  state.pts.filter(function(q){return q.t;}).forEach(function(q){
+    if(q.kept)el("circle",{cx:sx(q.x).toFixed(1),cy:sy(q.y).toFixed(1),r:2.8,fill:treat,"fill-opacity":0.8},g);
+    else el("circle",{cx:sx(q.x).toFixed(1),cy:sy(q.y).toFixed(1),r:3.6,fill:"none",stroke:treat,"stroke-width":1.4,"stroke-opacity":0.9},g);
+  });
+  /* caliper scale bar */
+  var bw=Math.max(1.5,sx(300+2*r.calDol)-sx(300)),bx=W-M.r-14-Math.min(bw,300),by=M.t+14;
+  el("rect",{x:bx,y:by-5,width:Math.min(bw,300),height:10,fill:acc,"fill-opacity":0.35,stroke:acc},svg);
+  txt(svg,bx-6,by+4,"caliper width (±$"+Math.round(r.calDol)+")",{"text-anchor":"end",fill:ink2,"font-size":"12"});
+
+  document.getElementById("calVal").textContent=cal<0.1?cal.toFixed(3).replace(/0$/,""):cal.toFixed(2);
+  document.getElementById("calDol").textContent=Math.round(r.calDol);
+  document.getElementById("naiveVal").textContent=fmt(r.naive);
+  document.getElementById("estVal").textContent=isFinite(r.est)?fmt(r.est):"—";
+  document.getElementById("keptVal").textContent=r.kept+" / "+r.nT;
+  document.getElementById("gapB").textContent="$"+Math.round(r.gapB);
+  document.getElementById("gapA").textContent=isFinite(r.gapA)?"$"+Math.round(r.gapA):"—";
+  var smdB=r.gapB/r.pooled,smdA=r.gapA/r.pooled;
+  var msg="Standardized difference in income: <b>"+smdB.toFixed(2)+"</b> before matching → <b>"+(isFinite(smdA)?smdA.toFixed(2):"—")+"</b> after. ";
+  if(!isFinite(smdA))msg+="No net user found a match.";
+  else if(Math.abs(smdA)<0.05)msg+="<span style='color:var(--good);font-weight:700'>Well balanced.</span>";
+  else if(Math.abs(smdA)<0.15)msg+="<span style='color:var(--warn);font-weight:700'>Some imbalance left.</span>";
+  else msg+="<span style='color:var(--bad);font-weight:700'>Poor balance: the matched non-users are still poorer than the net users.</span>";
+  document.getElementById("balVerdict").innerHTML=msg;
+}
+
+function runRepeat(){
+  var cal=CALS[state.ci],ests=[],kept=0,nT=0;
+  for(var i=0;i<200;i++){var r=match(simulate(),cal);if(isFinite(r.est)){ests.push(r.est);kept+=r.kept;nT+=r.nT;}}
+  match(state.pts,cal);
+  var svg=document.getElementById("stripPlot");svg.innerHTML="";
+  var w=680,h=110,m={l:48,r:16,t:10,b:30};
+  var lo=-30,hi=0,sxx=function(v){return m.l+(Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*(w-m.l-m.r);};
+  axes(svg,[-30,-25,-20,-15,-10,-5,0],[],"Matched estimate of the effect of nets",null,sxx,function(){return 0;},w,h,m,function(v){return v<0?"−"+Math.abs(v):String(v);});
+  var good=css("--good"),acc=css("--accent");
+  el("line",{x1:sxx(-10),x2:sxx(-10),y1:m.t,y2:h-m.b,stroke:good,"stroke-width":2.5},svg);
+  txt(svg,sxx(-10)+4,m.t+10,"truth = −10",{fill:good,"font-size":"12","font-weight":"700"});
+  ests.forEach(function(e){el("circle",{cx:sxx(e).toFixed(1),cy:(m.t+14+rand()*(h-m.b-m.t-20)).toFixed(1),r:2.6,fill:acc,"fill-opacity":0.45},svg);});
+  var mu=mean(ests),sd=Math.sqrt(ests.reduce(function(a,b){return a+(b-mu)*(b-mu);},0)/(ests.length-1));
+  var bias=mu+10,msg;
+  var bTxt="Average estimate <b>"+fmt(mu)+"</b> (bias "+(bias>=0?"+":"−")+Math.abs(bias).toFixed(1)+"), typical miss from sample to sample ±<b>"+sd.toFixed(1)+"</b>. On average "+Math.round(100*kept/nT)+"% of net users were kept. ";
+  if(Math.abs(bias)>1&&sd<=1.9)msg="Precise but <b>biased</b>: the caliper lets in non-users who are poorer than the net users they stand in for.";
+  else if(sd>1.9&&Math.abs(bias)<=1)msg="About right on average but <b>noisy</b>: the caliper is so tight that many net users are dropped.";
+  else if(Math.abs(bias)<=1&&sd<=1.9)msg="<b>A good balance.</b> Centered on the truth and reasonably tight.";
+  else msg="Both biased and noisy. Try another caliper.";
+  document.getElementById("repeatVerdict").innerHTML=bTxt+msg;
+  document.getElementById("repeatBox").style.display="block";
+}
+document.getElementById("cal").addEventListener("input",function(e){state.ci=+e.target.value;drawM();document.getElementById("repeatBox").style.display="none";});
+document.getElementById("newSample").addEventListener("click",function(){state.pts=simulate();drawM();});
+document.getElementById("repeat").addEventListener("click",runRepeat);
+
+/* ---------- Lab 2: common support ---------- */
+var NT=300,NC=600,BINS=20,PSCAL=0.05;
+var zT=[],zC=[];(function(){var r2=mulberry32(14);function rn(){var u=1-r2(),v=r2();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}for(var i=0;i<NT;i++)zT.push(rn());for(i=0;i<NC;i++)zC.push(rn());})();
+/* true propensity when treated z ~ N(s,1) and control z ~ N(0,1) */
+function ps(z,s){return 1/(1+Math.exp(-(Math.log(NT/NC)+s*z-s*s/2)));}
+function drawPS(){
+  var s=+document.getElementById("shift").value;
+  document.getElementById("shiftVal").textContent=s.toFixed(2).replace(/0$/,"");
+  var pT=zT.map(function(z){return ps(z+s,s);}),pC=zC.map(function(z){return ps(z,s);});
+  var hT=new Array(BINS).fill(0),hC=new Array(BINS).fill(0);
+  pT.forEach(function(p){hT[Math.min(BINS-1,Math.floor(p*BINS))]++;});
+  pC.forEach(function(p){hC[Math.min(BINS-1,Math.floor(p*BINS))]++;});
+  var shT=hT.map(function(c){return 100*c/NT;}),shC=hC.map(function(c){return 100*c/NC;});
+  var mx=Math.max.apply(null,shT.concat(shC)),top=Math.max(20,Math.ceil(mx/10)*10);
+  var svg=document.getElementById("psPlot");svg.innerHTML="";
+  var w=680,h=300,m={l:48,r:16,t:22,b:40},mid=(m.t+h-m.b)/2,half=mid-m.t;
+  var sxx=function(v){return m.l+v*(w-m.l-m.r);};
+  var treat=css("--treat"),ctrl=css("--control"),ink2=css("--ink-2"),bad=css("--bad");
+  for(var b=0;b<BINS;b++){if(hT[b]>0&&hC[b]===0)el("rect",{x:sxx(b/BINS),y:m.t,width:sxx(1/BINS)-sxx(0),height:h-m.b-m.t,fill:bad,"fill-opacity":0.12},svg);}
+  var g=el("g",{"class":"ax"},svg);
+  el("line",{x1:m.l,x2:w-m.r,y1:h-m.b,y2:h-m.b},g);
+  [0,0.2,0.4,0.6,0.8,1].forEach(function(v){el("line",{x1:sxx(v),x2:sxx(v),y1:h-m.b,y2:h-m.b+5},g);txt(g,sxx(v),h-m.b+18,v.toFixed(1),{"text-anchor":"middle"});});
+  txt(g,(m.l+w-m.r)/2,h-4,"Propensity score (chance of using a net)",{"text-anchor":"middle"});
+  txt(g,m.l-8,m.t+10,top+"%",{"text-anchor":"end"});txt(g,m.l-8,h-m.b-2,top+"%",{"text-anchor":"end"});txt(g,m.l-8,mid+4,"0",{"text-anchor":"end"});
+  for(b=0;b<BINS;b++){
+    var x0=sxx(b/BINS)+1,x1=sxx((b+1)/BINS)-1,ht=shT[b]/top*half,hc=shC[b]/top*half;
+    if(ht>0)el("rect",{x:x0,y:mid-ht,width:x1-x0,height:ht,fill:treat,"fill-opacity":0.8},svg);
+    if(hc>0)el("rect",{x:x0,y:mid,width:x1-x0,height:hc,fill:ctrl,"fill-opacity":0.8},svg);
+  }
+  el("line",{x1:m.l,x2:w-m.r,y1:mid,y2:mid,stroke:css("--ink-3"),"stroke-width":1},svg);
+  txt(svg,m.l+6,m.t+12,"Net users ↑",{fill:treat,"font-size":"13","font-weight":"700"});
+  txt(svg,m.l+6,h-m.b-8,"Non-users ↓",{fill:ctrl,"font-size":"13","font-weight":"700"});
+  /* readouts */
+  var matched=pT.filter(function(p){var k=0;for(var j=0;j<pC.length;j++){if(Math.abs(pC[j]-p)<=PSCAL){k++;if(k>=5)return true;}}return false;}).length;
+  var share=100*matched/NT;
+  var maxW=Math.max(Math.max.apply(null,pT.map(function(p){return 1/p;})),Math.max.apply(null,pC.map(function(p){return 1/(1-p);})));
+  var ext=pT.concat(pC).filter(function(p){return p<0.02||p>0.98;}).length/(NT+NC)*100;
+  document.getElementById("supVal").textContent=Math.round(share)+"%";
+  document.getElementById("maxW").textContent=maxW>=1000?Math.round(maxW).toLocaleString("en-US"):maxW.toFixed(1);
+  document.getElementById("extVal").textContent=Math.round(ext)+"%";
+  var v=document.getElementById("supVerdict"),pre="Share of net users with at least 5 non-users within ±"+PSCAL+" of their propensity score: <b>"+Math.round(share)+"%</b>. ";
+  if(share>=90)v.innerHTML=pre+"<span style='color:var(--good);font-weight:700'>Good common support.</span> Matching and IPW both have comparable units to work with.";
+  else if(share>=60)v.innerHTML=pre+"<span style='color:var(--warn);font-weight:700'>Support is getting thin.</span> Some net users have few or no comparable non-users, and a few weights are getting large.";
+  else v.innerHTML=pre+"<span style='color:var(--bad);font-weight:700'>Common support fails for many net users.</span> Matching would drop them, and IPW would lean on a handful of non-users with giant weights. Any estimate only describes the net users who overlap with non-users.";
+}
+document.getElementById("shift").addEventListener("input",drawPS);
+
+drawM();drawPS();
+if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){drawM();drawPS();});
+})();
+</script>
+</body>
+</html>

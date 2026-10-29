@@ -9,6 +9,7 @@ project:
     - friends-or-foes/index.html
     - takanakuy/index.html
     - self-defense-network/index.html
+    - causal_inference/*.html
 
 website:
   title: "Enrique Escalante"

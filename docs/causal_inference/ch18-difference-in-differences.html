@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Difference-in-Differences — The Effect, Ch. 18</title>
+<meta name="description" content="A short, interactive summary of Chapter 18 (Difference-in-Differences) of The Effect by Nick Huntington-Klein, written for ECON 4309.">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f2f0ea; --ink:#1d1f23; --ink-2:#4a4f58; --ink-3:#7a808a;
+  --line:#dcd8cf; --accent:#8c1d40; --accent-soft:#f5e6eb;
+  --treat:#c2410c; --control:#1d4ed8; --good:#15803d; --good-soft:#e7f4ec; --bad:#b91c1c; --bad-soft:#fbeaea;
+  --warn-soft:#fff6e0; --warn:#92600a;
+  --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+    --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+    --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+    --warn-soft:#3a3018; --warn:#f3c96b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+  --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+  --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+  --warn-soft:#3a3018; --warn:#f3c96b;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-size:1.4rem;margin:2.2em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;margin:1.4em 0 .4em}
+p{margin:.6em 0}
+a{color:var(--accent)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);padding:.1em .35em;border-radius:4px}
+pre{background:var(--surface-2);padding:12px 14px;border-radius:8px;overflow-x:auto;font:0.86rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.eyebrow{font-size:.85rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin:0}
+.lede{font-size:1.1rem;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{font-size:.8rem;background:var(--surface-2);color:var(--ink-2);padding:3px 10px;border-radius:999px}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 18px;margin:22px 0;box-shadow:var(--shadow)}
+.toc ol{margin:.3em 0;padding-left:1.3em}
+.toc li{margin:.15em 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.big-idea{border-left:5px solid var(--accent);background:var(--accent-soft)}
+.big-idea p:first-child{margin-top:0}.big-idea p:last-child{margin-bottom:0}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.term b{display:block;color:var(--accent);margin-bottom:2px}
+.term .ex{display:block;margin-top:6px;font-size:.88rem;color:var(--ink-2)}
+.callout{border-radius:var(--radius);padding:12px 16px;margin:14px 0}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout.good{background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.callout.bad{background:var(--bad-soft);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.callout .label{font-weight:700;display:block;margin-bottom:2px}
+.callout ul{margin:.3em 0;padding-left:1.2em}
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:16px 0;box-shadow:var(--shadow)}
+.lab-title{font-weight:700;margin:0 0 4px}
+.lab-sub{margin:0 0 10px;color:var(--ink-2);font-size:.92rem}
+.lab svg{width:100%;height:auto;display:block}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 18px;margin:10px 0 4px;font-size:.92rem}
+.controls label{display:block;font-weight:600;margin-bottom:2px}
+.controls input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:5px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed=true]{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed=true]{color:#15171a}}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:6px 12px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:8px;padding:8px 10px}
+.stat .k{font-size:.78rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.stat .v{font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums}
+.verdict{margin-top:8px;font-size:.95rem;min-height:1.6em}
+.try{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;padding-left:1.2em}
+.try li{margin:.2em 0}
+.ax text{fill:var(--ink-3);font-size:12px}
+.ax line,.ax path{stroke:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.formula{font-size:1.05rem;text-align:center;background:var(--surface-2);border-radius:8px;padding:10px;margin:10px 0}
+table.read{width:100%;border-collapse:collapse;font-size:.93rem}
+table.read td,table.read th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.read th{color:var(--ink-3);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+.pill{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.read{background:var(--good-soft);color:var(--good)}
+.pill.skim{background:var(--warn-soft);color:var(--warn)}
+.pill.skip{background:var(--surface-2);color:var(--ink-3)}
+footer{margin-top:48px;font-size:.85rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:14px}
+.print-only{display:none}
+@media (max-width:520px){body{font-size:16px}h1{font-size:1.6rem}}
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt}
+  main{max-width:none;padding:0}
+  .no-print,.controls,.btnrow,.toc{display:none!important}
+  .print-only{display:block}
+  .card,.lab,  h2{break-after:avoid}
+          a{color:#000}
+}
+</style>
+</head>
+<body>
+<main>
+
+<p class="eyebrow">ECON 4309 · Quantitative Methods for Social Sciences · Reading companion</p>
+<h1>Difference-in-Differences, in about 15 minutes</h1>
+<p class="lede">A plain-language guide to <a href="https://theeffectbook.net/ch-DifferenceinDifference.html">Chapter 18 of <i>The Effect</i></a> by Nick Huntington-Klein. Read this first, play with the two simulators, and then use the reading guide at the end to decide which parts of the chapter to read closely.</p>
+<div class="meta"><span class="chip">Pairs with Lecture 8: Diff-in-diff I &amp; II</span><span class="chip">Book: Ch. 18</span><span class="chip">~15 min</span></div>
+
+<p class="print-only"><b>Note:</b> This is the printable version. The interactive version, with the simulators, is on the course website.</p>
+
+<nav class="toc no-print" aria-label="Contents">
+<b>On this page</b>
+<ol>
+<li><a href="#idea">The big idea in 60 seconds</a></li>
+<li><a href="#terms">Six words you need</a></li>
+<li><a href="#sim">Simulator: build the 2×2</a></li>
+<li><a href="#why">Why this counts as causal</a></li>
+<li><a href="#assume">Parallel trends: what has to be true (and how to check it)</a></li>
+<li><a href="#att">What you actually estimate: the ATT</a></li>
+<li><a href="#more">Optional: event studies and staggered timing</a></li>
+<li><a href="#r">Doing it in R (with AI help)</a></li>
+<li><a href="#reading">How to read the chapter</a></li>
+</ol>
+</nav>
+
+<!-- 1 -->
+<h2 id="idea">1. The big idea in 60 seconds</h2>
+<div class="card big-idea">
+<p>The chapter opens in 1850s London with John Snow, who suspected that cholera spread through dirty water, not "bad air." Several water companies drew from the Thames. Between 1849 and 1854, one of them, the <b>Lambeth</b> company, was required to move its intake <b>upstream</b> of the city's sewage. Other companies didn't move.</p>
+<p>Looking only at Lambeth areas, cholera deaths fell from about 130 to 85 per 10,000. But maybe cholera was fading everywhere? So Snow's logic also looked at areas <b>without</b> Lambeth water, where deaths actually <i>rose</i>, from about 135 to 147. The effect of clean water is how much <b>more</b> the Lambeth areas changed than the other areas: roughly <b>−57 deaths per 10,000</b>.</p>
+</div>
+<p>That is <b>difference-in-differences (DiD)</b>. In the chapter's words, the recipe has two steps:</p>
+<ol>
+<li><b>Take the before-to-after change</b> in each group (the first "difference"). This removes fixed differences <i>between</i> the groups.</li>
+<li><b>Subtract</b> the untreated group's change from the treated group's change (the second "difference"). The untreated group's change stands in for what <i>would have</i> happened to the treated group anyway.</li>
+</ol>
+<div class="formula">DiD = (Treated<sub>after</sub> − Treated<sub>before</sub>) − (Control<sub>after</sub> − Control<sub>before</sub>)</div>
+
+<!-- 2 -->
+<h2 id="terms">2. Six words you need</h2>
+<p>We'll use the minimum-wage example from Lecture 8 throughout: in 1992, <b>New Jersey</b> raised its minimum wage from $4.25 to $5.05, and neighboring <b>Pennsylvania</b> did not. The outcome is the average number of jobs per fast-food restaurant.</p>
+<div class="terms">
+  <div class="term"><b>Treated group</b>The group that gets the policy, at some point in time.<span class="ex">Minimum wage: New Jersey restaurants.</span></div>
+  <div class="term"><b>Control group</b>(also "untreated" or "comparison" group) A group that never gets the policy during the study.<span class="ex">Minimum wage: Pennsylvania restaurants.</span></div>
+  <div class="term"><b>Before / after</b>(also "pre" and "post") The periods before and after the policy starts. You need both, for both groups.<span class="ex">Restaurants surveyed before and after New Jersey's increase.</span></div>
+  <div class="term"><b>Counterfactual</b>What would have happened to the treated group <i>without</i> the policy. We never see it, so DiD builds it from the control group's change.<span class="ex">New Jersey's job count in 1992 if the wage had stayed at $4.25.</span></div>
+  <div class="term"><b>Parallel trends</b>The key assumption: without the policy, the <i>gap</i> between the groups would have stayed the same. The groups can start at different levels, but they must move together.<span class="ex">Without the increase, NJ jobs would have changed by the same amount as PA jobs.</span></div>
+  <div class="term"><b>ATT</b>Average treatment effect on the treated: the effect for the group that actually got the policy.<span class="ex">The effect of the wage increase on New Jersey restaurants, not on restaurants everywhere.</span></div>
+</div>
+
+<!-- 3 -->
+<h2 id="sim">3. Simulator: build the 2×2</h2>
+<p>Every basic DiD comes down to four averages: each group, before and after. Lecture 8 labels them <b>A, B</b> (control) and <b>C, D</b> (treated). Start with the lecture's New Jersey numbers, then switch to the two examples from the chapter, or move the sliders yourself.</p>
+
+<div class="lab" id="lab1">
+  <p class="lab-title" id="l1title">Minimum wage: jobs per fast-food restaurant</p>
+  <p class="lab-sub">The dashed orange line is the <b>counterfactual</b>: the treated group's starting point plus the control group's change. DiD is the gap between that line and what actually happened.</p>
+  <div class="no-print" style="margin-bottom:8px"><div class="seg" id="presetSeg"><button data-v="nj" aria-pressed="true">Lecture: NJ vs. PA</button><button data-v="snow" aria-pressed="false">Book: Snow's cholera</button><button data-v="organ" aria-pressed="false">Book: organ donors</button></div></div>
+  <svg id="ddPlot" viewBox="0 0 680 380" role="img" aria-label="Before and after averages for treated and control groups, with the dashed counterfactual for the treated group and the difference-in-differences gap"></svg>
+  <div class="legend"><span><span class="dot" style="background:var(--treat)"></span><span id="lgT">Treated (New Jersey)</span></span><span><span class="dot" style="background:var(--control)"></span><span id="lgC">Control (Pennsylvania)</span></span><span>Dashed = counterfactual · bracket = DiD</span></div>
+  <div class="controls">
+    <div><label for="sA">A · Control, before: <span id="vA"></span></label><input id="sA" type="range"></div>
+    <div><label for="sB">B · Control, after: <span id="vB"></span></label><input id="sB" type="range"></div>
+    <div><label for="sC">C · Treated, before: <span id="vC"></span></label><input id="sC" type="range"></div>
+    <div><label for="sD">D · Treated, after: <span id="vD"></span></label><input id="sD" type="range"></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="resetDD">Reset to the example's numbers</button></div>
+  <div class="readout">
+    <div class="stat"><div class="k">Treated change (D − C)</div><div class="v" id="rT">—</div></div>
+    <div class="stat"><div class="k">Control change (B − A)</div><div class="v" id="rC">—</div></div>
+    <div class="stat"><div class="k">DiD</div><div class="v" id="rDD" style="color:var(--accent)">—</div></div>
+  </div>
+  <div class="formula" id="ddFormula"></div>
+  <div class="verdict" id="ddNote"></div>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> Use the NJ vs. PA numbers. A before/after comparison of New Jersey alone gives +0.59 jobs. Comparing NJ to PA only <i>after</i> the increase gives −0.14. Both are misleading. DiD uses all four numbers and gets about +2.75.</li>
+    <li><b>Try 2:</b> Drag <b>B</b> (control, after) up. The dashed line rises and the DiD shrinks, one for one. Whatever the control group does is treated as "what would have happened anyway."</li>
+    <li><b>Try 3:</b> Raise <b>A</b> and <b>B</b> by the same amount (move the whole blue line up). The DiD doesn't change. DiD doesn't care that the groups start at different levels; it only compares <b>changes</b>.</li>
+  </ul>
+</div>
+
+<div class="callout warn"><span class="label">Why one difference isn't enough (Lecture 8: "two wrongs make a right")</span>
+<ul>
+<li><b>Before vs. after in the treated group only:</b> you can't tell the policy apart from everything else that changed over time, such as the economy or the season.</li>
+<li><b>Treated vs. control after only:</b> you can't tell the policy apart from differences the two groups always had.</li>
+</ul>
+Each comparison is "wrong" on its own. Subtracting one from the other cancels both problems, <i>if</i> parallel trends holds.</div>
+
+<!-- 4 -->
+<h2 id="why">4. Why this counts as causal</h2>
+<p>Here is the chapter's causal diagram (Figure 18.2), simplified. Treatment is tangled up with two back doors: <b>Time</b> (things change between before and after) and <b>Group</b> (the treated group is different from the control group).</p>
+<div class="card">
+<svg viewBox="0 0 640 230" role="img" aria-label="Causal diagram: Time and Group each affect both Treatment and Outcome; Treatment affects Outcome">
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker></defs>
+  <g font-size="14" text-anchor="middle" fill="var(--ink)">
+    <rect x="250" y="12" width="140" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="320" y="36">Time</text>
+    <rect x="250" y="180" width="140" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="320" y="204">Group</text>
+    <rect x="30" y="96" width="160" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="110" y="120">Treatment</text>
+    <rect x="450" y="96" width="160" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="530" y="120">Outcome</text>
+  </g>
+  <g stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#arr)">
+    <path d="M262,50 L160,94"/><path d="M378,50 L480,94"/>
+    <path d="M262,180 L160,136"/><path d="M378,180 L480,136"/>
+    <path d="M190,115 L446,115" stroke="var(--accent)" stroke-width="2.4"/>
+  </g>
+</svg>
+<p style="margin:6px 0 0;font-size:.93rem;color:var(--ink-2)">Adding a control group seems to make things worse, because now there's a second back door (Group). But having both groups lets us close <b>both</b> doors. Looking at each group's change over time (<b>within</b> variation) removes fixed differences between groups, which closes Group. Comparing those changes <b>across</b> the two groups removes whatever happened to everyone over time, which closes Time. What's left is the Treatment → Outcome arrow.</p>
+</div>
+
+<h3>The same thing as a regression</h3>
+<p>Computing four averages by hand gets tedious, and you'll often want standard errors. Lecture 8's regression gives the same answer:</p>
+<div class="formula">Y = α + β·Group + γ·Time + δ·(Group × Time) + ε</div>
+<p><b>Group</b> = 1 for the treated group, <b>Time</b> = 1 for the after period. The interaction <b>Group × Time</b> = 1 only for the treated group <i>after</i> treatment. Here is what each coefficient means in the 2×2:</p>
+<table class="read">
+<tr><th></th><th>Before</th><th>After</th><th>Change (after − before)</th></tr>
+<tr><td><b>Control</b></td><td>α</td><td>α + γ</td><td>γ</td></tr>
+<tr><td><b>Treated</b></td><td>α + β</td><td>α + β + γ + δ</td><td>γ + δ</td></tr>
+<tr><td><b>Treated − control</b></td><td>β</td><td>β + δ</td><td><b style="color:var(--accent)">δ = the DiD</b></td></tr>
+</table>
+<p style="font-size:.93rem;color:var(--ink-2)">β is the gap the groups always have, γ is the change that happens to everyone, and δ is the <i>extra</i> change in the treated group, which is the DiD. It's the hot-dog interaction from class: δ is the "extra" you get from combining "treated group" with "after."</p>
+
+<!-- 5 -->
+<h2 id="assume">5. Parallel trends: what has to be true (and how to check it)</h2>
+<div class="card">
+<h3 style="margin-top:0">The assumption</h3>
+<p>DiD uses the control group's change as a stand-in for what would have happened to the treated group. That only works if, <b>without the treatment, the gap between the two groups would have stayed the same</b>. The chapter puts it as simple accounting:</p>
+<ul>
+<li>Treated group's change = <b>effect of treatment</b> + other changes in the treated group</li>
+<li>Control group's change = other changes in the control group</li>
+<li>DiD = effect of treatment + (other treated changes − other control changes)</li>
+</ul>
+<p>DiD equals the true effect only if the "other changes" cancel out. Parallel trends is about a <b>counterfactual</b>, so you can never observe it directly.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">Two ways it fails (the chapter's examples)</h3>
+<p>Say you want the effect of Chicago building new roads in 2018 on the popularity of its downtown restaurants.</p>
+<ul>
+<li><b>Something else happens to the control group at the same time.</b> You compare with Los Angeles, but in 2018 a wave of hyped new restaurants opened in downtown LA. DiD mixes "Chicago's roads" with "LA's new restaurants." The trends could have been perfectly parallel <i>before</i> 2018 and still break at the moment of treatment.</li>
+<li><b>The groups were already drifting apart.</b> You compare with New York, but New York's restaurant popularity had been falling for years. That trend would have kept widening the gap even without the roads, so DiD credits it to the roads.</li>
+</ul>
+<p><b>Good signs in a control group</b> (helpful, but none are proof): there's no reason it would suddenly change when treatment starts; it's similar to the treated group in general (for a Miami study, Atlanta or Tampa is more believable than Reykjavik); and its outcome was moving the same way as the treated group's <i>before</i> treatment.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">How to check it (suggestive evidence, not proof)</h3>
+<p><b>1. Prior trends test.</b> Plot both groups' averages over the periods <i>before</i> treatment. Is the gap roughly constant? You can also test it with a regression on pre-treatment data only, letting each group have its own time trend.</p>
+<p><b>2. Placebo test.</b> Use only pre-treatment data, pretend the treatment happened at a fake earlier date, and run your DiD. Lecture 8: "pretend the treatment happened earlier; if there's an effect, there's likely an underlying trend." A "significant effect" at a date when nothing happened is a red flag.</p>
+<p>The chapter stresses that <b>passing these checks does not prove parallel trends</b>. It only means the data didn't give you a reason to doubt it. Failing them makes the assumption harder to believe.</p>
+</div>
+
+<div class="lab" id="lab2">
+  <p class="lab-title">Simulator: break parallel trends and watch the estimate drift</p>
+  <p class="lab-sub"><b>Simulated data</b> (not from the book): 30 treated and 30 control units, followed for 10 periods. Treatment starts in period 1, so periods −4 to 0 are "before." The <b>true effect is exactly 3.0</b> in every treated period.</p>
+  <svg id="trendPlot" viewBox="0 0 680 320" role="img" aria-label="Average outcome over time for treated and control groups, with the counterfactual DiD assumes and the true untreated path"></svg>
+  <div class="legend"><span><span class="dot" style="background:var(--treat)"></span>Treated average</span><span><span class="dot" style="background:var(--control)"></span>Control average</span><span>Orange dashed = what DiD assumes the treated group would have done</span><span>Green dotted = what it really would have done (only knowable in a simulation)</span></div>
+  <div class="controls">
+    <div><label for="drift">Extra trend in the treated group: <span id="driftVal">0.0</span> per period</label><input id="drift" type="range" min="0" max="1" step="0.1" value="0"></div>
+    <div><label for="shock">Shock to control group at treatment: <span id="shockVal">0.0</span></label><input id="shock" type="range" min="-3" max="3" step="0.5" value="0"></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="newPanel">Draw a new sample</button><button class="btn" id="resetPanel">Reset (parallel trends hold)</button></div>
+  <div class="readout">
+    <div class="stat"><div class="k">DiD estimate</div><div class="v" id="pdEst">—</div></div>
+    <div class="stat"><div class="k">True effect</div><div class="v">3.0</div></div>
+    <div class="stat"><div class="k">Bias (estimate − truth)</div><div class="v" id="pdBias">—</div></div>
+  </div>
+  <p class="lab-sub" style="margin:14px 0 4px"><b>Event-study view.</b> Each dot is a DiD comparing one period with period 0 (the last period before treatment), with a 95% confidence interval. Dots <i>before</i> treatment are built-in placebo tests and should sit near zero.</p>
+  <svg id="esPlot" viewBox="0 0 680 260" role="img" aria-label="Event-study plot of period-by-period DiD estimates relative to the last pre-treatment period"></svg>
+  <div class="legend"><span><span class="dot" style="background:var(--accent)"></span>Estimate with 95% CI</span><span>Hollow dot = reference period (0 by definition)</span><span>Green dashed = true effect (3)</span></div>
+  <div class="verdict" id="pdVerdict"></div>
+  <ul class="try no-print">
+    <li><b>Try 1:</b> Leave both sliders at 0. The DiD lands near 3, the pre-period dots hug zero, and the dashed and dotted lines sit on top of each other. Parallel trends holds.</li>
+    <li><b>Try 2:</b> Slide the extra trend to 0.5. The treated group was already pulling away before treatment, so the DiD overshoots (about 5.5 instead of 3). Notice that the <b>pre-period dots slope upward</b>: the event study warns you.</li>
+    <li><b>Try 3:</b> Set the trend back to 0 and move the control shock to +3 (like LA's new restaurants). The DiD falls toward 0, but the <b>pre-period dots look perfect</b>. Pre-trend checks can't catch something that only happens when treatment starts. That's why the chapter says they're not proof.</li>
+  </ul>
+</div>
+
+<div class="callout warn"><span class="label">Parallel trends depends on how you measure the outcome</span>
+If the gap is constant in dollars, it is <i>not</i> constant in percentage terms, and vice versa. The chapter's example: a control group going from 10 to 15 and a treated group from 20 to 25 have a constant gap of 10. In logs, the gap shrinks (0.69 to 0.51). So parallel trends can hold for <code>y</code> but fail for <code>log(y)</code>. Decide which version you believe before you run anything.</div>
+
+<!-- 6 -->
+<h2 id="att">6. What you actually estimate: the ATT</h2>
+<p>DiD compares the treated group with its own counterfactual, so it gives you the <b>average treatment effect on the treated (ATT)</b>: the effect for the groups that actually got the policy.</p>
+<div class="terms">
+  <div class="term"><b style="color:var(--good)">When that's useful</b>If the question is "did New Jersey's wage increase cost New Jersey jobs?", the ATT answers exactly that.</div>
+  <div class="term"><b style="color:var(--bad)">When it's a limitation</b>The control group is never treated, so we never see how <i>it</i> would respond. The NJ estimate doesn't automatically tell you what a wage increase would do in Pennsylvania, or in a very different state.</div>
+</div>
+<p>In the chapter's organ-donor example, California switched to "active choice" (you must check yes or no) in 2011. The other states' donor rate rose 1.4 points while California's fell 0.8, so the DiD is about <b>−2.2 percentage points</b>: active choice <i>lowered</i> sign-ups in California. A two-way fixed effects regression gives the same −0.022, with a standard error of 0.006.</p>
+
+<!-- 7 -->
+<h2 id="more">7. Optional: event studies and staggered timing</h2>
+<p>This section previews material the chapter covers in more depth. It's good to know the ideas, but you won't need the details in this course.</p>
+<div class="card">
+<h3 style="margin-top:0">Two-way fixed effects (TWFE)</h3>
+<p>With many groups and many periods, the regression becomes <code>Y = group fixed effects + time fixed effects + δ·Treated</code>, where <code>Treated</code> = 1 for a treated group in a treated period. With one treatment date, this gives the same answer as the 2×2. Standard errors are usually <b>clustered by group</b>, because the same group's errors are related over time.</p>
+<h3>Event studies (dynamic effects)</h3>
+<p>Instead of one "after" effect, estimate a separate effect for each period, relative to the last period before treatment. That's the lower plot in the simulator. It shows whether the effect builds up or fades, and the pre-treatment estimates act as placebo tests. The trade-off: each period's estimate uses less data, so it's noisier.</p>
+<h3>Staggered timing (rollout designs)</h3>
+<p>Sometimes groups are treated at different times. The chapter's example: three counties getting broadband in 2001, 2002, and 2003. Plain TWFE then quietly uses <b>already-treated</b> groups as controls for newly treated ones. If effects change over time, that can badly distort the estimate, in rare cases even flipping its sign. The chapter calls this "the secret shame of econometrics." Lecture 8 shows the <b>Goodman-Bacon decomposition</b> (R package <code>bacondecomp</code>) for checking how serious the problem is. Newer estimators, such as Callaway and Sant'Anna (R package <code>did</code>), are built to avoid it.</p>
+</div>
+
+<!-- 8 -->
+<h2 id="r">8. Doing it in R (with AI help)</h2>
+<p>In this class, AI writes most of the code. <b>Your job is the design and the checking.</b> These are the steps a DiD analysis should include and what to verify at each one:</p>
+<table class="read">
+<tr><th>Step</th><th>Typical R</th><th>What <i>you</i> check</th></tr>
+<tr><td>1. Make the indicators</td><td><code>mutate(treated = state == "NJ", after = date &gt;= policy_date, treat_post = treated &amp; after)</code></td><td>Is the right group marked treated, and is the cutoff date right? Is <code>treated</code> 1 for the group in <i>every</i> period, and <code>treat_post</code> 1 only after?</td></tr>
+<tr><td>2. Plot it first</td><td><code>group_by(treated, year) |&gt; summarize(y = mean(y))</code> then <code>ggplot()</code> with a line per group</td><td>Do the pre-treatment lines move together? Does anything odd happen to the control group at the treatment date?</td></tr>
+<tr><td>3. The 2×2 by hand</td><td><code>group_by(treated, after) |&gt; summarize(mean(y))</code></td><td>Compute (D − C) − (B − A) yourself. You'll compare it with step 4.</td></tr>
+<tr><td>4. Regression</td><td><code>lm(y ~ treated * after, data = df)</code></td><td>The <code>treatedTRUE:afterTRUE</code> coefficient should match step 3 exactly. Is its sign sensible?</td></tr>
+<tr><td>5. Many groups/periods</td><td><code>feols(y ~ treat_post | unit + year, data = df, cluster = ~unit)</code> (fixest)</td><td>Are standard errors clustered by group? Does everyone get treated at the <i>same</i> time? If not, see section 7.</td></tr>
+<tr><td>6. Event study</td><td><code>feols(y ~ i(rel_time, treated, ref = 0) | unit + year, data = df)</code>, then <code>iplot()</code></td><td>Are the pre-treatment estimates close to zero? Is the reference period really the last one before treatment?</td></tr>
+<tr><td>7. Placebo test</td><td>Keep only pre-treatment years, set a fake treatment date, re-run step 4 or 5</td><td>There should be no "effect" at the fake date.</td></tr>
+</table>
+<div class="callout warn"><span class="label">Watch out with control variables</span>In DiD, controls are only there to make parallel trends more believable. The chapter warns that tossing them into a TWFE regression often doesn't do what you'd expect, and that controls measured <i>after</i> treatment can absorb part of the effect. If an AI adds controls, ask why, and report results with and without them.</div>
+
+<div class="callout bad"><span class="label">Common mistakes</span>
+<ul>
+<li>Using only before/after for the treated group, or only treated/control after treatment (one difference, not two).</li>
+<li>Treating "the groups have similar levels" as the assumption. DiD needs similar <b>changes</b>; different levels are fine.</li>
+<li>Saying that a clean pre-trend plot or placebo test <i>proves</i> parallel trends.</li>
+<li>Mixing up the two "treated" variables: <i>in the treated group</i> (1 for New Jersey in every period) versus <i>treated right now</i> (1 only for New Jersey after the increase). <code>lm(y ~ treated * after)</code> needs the first; <code>feols(y ~ treat_post | unit + year)</code> needs the second.</li>
+<li>Switching between <code>y</code> and <code>log(y)</code> without asking which one parallel trends holds for.</li>
+<li>Running plain TWFE when groups are treated at different times.</li>
+<li>Forgetting to cluster standard errors by group.</li>
+<li>Claiming the effect applies to everyone (it's the ATT, for the treated group).</li>
+</ul></div>
+
+<!-- 9 -->
+<h2 id="reading">9. How to read the chapter</h2>
+<p>The chapter is long (roughly 15,000 words with code and footnotes), and its second half is written for graduate students. Here's where to spend your time:</p>
+<table class="read">
+<tr><th>Section</th><th>What it covers</th><th></th></tr>
+<tr><td>18.1.1 Across Within Variation</td><td>Why adding a control group closes both back doors. The heart of the method.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>18.1.2 DiD and Dirty Water</td><td>John Snow and the Lambeth water company.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>18.1.3 How DID Does?</td><td>The organ-donor example, step by step through the four averages.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>18.1.4 Untreated Groups and Parallel Trends</td><td>The assumption, the Chicago roads examples, prior trends and placebo tests, and the log warning.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>18.2.1 Two-Way Fixed Effects</td><td>The regression versions and clustering. Read the text; you can skim the code.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>18.2.2 Treatment Effects in DiD</td><td>Why DiD gives the ATT. Short.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>18.2.3 Supporting the Parallel Trends Assumption</td><td>How to run the prior-trends and placebo tests. Directly useful for your assignment.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>18.2.4 Long-Term Effects</td><td>Event-study (dynamic) DiD and how to read its graph.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>18.2.5 Control Variables</td><td>Why controls in DiD are tricky. The first few paragraphs are enough.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>18.2.6 Rollout Designs</td><td>The staggered-timing problem with TWFE.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>18.3 How the Pros Do It</td><td>New staggered estimators, matching, and triple differences. Beyond this course.</td><td><span class="pill skip">Optional</span></td></tr>
+</table>
+
+<footer>
+Summary of Chapter 18 of Nick Huntington-Klein, <i>The Effect: An Introduction to Research Design and Causality</i> (free online at <a href="https://theeffectbook.net/">theeffectbook.net</a>). Examples credited to the book (Snow's cholera data, the organ-donor study, the Chicago roads, the broadband rollout) are paraphrased from it. The New Jersey minimum-wage example and its numbers follow Lecture 8. The panel data in the second simulator are simulated. This guide is a companion to the chapter, not a replacement for it. ECON 4309, Fall 2026.
+</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+var SVGNS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,attrs){var t=el("text",Object.assign({x:x,y:y},attrs||{}),parent);t.textContent=s;return t;}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function sgn(v,d){return (v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(d);}
+
+/* seeded RNG */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rand=mulberry32(20261028);
+function rnorm(){var u=1-rand(),v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+function axes(svg,xt,yt,xl,yl,sxf,syf,w,h,m,xfmt){
+  var g=el("g",{"class":"ax"},svg);
+  el("line",{x1:m.l,x2:w-m.r,y1:h-m.b,y2:h-m.b},g);
+  el("line",{x1:m.l,x2:m.l,y1:m.t,y2:h-m.b},g);
+  xt.forEach(function(v){el("line",{x1:sxf(v),x2:sxf(v),y1:h-m.b,y2:h-m.b+5},g);txt(g,sxf(v),h-m.b+18,xfmt?xfmt(v):String(v),{"text-anchor":"middle"});});
+  yt.forEach(function(v){el("line",{x1:m.l-5,x2:m.l,y1:syf(v),y2:syf(v)},g);txt(g,m.l-8,syf(v)+4,String(v),{"text-anchor":"end"});});
+  if(xl)txt(g,(m.l+w-m.r)/2,h-4,xl,{"text-anchor":"middle"});
+  if(yl){txt(g,14,(m.t+h-m.b)/2,yl,{"text-anchor":"middle",transform:"rotate(-90 14 "+((m.t+h-m.b)/2)+")"});}
+}
+/* push label y-positions apart so they don't overlap */
+function spread(items,gap){
+  items.sort(function(a,b){return a.y-b.y;});
+  for(var i=1;i<items.length;i++)if(items[i].y-items[i-1].y<gap)items[i].y=items[i-1].y+gap;
+  return items;
+}
+
+/* ---------- Lab 1: 2x2 builder ---------- */
+var PRESETS={
+  nj:{title:"Minimum wage: jobs per fast-food restaurant",T:"New Jersey",C:"Pennsylvania",pre:"Before",post:"After",ylab:"Jobs per restaurant",v:[23.33,21.17,20.44,21.03],min:15,max:30,step:0.01,dec:2,tick:5,
+      note:"Lecture 8's numbers. The slide shows 2.76; the tiny difference comes from rounding the four averages. Positive means New Jersey <i>gained</i> jobs relative to Pennsylvania, the opposite of what simple theory predicts."},
+  snow:{title:"Snow's cholera data: deaths per 10,000 people",T:"Lambeth areas",C:"Non-Lambeth areas",pre:"1849",post:"1854",ylab:"Cholera deaths per 10,000",v:[134.9,146.6,130.1,84.9],min:50,max:200,step:0.1,dec:1,tick:25,
+      note:"The chapter's Table 18.1. The chapter rounds to whole numbers first and reports −57.1. Either way, clean water cut cholera deaths by roughly 57 per 10,000."},
+  organ:{title:"Active choice: % registered as organ donors",T:"California",C:"Other states",pre:"Before (Jul 2011)",post:"After",ylab:"Organ donor rate (%)",v:[44.5,45.9,27.1,26.3],min:15,max:55,step:0.1,dec:1,tick:10,
+      note:"The four averages from the chapter's organ-donor example. California's rate fell a little while other states rose a little, so the DiD is about −2.2 percentage points."}
+};
+var dd={key:"nj",v:PRESETS.nj.v.slice()};
+var IDS=["sA","sB","sC","sD"];
+function loadPreset(key){
+  var p=PRESETS[key];dd.key=key;dd.v=p.v.slice();
+  IDS.forEach(function(id,i){var s=document.getElementById(id);s.min=p.min;s.max=p.max;s.step=p.step;s.value=p.v[i];});
+  document.getElementById("l1title").textContent=p.title;
+  document.getElementById("lgT").textContent="Treated ("+p.T+")";
+  document.getElementById("lgC").textContent="Control ("+p.C+")";
+  drawDD();
+}
+function drawDD(){
+  var p=PRESETS[dd.key],A=dd.v[0],B=dd.v[1],C=dd.v[2],D=dd.v[3],d=p.dec;
+  var cf=C+(B-A),did=(D-C)-(B-A);
+  var svg=document.getElementById("ddPlot");svg.innerHTML="";
+  var W=680,H=380,M={l:56,r:16,t:16,b:44},X0=170,X1=400,XB=600;
+  var lo=p.min,hi=p.max;
+  var sy=function(y){return H-M.b-(Math.min(hi,Math.max(lo,y))-lo)/(hi-lo)*(H-M.t-M.b);};
+  var yt=[];for(var t=lo;t<=hi+1e-9;t+=p.tick)yt.push(Math.round(t));
+  axes(svg,[],yt,null,p.ylab,null,sy,W,H,M);
+  var g0=el("g",{"class":"ax"},svg);
+  txt(g0,X0,H-M.b+20,p.pre,{"text-anchor":"middle"});txt(g0,X1,H-M.b+20,p.post,{"text-anchor":"middle"});
+  var treat=css("--treat"),ctrl=css("--control"),acc=css("--accent"),ink2=css("--ink-2"),surf=css("--surface");
+  /* lines */
+  el("line",{x1:X0,y1:sy(A),x2:X1,y2:sy(B),stroke:ctrl,"stroke-width":3.2},svg);
+  el("line",{x1:X0,y1:sy(C),x2:X1,y2:sy(cf),stroke:treat,"stroke-width":2.4,"stroke-dasharray":"7 5","stroke-opacity":0.85},svg);
+  el("line",{x1:X0,y1:sy(C),x2:X1,y2:sy(D),stroke:treat,"stroke-width":3.2},svg);
+  /* guides to bracket */
+  el("line",{x1:X1,x2:XB,y1:sy(D),y2:sy(D),stroke:ink2,"stroke-width":1,"stroke-dasharray":"2 3"},svg);
+  el("line",{x1:X1,x2:XB,y1:sy(cf),y2:sy(cf),stroke:ink2,"stroke-width":1,"stroke-dasharray":"2 3"},svg);
+  /* points */
+  [[X0,A,ctrl],[X1,B,ctrl],[X0,C,treat],[X1,D,treat]].forEach(function(q){el("circle",{cx:q[0],cy:sy(q[1]),r:6,fill:q[2],stroke:surf,"stroke-width":2},svg);});
+  el("circle",{cx:X1,cy:sy(cf),r:5.5,fill:surf,stroke:treat,"stroke-width":2.2},svg);
+  /* labels */
+  var lab={"font-size":"13","font-weight":"700",stroke:surf,"stroke-width":4,"paint-order":"stroke","stroke-linejoin":"round"};
+  spread([{y:sy(A),s:"A = "+A.toFixed(d),c:ctrl},{y:sy(C),s:"C = "+C.toFixed(d),c:treat}],17).forEach(function(o){txt(svg,X0-12,o.y+4,o.s,Object.assign({"text-anchor":"end",fill:o.c},lab));});
+  spread([{y:sy(B),s:"B = "+B.toFixed(d),c:ctrl},{y:sy(D),s:"D = "+D.toFixed(d),c:treat},{y:sy(cf),s:"counterfactual "+cf.toFixed(d),c:ink2}],17).forEach(function(o){txt(svg,X1+12,o.y+4,o.s,Object.assign({"text-anchor":"start",fill:o.c},lab));});
+  /* bracket */
+  var y1=sy(cf),y2=sy(D);
+  el("line",{x1:XB,x2:XB,y1:y1,y2:y2,stroke:acc,"stroke-width":3},svg);
+  el("line",{x1:XB-6,x2:XB+6,y1:y1,y2:y1,stroke:acc,"stroke-width":3},svg);
+  el("line",{x1:XB-6,x2:XB+6,y1:y2,y2:y2,stroke:acc,"stroke-width":3},svg);
+  var ym=(y1+y2)/2;
+  txt(svg,XB+12,ym-3,"DiD",Object.assign({fill:acc},lab));
+  txt(svg,XB+12,ym+13,sgn(did,d),Object.assign({fill:acc},lab));
+  /* readouts */
+  ["A","B","C","D"].forEach(function(k,i){document.getElementById("v"+k).textContent=dd.v[i].toFixed(d);});
+  document.getElementById("rT").textContent=sgn(D-C,d);
+  document.getElementById("rC").textContent=sgn(B-A,d);
+  document.getElementById("rDD").textContent=sgn(did,d);
+  document.getElementById("ddFormula").innerHTML="(D − C) − (B − A) = ("+sgn(D-C,d)+") − ("+sgn(B-A,d)+") = <b>"+sgn(did,d)+"</b>";
+  var same=true;for(var i=0;i<4;i++)if(Math.abs(dd.v[i]-p.v[i])>1e-9)same=false;
+  document.getElementById("ddNote").innerHTML=same?p.note:"You've changed the numbers. The book/lecture values come back with the reset button.";
+}
+IDS.forEach(function(id,i){document.getElementById(id).addEventListener("input",function(e){dd.v[i]=+e.target.value;drawDD();});});
+document.getElementById("presetSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;
+  this.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));});
+  loadPreset(b.dataset.v);
+});
+document.getElementById("resetDD").addEventListener("click",function(){loadPreset(dd.key);});
+
+/* ---------- Lab 2: parallel-trends violation (simulated panel) ---------- */
+var NU=30,EV=[-4,-3,-2,-1,0,1,2,3,4,5],EFF=3;
+var panel;
+function newPanel(){
+  panel={fT:[],fC:[],eT:[],eC:[]};
+  for(var i=0;i<NU;i++){
+    panel.fT.push(3*rnorm());panel.fC.push(3*rnorm());
+    var a=[],b=[];for(var k=0;k<EV.length;k++){a.push(2*rnorm());b.push(2*rnorm());}
+    panel.eT.push(a);panel.eC.push(b);
+  }
+}
+function common(e){return 0.6*(e+5)+Math.sin((e+5)*1.3);}
+function build(drift,shock){
+  var YT=[],YC=[];
+  for(var i=0;i<NU;i++){
+    var a=[],b=[];
+    for(var k=0;k<EV.length;k++){var e=EV[k],post=e>=1?1:0;
+      a.push(44+panel.fT[i]+common(e)+drift*e+EFF*post+panel.eT[i][k]);
+      b.push(40+panel.fC[i]+common(e)+shock*post+panel.eC[i][k]);}
+    YT.push(a);YC.push(b);
+  }
+  return {T:YT,C:YC};
+}
+function meanv(a){return a.reduce(function(s,x){return s+x;},0)/a.length;}
+function varv(a){var m=meanv(a);return a.reduce(function(s,x){return s+(x-m)*(x-m);},0)/(a.length-1);}
+/* difference of group means of a per-unit statistic, with Welch-style SE */
+function diffMeans(fT,fC,Y){var a=Y.T.map(fT),b=Y.C.map(fC);return {est:meanv(a)-meanv(b),se:Math.sqrt(varv(a)/a.length+varv(b)/b.length)};}
+
+function drawPanel(){
+  var drift=+document.getElementById("drift").value,shock=+document.getElementById("shock").value;
+  document.getElementById("driftVal").textContent=drift.toFixed(1);
+  document.getElementById("shockVal").textContent=(shock>0?"+":"")+shock.toFixed(1);
+  var Y=build(drift,shock),K=EV.length,REF=EV.indexOf(0);
+  var preIdx=[],postIdx=[];EV.forEach(function(e,k){(e>=1?postIdx:preIdx).push(k);});
+  var mT=[],mC=[];for(var k=0;k<K;k++){mT.push(meanv(Y.T.map(function(r){return r[k];})));mC.push(meanv(Y.C.map(function(r){return r[k];})));}
+  var chg=function(r){return meanv(postIdx.map(function(k){return r[k];}))-meanv(preIdx.map(function(k){return r[k];}));};
+  var D=diffMeans(chg,chg,Y);
+  var gapPre=meanv(preIdx.map(function(k){return mT[k]-mC[k];}));
+  var treat=css("--treat"),ctrl=css("--control"),ink=css("--ink"),ink2=css("--ink-2"),good=css("--good"),acc=css("--accent"),surf=css("--surface");
+
+  /* means plot */
+  var svg=document.getElementById("trendPlot");svg.innerHTML="";
+  var W=680,H=320,M={l:48,r:16,t:16,b:44};
+  var all=mT.concat(mC),lo=Math.floor((Math.min.apply(null,all)-2)/5)*5,hi=Math.ceil((Math.max.apply(null,all)+2)/5)*5;
+  var sx=function(e){return M.l+20+(e+4)/9*(W-M.l-M.r-40);},sy=function(y){return H-M.b-(y-lo)/(hi-lo)*(H-M.t-M.b);};
+  var yt=[];for(var t=lo;t<=hi;t+=5)yt.push(t);
+  el("rect",{x:sx(0.5),y:M.t,width:sx(5)+20-sx(0.5),height:H-M.t-M.b,fill:css("--surface-2"),opacity:0.9},svg);
+  axes(svg,EV,yt,"Period (0 = last period before treatment)","Average outcome",sx,sy,W,H,M);
+  el("line",{x1:sx(0.5),x2:sx(0.5),y1:M.t,y2:H-M.b,stroke:ink,"stroke-dasharray":"4 4","stroke-width":1.2},svg);
+  txt(svg,sx(0.5)+5,M.t+12,"treatment starts",{fill:ink2,"font-size":"12"});
+  var pl=function(ys,ks){return ks.map(function(k){return sx(EV[k]).toFixed(1)+","+sy(ys[k]).toFixed(1);}).join(" ");};
+  var allK=EV.map(function(e,k){return k;}),fromRef=[REF].concat(postIdx);
+  var cfDD=mC.map(function(c){return c+gapPre;}),cfTrue=mT.map(function(v,k){return EV[k]>=1?v-EFF:v;});
+  el("polyline",{points:pl(cfTrue,fromRef),fill:"none",stroke:good,"stroke-width":2.4,"stroke-dasharray":"1.5 4","stroke-linecap":"round"},svg);
+  el("polyline",{points:pl(cfDD,fromRef),fill:"none",stroke:treat,"stroke-width":2.2,"stroke-dasharray":"7 5","stroke-opacity":0.85},svg);
+  el("polyline",{points:pl(mC,allK),fill:"none",stroke:ctrl,"stroke-width":3},svg);
+  el("polyline",{points:pl(mT,allK),fill:"none",stroke:treat,"stroke-width":3},svg);
+  allK.forEach(function(k){el("circle",{cx:sx(EV[k]),cy:sy(mC[k]),r:3.5,fill:ctrl},svg);el("circle",{cx:sx(EV[k]),cy:sy(mT[k]),r:3.5,fill:treat},svg);});
+
+  /* event study */
+  var es=EV.map(function(e,k){if(k===REF)return {est:0,se:0};var f=function(r){return r[k]-r[REF];};return diffMeans(f,f,Y);});
+  var svg2=document.getElementById("esPlot");svg2.innerHTML="";
+  var H2=260,M2={l:48,r:16,t:14,b:44};
+  var ends=[];es.forEach(function(o){ends.push(o.est-1.96*o.se,o.est+1.96*o.se);});
+  var lo2=Math.min(-2,Math.floor(Math.min.apply(null,ends)/2)*2),hi2=Math.max(6,Math.ceil(Math.max.apply(null,ends)/2)*2);
+  var sy2=function(y){return H2-M2.b-(y-lo2)/(hi2-lo2)*(H2-M2.t-M2.b);};
+  var yt2=[],st=(hi2-lo2)>14?4:2;for(t=lo2;t<=hi2;t+=st)yt2.push(t);
+  axes(svg2,EV,yt2,"Period (0 = reference period)","Estimated effect",sx,sy2,W,H2,M2);
+  el("line",{x1:M2.l,x2:W-M2.r,y1:sy2(0),y2:sy2(0),stroke:ink2,"stroke-width":1},svg2);
+  el("line",{x1:sx(0.5),x2:sx(0.5),y1:M2.t,y2:H2-M2.b,stroke:ink,"stroke-dasharray":"4 4","stroke-width":1.2},svg2);
+  el("line",{x1:sx(0.6),x2:sx(5)+16,y1:sy2(EFF),y2:sy2(EFF),stroke:good,"stroke-width":2,"stroke-dasharray":"6 4"},svg2);
+  es.forEach(function(o,k){
+    var x=sx(EV[k]);
+    if(k===REF){el("circle",{cx:x,cy:sy2(0),r:5,fill:surf,stroke:ink2,"stroke-width":2},svg2);return;}
+    el("line",{x1:x,x2:x,y1:sy2(o.est-1.96*o.se),y2:sy2(o.est+1.96*o.se),stroke:acc,"stroke-width":2},svg2);
+    el("circle",{cx:x,cy:sy2(o.est),r:5,fill:acc},svg2);
+  });
+
+  /* readouts + verdict */
+  var bias=D.est-EFF;
+  document.getElementById("pdEst").textContent=D.est.toFixed(1);
+  var pb=document.getElementById("pdBias");pb.textContent=sgn(bias,1);pb.style.color=Math.abs(bias)>1?"var(--bad)":"var(--good)";
+  var ci="Estimate "+D.est.toFixed(1)+" (95% CI "+(D.est-1.96*D.se).toFixed(1)+" to "+(D.est+1.96*D.se).toFixed(1)+"). ";
+  var msg;
+  if(drift===0&&shock===0)msg="<span style='color:var(--good);font-weight:700'>Parallel trends holds.</span> The estimate misses 3 only by sampling noise, and the pre-period dots sit near zero.";
+  else if(shock===0)msg="<span style='color:var(--bad);font-weight:700'>Parallel trends fails before treatment.</span> The treated group was already pulling away by "+drift.toFixed(1)+" per period, and DiD credits that drift to the treatment (bias of about 5 × "+drift.toFixed(1)+" = "+(5*drift).toFixed(1)+"). The pre-period dots slope upward, so a prior-trends or placebo test would warn you.";
+  else if(drift===0)msg="<span style='color:var(--bad);font-weight:700'>Parallel trends fails only at the moment of treatment.</span> The control group jumped by "+sgn(shock,1)+" for its own reasons, so DiD is off by about "+sgn(-shock,1)+". The pre-period dots look fine: no pre-trend test can catch this. You have to know what else was happening.";
+  else msg="<span style='color:var(--bad);font-weight:700'>Two violations at once.</span> The pre-period dots reveal the drift, but not the shock to the control group. The bias is the sum of both.";
+  document.getElementById("pdVerdict").innerHTML=ci+msg;
+}
+["drift","shock"].forEach(function(id){document.getElementById(id).addEventListener("input",drawPanel);});
+document.getElementById("newPanel").addEventListener("click",function(){newPanel();drawPanel();});
+document.getElementById("resetPanel").addEventListener("click",function(){document.getElementById("drift").value=0;document.getElementById("shock").value=0;drawPanel();});
+
+newPanel();loadPreset("nj");drawPanel();
+if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){drawDD();drawPanel();});
+})();
+</script>
+</body>
+</html>

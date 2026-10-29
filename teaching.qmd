@@ -12,7 +12,7 @@ I teach across the economics curriculum at Angelo State University, with a focus
 ### Quantitative Methods for the Social Sciences
 Causal inference for applied research — research design, regression, difference-in-differences, and event studies, with hands-on data work.<br>
 *Best for: advanced undergraduates*<br>
-[Syllabus](https://drive.google.com/file/d/1RMiYHE9U9AKX4XfchXAvD5HVZCmc6A52/view?usp=drive_link)
+[Syllabus](https://drive.google.com/file/d/1RMiYHE9U9AKX4XfchXAvD5HVZCmc6A52/view?usp=drive_link) · [Reading guides](causal_inference/)
 :::
 ::: {.g-col-12 .g-col-md-6 .theme-card}
 ### Intermediate Microeconomics
