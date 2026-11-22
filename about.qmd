@@ -5,7 +5,7 @@ title: "About"
 :::: {.columns}
 
 ::: {.column width="62%"}
-I am an Associate Professor of Economics at the Norris-Vincent College of Business at **Angelo State University** and a Research Assistant Professor at the **Free Market Institute at Texas Tech University**. I hold a Ph.D. from the Department of Agricultural and Applied Economics at Texas Tech University.
+I am an Associate Professor of Economics at the Norris-Vincent College of Business at **Angelo State University** and a Research Associate Professor at the **Free Market Institute at Texas Tech University**. I hold a Ph.D. from the Department of Agricultural and Applied Economics at Texas Tech University.
 
 My research combines ethnographic fieldwork and case studies with quantitative approaches — including natural experiments — to examine how formal and informal institutions interact to shape economic and political outcomes. I work primarily on low- and middle-income countries, with a focus on Latin America.
 :::

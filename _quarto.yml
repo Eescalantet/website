@@ -10,10 +10,11 @@ project:
     - takanakuy/index.html
     - self-defense-network/index.html
     - causal_inference/*.html
+    - llms.txt
 
 website:
   title: "Enrique Escalante"
-  description: "Associate Professor of Economics · Angelo State University"
+  description: "Associate Professor of Economics · Angelo State University · Research Associate Professor · Free Market Institute, Texas Tech University"
   site-url: "https://enriqueescalante.com"
   navbar:
     background: light

@@ -11,7 +11,8 @@ page-layout: full
 # Enrique Escalante
 
 ::: {.hero-role}
-Associate Professor of Economics · Angelo State University
+Associate Professor of Economics · Angelo State University<br>
+Research Associate Professor · Free Market Institute, Texas Tech University
 :::
 
 ::: {.hero-headline}
