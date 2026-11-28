@@ -3,7 +3,7 @@ title: "Causal Inference: Reading Guides"
 page-layout: full
 ---
 
-Short interactive summaries of chapters from [*The Effect*](https://theeffectbook.net/) by Nick Huntington-Klein, written for ECON 4309 (Quantitative Methods for the Social Sciences). Read each guide before the class where we cover the topic, then go to the full chapter.
+Short interactive summaries of chapters from [*The Effect*](https://theeffectbook.net/) by Nick Huntington-Klein and [*Causal Inference: The Mixtape*](https://mixtape.scunning.com/) by Scott Cunningham, written for ECON 4309 (Quantitative Methods for the Social Sciences). Read each guide before the class where we cover the topic, then go to the full chapter.
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-6 .theme-card}
@@ -45,5 +45,13 @@ Isolating the part of treatment that is driven by something unrelated to the out
 Comparing units just above and just below a cutoff that determines treatment.
 
 [Read →](ch20-regression-discontinuity.html){.stretched-link .card-cue}
+:::
+::: {.g-col-12 .g-col-md-6 .theme-card}
+[The Effect · Chapter 22 · The Mixtape · Chapter 11]{.summary-meta}
+
+### Synthetic Control
+Building a weighted combination of untreated units that tracks the treated unit before treatment, then using it as the counterfactual after.
+
+[Read →](ch22-synthetic-control.html){.stretched-link .card-cue}
 :::
 :::

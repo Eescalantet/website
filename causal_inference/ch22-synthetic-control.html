@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synthetic Control — The Effect Ch. 22 &amp; The Mixtape Ch. 11</title>
+<meta name="description" content="A short, interactive summary of synthetic control, from Chapter 22 of The Effect by Nick Huntington-Klein and Chapter 11 of Causal Inference: The Mixtape by Scott Cunningham, written for ECON 4309.">
+<style>
+
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f2f0ea; --ink:#1d1f23; --ink-2:#4a4f58; --ink-3:#7a808a;
+  --line:#dcd8cf; --accent:#8c1d40; --accent-soft:#f5e6eb;
+  --treat:#c2410c; --control:#1d4ed8; --good:#15803d; --good-soft:#e7f4ec; --bad:#b91c1c; --bad-soft:#fbeaea;
+  --warn-soft:#fff6e0; --warn:#92600a;
+  --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+    --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+    --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+    --warn-soft:#3a3018; --warn:#f3c96b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171a; --surface:#1d2024; --surface-2:#262a2f; --ink:#ececea; --ink-2:#b7bbc2; --ink-3:#8a9099;
+  --line:#353a41; --accent:#f08ab0; --accent-soft:#3a2230;
+  --treat:#fb923c; --control:#7aa2ff; --good:#4ade80; --good-soft:#173322; --bad:#f87171; --bad-soft:#3a1d1d;
+  --warn-soft:#3a3018; --warn:#f3c96b;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-size:1.4rem;margin:2.2em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;margin:1.4em 0 .4em}
+p{margin:.6em 0}
+a{color:var(--accent)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);padding:.1em .35em;border-radius:4px}
+pre{background:var(--surface-2);padding:12px 14px;border-radius:8px;overflow-x:auto;font:0.86rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.eyebrow{font-size:.85rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin:0}
+.lede{font-size:1.1rem;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{font-size:.8rem;background:var(--surface-2);color:var(--ink-2);padding:3px 10px;border-radius:999px}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 18px;margin:22px 0;box-shadow:var(--shadow)}
+.toc ol{margin:.3em 0;padding-left:1.3em}
+.toc li{margin:.15em 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.big-idea{border-left:5px solid var(--accent);background:var(--accent-soft)}
+.big-idea p:first-child{margin-top:0}.big-idea p:last-child{margin-bottom:0}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.term b{display:block;color:var(--accent);margin-bottom:2px}
+.term .ex{display:block;margin-top:6px;font-size:.88rem;color:var(--ink-2)}
+.callout{border-radius:var(--radius);padding:12px 16px;margin:14px 0}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout.good{background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.callout.bad{background:var(--bad-soft);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.callout .label{font-weight:700;display:block;margin-bottom:2px}
+.callout ul{margin:.3em 0;padding-left:1.2em}
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:16px 0;box-shadow:var(--shadow)}
+.lab-title{font-weight:700;margin:0 0 4px}
+.lab-sub{margin:0 0 10px;color:var(--ink-2);font-size:.92rem}
+.lab svg{width:100%;height:auto;display:block}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 18px;margin:10px 0 4px;font-size:.92rem}
+.controls label{display:block;font-weight:600;margin-bottom:2px}
+.controls input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:5px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed=true]{color:#15171a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed=true]{color:#15171a}}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:6px 12px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--surface-2);border-radius:8px;padding:8px 10px}
+.stat .k{font-size:.78rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.stat .v{font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums}
+.verdict{margin-top:8px;font-size:.95rem;min-height:1.6em}
+.try{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;padding-left:1.2em}
+.try li{margin:.2em 0}
+.ax text{fill:var(--ink-3);font-size:12px}
+.ax line,.ax path{stroke:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.formula{font-size:1.05rem;text-align:center;background:var(--surface-2);border-radius:8px;padding:10px;margin:10px 0}
+table.read{width:100%;border-collapse:collapse;font-size:.93rem}
+table.read td,table.read th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.read th{color:var(--ink-3);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+.pill{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.read{background:var(--good-soft);color:var(--good)}
+.pill.skim{background:var(--warn-soft);color:var(--warn)}
+.pill.skip{background:var(--surface-2);color:var(--ink-3)}
+footer{margin-top:48px;font-size:.85rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:14px}
+.print-only{display:none}
+@media (max-width:520px){body{font-size:16px}h1{font-size:1.6rem}}
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt}
+  main{max-width:none;padding:0}
+  .no-print,.controls,.btnrow,.toc{display:none!important}
+  .print-only{display:block}
+  .card,.lab,  h2{break-after:avoid}
+          a{color:#000}
+}
+
+.wtable{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+.wtable td{padding:3px 6px;vertical-align:middle}
+.wtable td.n{width:110px;font-weight:600}
+.wtable td.v{width:60px;text-align:right;font-variant-numeric:tabular-nums}
+.wtable input[type=range]{width:100%;accent-color:var(--accent)}
+.bar{height:8px;background:var(--accent);border-radius:4px}
+.check{font-size:.92rem;display:flex;gap:6px;align-items:center;margin-top:6px}
+</style>
+</head>
+<body>
+<main>
+
+<p class="eyebrow">ECON 4309 · Quantitative Methods for Social Sciences · Reading companion</p>
+<h1>Synthetic Control, in about 15 minutes</h1>
+<p class="lede">A plain-language guide to synthetic control, built from two readings: the synthetic control section of <a href="https://theeffectbook.net/ch-TheEdge.html">Chapter 22 of <i>The Effect</i></a> by Nick Huntington-Klein, and <a href="https://mixtape.scunning.com/11-synthetic_control">Chapter 11 of <i>Causal Inference: The Mixtape</i></a> by Scott Cunningham. The Mixtape chapter has a lot of math; this guide focuses on the intuition. Read this first, play with the two simulators, and then use the reading guide at the end.</p>
+<div class="meta"><span class="chip">Pairs with Lecture 13: Synthetic Control</span><span class="chip">The Effect: §22.2.1</span><span class="chip">Mixtape: Ch. 11</span><span class="chip">~15 min</span></div>
+
+<p class="print-only"><b>Note:</b> This is the printable version. The interactive version, with the simulators, is on the course website.</p>
+
+<nav class="toc no-print" aria-label="Contents">
+<b>On this page</b>
+<ol>
+<li><a href="#idea">The big idea in 60 seconds</a></li>
+<li><a href="#terms">Seven words you need</a></li>
+<li><a href="#sim">Simulator: build a synthetic California</a></li>
+<li><a href="#why">Why this counts as causal (and how it differs from DiD)</a></li>
+<li><a href="#assume">What has to be true (and how to check it)</a></li>
+<li><a href="#infer">Simulator: is the gap real? Placebo tests</a></li>
+<li><a href="#cases">The famous cases</a></li>
+<li><a href="#more">Optional: when the fit is bad</a></li>
+<li><a href="#r">Doing it in R (with AI help)</a></li>
+<li><a href="#reading">How to read the chapters</a></li>
+</ol>
+</nav>
+
+<!-- 1 -->
+<h2 id="idea">1. The big idea in 60 seconds</h2>
+<div class="card big-idea">
+<p>In 1988, California voters passed <b>Proposition 99</b>: a 25-cent-per-pack cigarette tax, plus money for anti-smoking campaigns and clean-air rules. Did it reduce smoking?</p>
+<p>The problem: there is only <b>one California</b>. Cigarette sales were already falling everywhere in the 1980s, so "before vs. after" mixes the policy with the national trend. Difference-in-differences needs a control group that moves in parallel with California, but no single state looks like California, and the average of all other states doesn't either.</p>
+<p><b>Synthetic control's answer: if no state looks like California, <i>build</i> one.</b> Take a weighted average of other states, choosing the weights so that this "synthetic California" matches the real California's smoking <i>year after year before 1989</i>. In the real study, synthetic California was about one-third Utah, one-quarter Nevada, one-fifth Montana, plus some Colorado and Connecticut.</p>
+<p>After 1989, the synthetic California shows what <b>probably would have happened without Prop 99</b>. The gap between the real and the synthetic California is the effect. By 2000, real California was selling about <b>26 fewer packs per person per year</b> than its synthetic twin.</p>
+</div>
+<div class="callout good"><span class="label">One sentence to remember</span>Synthetic control is difference-in-differences where the control group is a custom-built weighted average, chosen so that its pre-treatment path matches the treated unit's almost exactly.</div>
+
+<!-- 2 -->
+<h2 id="terms">2. Seven words you need</h2>
+<div class="terms">
+<div class="term"><b>Treated unit</b>The one place (state, country, city) that got the policy or event.<span class="ex">California, which passed Prop 99.</span></div>
+<div class="term"><b>Donor pool</b>The untreated units you are allowed to build the synthetic control from.<span class="ex">The other states that did <i>not</i> pass big tobacco programs.</span></div>
+<div class="term"><b>Weights</b>How much each donor counts. In classic synthetic control, every weight is <strong>between 0 and 1</strong> and they <strong>add up to 1</strong>. Most donors usually get zero.<span class="ex">Utah 0.33, Nevada 0.23, Montana 0.20...</span></div>
+<div class="term"><b>Synthetic control</b>The weighted average of the donors: a "counterfeit" version of the treated unit.<span class="ex">"Synthetic California."</span></div>
+<div class="term"><b>Pre-treatment fit (RMSPE)</b>How closely the synthetic matches the real unit before treatment. RMSPE is the typical size of the miss (root mean squared prediction error). Smaller is better.<span class="ex">A pre-1989 RMSPE of 2 packs means the lines are very close.</span></div>
+<div class="term"><b>Gap</b>Real outcome minus synthetic outcome. Before treatment it should be near zero; after treatment it is the estimated effect.<span class="ex">About −26 packs per person in 2000.</span></div>
+<div class="term"><b>Placebo test (randomization inference)</b>Pretend each donor was treated, build <i>its</i> synthetic control, and see if the real unit's gap is unusually large compared with these fake gaps.<span class="ex">California's gap was the most extreme of 39 states.</span></div>
+</div>
+
+<!-- 3 -->
+<h2 id="sim">3. Simulator: build a synthetic California</h2>
+<p>The lines below are <b>simulated</b> cigarette sales (packs per person) that mimic the shape of the real study. Six states are in the donor pool. Move the sliders to choose how much each donor counts; the weights are automatically rescaled so they add up to 1. Your goal: make the dashed line (synthetic California) sit on top of the solid line (real California) <b>before 1989</b>, the year Prop 99 took effect.</p>
+
+<div class="lab">
+<p class="lab-title">Synthetic California: cigarette sales per person</p>
+<p class="lab-sub">Simulated data. Gray lines are the donors; the shaded area after 1989 is the estimated effect.</p>
+<svg id="scPlot" viewBox="0 0 680 380" role="img" aria-label="Real and synthetic California cigarette sales over time"></svg>
+<div class="legend"><span><span class="dot" style="background:var(--treat)"></span>Real California</span><span><span class="dot" style="background:var(--control)"></span>Synthetic California (your weights)</span><span><span class="dot" style="background:var(--ink-3)"></span>Donor states</span></div>
+<div class="no-print">
+<table class="wtable" id="wtab"></table>
+<div class="btnrow">
+<button class="btn" id="bBest">Find the best weights (what synth does)</button>
+<button class="btn" id="bEq">Equal weights (plain average)</button>
+<button class="btn" id="bNev">Nevada only</button>
+</div>
+<label class="check"><input type="checkbox" id="cExt"> Make California an outlier: lower than every donor state</label>
+</div>
+<div class="readout">
+<div class="stat"><div class="k">Pre-1989 fit (RMSPE)</div><div class="v" id="oPre">–</div></div>
+<div class="stat"><div class="k">Avg. gap 1989–2000</div><div class="v" id="oGap">–</div></div>
+<div class="stat"><div class="k">Gap in 2000</div><div class="v" id="oEnd">–</div></div>
+</div>
+<p class="verdict" id="oVerdict"></p>
+<ol class="try no-print">
+<li>The chart starts with the best-fit weights. Now click <b>Equal weights</b>. This is like comparing California with the average state. Look at the fit before 1989: the lines don't match, so the "effect" after 1989 can't be trusted.</li>
+<li>Click <b>Nevada only</b>. One state on its own is a poor twin, just like Card picking four cities by hand.</li>
+<li>Click <b>Find the best weights</b>. Notice that Kentucky gets (almost) zero weight: synthetic control ignores donors that don't help. The answer is close to the real study's weights.</li>
+<li>Now check <b>Make California an outlier</b> and click <b>Find the best weights</b> again. No weighted average of donors (with weights between 0 and 1) can go <i>below</i> the lowest donor, so the fit fails. If the pre-treatment fit is bad, don't trust the gap.</li>
+</ol>
+</div>
+
+<div class="callout warn"><span class="label">The "synthetic Messi" problem</span>Cunningham's example: try to build a synthetic Lionel Messi from a weighted average of other soccer players. Because weights must be between 0 and 1, the average can never be better than the best player in the pool. Synthetic control can only <b>interpolate</b> (land somewhere between the donors), never <b>extrapolate</b> beyond them. That is a feature, not a bug: it stops the method from inventing unrealistic counterfactuals. But it means synthetic control only works when the treated unit is <b>inside the range</b> of its donors.</div>
+
+<!-- 4 -->
+<h2 id="why">4. Why this counts as causal (and how it differs from DiD)</h2>
+<p>All of causal inference is about filling in the missing counterfactual: what would California have looked like without Prop 99? Synthetic control fills it in with a weighted average of real, untreated states measured <b>at the same time</b>. If that average tracked California closely for many years before the policy, it is believable that it would have kept tracking California afterward, except for the policy.</p>
+<div class="callout good"><span class="label">Why a long pre-treatment match is persuasive</span>We can only match on things we can measure. But if the synthetic California follows the real one up and down for <b>19 years</b> (1970–1988), the unmeasured things that drive smoking (culture, health attitudes, the economy) are probably similar too. Units that differ in important hidden ways rarely move together that closely for that long.</div>
+
+<table class="read">
+<tr><th></th><th>Difference-in-differences</th><th>Synthetic control</th></tr>
+<tr><td>Number of treated units</td><td>Any number</td><td>Usually <b>one</b> (a state, a country)</td></tr>
+<tr><td>Control group</td><td>Chosen by the researcher, usually equally weighted</td><td>Built by a <b>matching algorithm</b>: a weighted average of donors</td></tr>
+<tr><td>Key assumption</td><td>Parallel trends: hoped for, then checked</td><td>The pre-treatment match is <b>forced</b> to be close; you check how good it is</td></tr>
+<tr><td>Pre-treatment periods needed</td><td>At least one; more helps</td><td><b>Many</b> (the more the better)</td></tr>
+<tr><td>Statistical significance</td><td>Regression standard errors</td><td><b>Placebo tests</b> (randomization inference)</td></tr>
+<tr><td>Main output</td><td>One coefficient</td><td>A <b>picture</b>: two lines that match, then split</td></tr>
+</table>
+
+<p><b>Advantages both authors stress:</b></p>
+<ul>
+<li><b>A more disciplined control group.</b> Card's Mariel Boatlift study compared Miami with four cities he picked by hand. Synthetic control lets the data choose.</li>
+<li><b>Transparency.</b> You see exactly which donors are used and how much. Cunningham's point: a seminar audience may object that "Idaho is 30% of California?!", but ordinary regression also weights units, sometimes negatively, and nobody sees it.</li>
+<li><b>No extrapolation.</b> Weights between 0 and 1 keep the counterfactual inside the range of real states.</li>
+<li><b>Design before results.</b> The weights are built using only pre-treatment data, so you can fix your design before ever looking at the post-treatment outcomes.</li>
+</ul>
+<div class="callout warn"><span class="label">"Isn't matching on the outcome cheating?"</span>Synthetic control matches on the outcome variable itself (cigarette sales), which feels like using the answer to get the answer. Huntington-Klein's reply: it only uses <b>pre-treatment</b> outcomes, never the post-treatment ones where the effect is measured. DiD uses pre-treatment outcomes too, just less visibly.</div>
+
+<!-- 5 -->
+<h2 id="assume">5. What has to be true (and how to check it)</h2>
+<table class="read">
+<tr><th>What must be true</th><th>In the Prop 99 story</th><th>How to check it</th></tr>
+<tr><td><b>Good pre-treatment fit over a long period</b></td><td>Synthetic California tracks real California for 1970–1988.</td><td>Plot both lines; report the pre-treatment RMSPE. If the fit is poor, stop.</td></tr>
+<tr><td><b>Treated unit inside the range of the donors</b></td><td>California is not more extreme than every other state.</td><td>Is the treated unit the highest or lowest in the pool? Can the weighted average reach it?</td></tr>
+<tr><td><b>Donors were not treated</b></td><td>States with their own big tobacco programs were dropped from the donor pool.</td><td>Read up on what happened in each donor during the study period. Drop units that got similar policies.</td></tr>
+<tr><td><b>No spillovers</b></td><td>Prop 99 didn't change smoking in Nevada (e.g., Californians crossing the border to buy cheaper cigarettes would make Nevada a contaminated donor).</td><td>Think about the mechanism. Drop neighbors as a robustness check.</td></tr>
+<tr><td><b>No other big shock hits only the treated unit at the same time</b></td><td>Nothing else unique to California in 1989 cut smoking.</td><td>Know the history. A synthetic control can't separate two events that happen together.</td></tr>
+<tr><td><b>Predictors make sense</b></td><td>Income, cigarette price, share of young adults, beer consumption, past cigarette sales.</td><td>Show a <b>balance table</b>: real vs. synthetic vs. average donor on each predictor.</td></tr>
+</table>
+
+<p><b>Robustness checks you'll see in papers:</b></p>
+<ul>
+<li><b>Placebo in space:</b> run the method on each donor as if it were treated (section 6).</li>
+<li><b>Placebo in time:</b> pretend the policy happened earlier (say, 1980), using only pre-1989 data. There should be no "effect" at the fake date.</li>
+<li><b>Leave-one-out:</b> drop the donor with the largest weight and rebuild. If the result disappears, it depended on one state.</li>
+<li><b>Different predictors:</b> Cunningham warns that researchers can "cherry-pick" predictors until they get the result they want. Results that only appear in one specification are fragile.</li>
+</ul>
+
+<!-- 6 -->
+<h2 id="infer">6. Simulator: is the gap real? Placebo tests</h2>
+<p>With one treated unit, the usual standard errors don't make sense. Instead, synthetic control asks: <b>if we pretend each untreated state got the policy, how big are their fake "effects"?</b> If California's gap is bigger than almost all of the fake gaps, it's unlikely to be luck.</p>
+<p>The fairest comparison isn't the size of the gap alone, because some states are hard to match even before treatment. So we use a <b>ratio</b>: the post-treatment gap (RMSPE after 1989) divided by the pre-treatment gap (RMSPE before 1989). A real effect means a <b>good fit before</b> and a <b>big gap after</b>, so a big ratio. Rank every state by that ratio. The p-value is California's rank divided by the number of states.</p>
+
+<div class="lab">
+<p class="lab-title">Placebo test: California vs. 38 placebo states</p>
+<p class="lab-sub">Simulated gaps (real minus synthetic). Each gray line is a donor state treated as if it had passed Prop 99.</p>
+<svg id="plPlot" viewBox="0 0 680 340" role="img" aria-label="Gap plot for California and placebo states"></svg>
+<svg id="plRatio" viewBox="0 0 680 90" role="img" aria-label="Post/pre RMSPE ratio for each state"></svg>
+<div class="legend"><span><span class="dot" style="background:var(--treat)"></span>California</span><span><span class="dot" style="background:var(--ink-3)"></span>Placebo states</span></div>
+<div class="controls no-print">
+<div><label for="sEff">True effect of Prop 99 by 2000: <span id="vEff"></span> packs</label><input type="range" id="sEff" min="0" max="30" step="1" value="26"></div>
+<div><label>&nbsp;</label><label class="check" style="font-weight:400"><input type="checkbox" id="cTrim"> Hide placebos with a poor pre-1989 fit (more than 2× California's)</label></div>
+</div>
+<div class="btnrow no-print"><button class="btn" id="bDraw">New random draw</button></div>
+<div class="readout">
+<div class="stat"><div class="k">California's ratio</div><div class="v" id="oRatio">–</div></div>
+<div class="stat"><div class="k">Rank (of 39)</div><div class="v" id="oRank">–</div></div>
+<div class="stat"><div class="k">p-value</div><div class="v" id="oP">–</div></div>
+</div>
+<p class="verdict" id="oVerdict2"></p>
+<ol class="try no-print">
+<li>At an effect of 26 packs, California's line breaks away from the gray "spaghetti" after 1989 and ranks 1st of 39: p = 1/39 ≈ 0.026, the same p-value as the real study.</li>
+<li>Slide the effect down to 0. California now looks like any other state, and the p-value is large.</li>
+<li>Find roughly the smallest effect that still gives p ≤ 0.05 (rank 1 out of 39 is the only rank that does). Click <b>New random draw</b> a few times: with only 39 states, results near the cutoff can flip.</li>
+<li>Check <b>Hide placebos with a poor fit</b>. The wild gray lines were states the method could not match even before 1989; their big post-1989 gaps don't mean anything. That's why the test uses the post/pre <i>ratio</i>.</li>
+</ol>
+</div>
+<div class="callout warn"><span class="label">Two limits of the placebo test</span>
+<ul>
+<li>The smallest possible p-value is 1 divided by the number of units. With 10 donors, the best you can do is 1/11 ≈ 0.09, so you can never reach 5%.</li>
+<li>The test asks "Is California's gap unusual?", not "How big is the effect, give or take?". It gives no confidence interval in the usual sense.</li>
+</ul></div>
+
+<!-- 7 -->
+<h2 id="cases">7. The famous cases</h2>
+<table class="read">
+<tr><th>Study</th><th>Question</th><th>What synthetic control showed</th></tr>
+<tr><td><b>Basque Country</b><br>Abadie &amp; Gardeazabal (2003), the first synthetic control. <i>The Effect</i>'s example.</td><td>Did terrorist conflict, starting around 1970, hurt the Basque economy?</td><td>Built from other Spanish regions (mostly Cataluña and Madrid), the synthetic Basque Country matched closely before 1970 and stayed close for a few years while the conflict was mild. As the violence escalated, real GDP per person fell below the synthetic version.</td></tr>
+<tr><td><b>California Prop 99</b><br>Abadie, Diamond &amp; Hainmueller (2010)</td><td>Did the 1988 tobacco program reduce smoking?</td><td>About 26 fewer packs per person by 2000; California ranked 1st of 39 in the placebo test (p ≈ 0.026).</td></tr>
+<tr><td><b>Mariel Boatlift</b><br>Card (1990); Peri &amp; Yasenov (2019)</td><td>Did 125,000 Cuban arrivals in 1980 (a 7% increase in Miami's labor force) lower local wages?</td><td>Card's hand-picked four cities found no clear effect. A later synthetic control study reached similar conclusions, with a less subjective control group.</td></tr>
+<tr><td><b>Texas prisons</b><br>Mixtape data exercise</td><td>Did Texas's 1993 prison-building boom raise Black male incarceration?</td><td>Synthetic Texas (California 0.41, Illinois 0.36, Louisiana 0.12, Florida 0.11) matched before 1993; real Texas then rose far above it. Texas ranked 2nd of 46 in the placebo test (p ≈ 0.04).</td></tr>
+</table>
+<p>Lecture 13 adds another case: <b>Did Pinochet cause the "Chilean miracle"?</b> Use it to practice: what would the donor pool be, and what would have to be true?</p>
+
+<!-- 8 -->
+<h2 id="more">8. Optional: when the fit is bad</h2>
+<p>Most of the second half of the Mixtape chapter is about one problem: <b>what if no weighted average matches the treated unit well?</b> Classic synthetic control may then be biased, and Abadie's own advice is not to use it. Newer methods relax the rules. You only need the one-line idea of each:</p>
+<ul>
+<li><b>Demeaned synthetic control</b> (Ferman &amp; Pinto): match the <i>shape</i> of the path, not its level, the way DiD allows different levels.</li>
+<li><b>Augmented synthetic control</b> (Ben-Michael, Feller &amp; Rothstein): start with ordinary synthetic control, then use a regression to correct for the leftover mismatch. The cost: some weights can become negative, so you are extrapolating again.</li>
+<li><b>Synthetic difference-in-differences</b> (Arkhangelsky et al.): combine both methods, weighting donor units <i>and</i> pre-treatment years, then take a DiD. Cunningham calls it a promising new tool.</li>
+<li><b>Matrix completion</b> (Athey et al.): treat the untreated outcomes as a table with missing cells and fill them in using patterns in the rest of the table.</li>
+</ul>
+
+<!-- 9 -->
+<h2 id="r">9. Doing it in R (with AI help)</h2>
+<p>In this class, AI writes most of the code. <b>Your job is the design and the checking.</b> The <code>tidysynth</code> package is the easiest to use, and it includes the Prop 99 data as <code>smoking</code>. These are the steps a synthetic control analysis should include and what to verify at each one:</p>
+<table class="read">
+<tr><th>Step</th><th>Typical R</th><th>What <i>you</i> check</th></tr>
+<tr><td>1. Choose the donor pool</td><td><code>smoking |&gt; distinct(state)</code>, then <code>filter()</code> out units you exclude</td><td>Were any donors treated with something similar? Could the policy spill over to them? Is the treated unit inside the range of the donors?</td></tr>
+<tr><td>2. Plot it first</td><td>Treated unit vs. the average of the donors over time, with <code>ggplot()</code></td><td>How bad is the plain-average comparison? That's what synthetic control has to beat.</td></tr>
+<tr><td>3. Set up the model</td><td><code>synthetic_control(outcome = cigsale, unit = state, time = year, i_unit = "California", i_time = 1988, generate_placebos = TRUE)</code></td><td>Are the treated unit and treatment year right?</td></tr>
+<tr><td>4. Add predictors</td><td><code>generate_predictor(time_window = 1980:1988, price = mean(retprice, na.rm = TRUE), ...)</code></td><td>Are all predictors measured <b>before</b> treatment? Do they plausibly predict the outcome?</td></tr>
+<tr><td>5. Fit the weights</td><td><code>generate_weights(optimization_window = 1970:1988)</code> then <code>generate_control()</code></td><td>Does the optimization window stop before treatment?</td></tr>
+<tr><td>6. Inspect the match</td><td><code>plot_trends()</code>, <code>grab_unit_weights()</code>, <code>grab_balance_table()</code></td><td>Do the lines overlap before treatment? Which donors get weight, and does that make sense? Is the balance table close?</td></tr>
+<tr><td>7. Estimate the effect</td><td><code>plot_differences()</code>; average the gap after treatment</td><td>Is the pre-treatment gap near zero? Report the effect in the outcome's units and as a percent.</td></tr>
+<tr><td>8. Inference</td><td><code>plot_placebos()</code>, <code>plot_mspe_ratio()</code>, <code>grab_significance()</code></td><td>What is the treated unit's rank and p-value? How many units are there (what's the smallest possible p)?</td></tr>
+<tr><td>9. Robustness</td><td>Re-run with a fake earlier treatment date; drop the top-weighted donor</td><td>Does the result survive?</td></tr>
+</table>
+<div class="callout warn"><span class="label">Verify one number by hand</span>The synthetic value in any year is just a weighted average: multiply each donor's outcome in that year by its weight and add them up. Do this for one year to confirm you understand what the AI's code produced.</div>
+<div class="callout bad"><span class="label">Common mistakes</span>
+<ul>
+<li>Trusting the post-treatment gap when the pre-treatment fit is poor.</li>
+<li>Leaving treated or contaminated units in the donor pool, or including a unit that <i>contains</i> the treated unit (for example, a country total that includes the treated region).</li>
+<li>Using predictors measured after treatment.</li>
+<li>Treating the placebo-test p-value like a regular regression p-value, or forgetting that it can't go below 1 ÷ (number of units).</li>
+<li>Letting the AI quietly change the donor pool, predictors, or time windows. Tell it not to without asking.</li>
+<li>Trying predictor combinations until the result "works" (cherry-picking).</li>
+</ul></div>
+
+<!-- 10 -->
+<h2 id="reading">10. How to read the chapters</h2>
+<p><b>The Effect, Chapter 22.</b> Synthetic control gets a short section (about 1,500 words) in a chapter about newer methods. Read it all; it's the clearest short introduction.</p>
+<table class="read">
+<tr><th>Section</th><th>What it covers</th><th></th></tr>
+<tr><td>22.1 It Never Stops</td><td>Why this chapter is a tour of newer methods. One page.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>22.2.1 Synthetic Control</td><td>How it differs from DiD, the Basque example, pros and cons, "isn't matching on the outcome cheating?"</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>Rest of Ch. 22 (matrix completion, causal discovery, double machine learning, causal forests...)</td><td>Other new methods. Interesting but beyond this course.</td><td><span class="pill skip">Optional</span></td></tr>
+</table>
+<p><b>The Mixtape, Chapter 11.</b> Much longer and more technical. Here's where to spend your time:</p>
+<table class="read">
+<tr><th>Section</th><th>What it covers</th><th></th></tr>
+<tr><td>11.1 opening + "Cuba, Miami, and the Mariel Boatlift"</td><td>Where synthetic control came from and why Card's hand-picked controls were a problem.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>"Formalization"</td><td>The math for choosing the weights. Read only the sentence in words: weights are non-negative and add up to one.</td><td><span class="pill skip">Skip the math</span></td></tr>
+<tr><td>"Outcome Model Assumption"</td><td>The "factor model." Read the last paragraph: why a long pre-treatment match suggests hidden factors are balanced.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>"Example: California's Proposition 99"</td><td>The classic application and its balance table.</td><td><span class="pill read">Read closely</span></td></tr>
+<tr><td>"Inference with Synthetic Control"</td><td>Placebo tests and the post/pre RMSPE ratio. Skip the formula; read the steps.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>"Data Exercise: Texas Prison Construction"</td><td>A full worked example. Read the story and the figures; skip the Stata code.</td><td><span class="pill skim">Skim</span></td></tr>
+<tr><td>"Weighting Donor Pool Units and the Risk of Extrapolation" + "Factor Models and Imperfect Fit"</td><td>Why weights must be between 0 and 1; the Michael Jordan and Messi examples; cherry-picking.</td><td><span class="pill read">Read</span></td></tr>
+<tr><td>11.2–11.5</td><td>Demeaning, augmented synth, matrix completion, synthetic DiD. Graduate level.</td><td><span class="pill skip">Optional</span></td></tr>
+<tr><td>11.6 Concluding Remarks</td><td>One paragraph.</td><td><span class="pill skim">Skim</span></td></tr>
+</table>
+
+<footer>
+Summary of the synthetic control section (§22.2.1) of Nick Huntington-Klein, <i>The Effect: An Introduction to Research Design and Causality</i> (free online at <a href="https://theeffectbook.net/">theeffectbook.net</a>), and Chapter 11 of Scott Cunningham, <i>Causal Inference: The Mixtape</i> (free online at <a href="https://mixtape.scunning.com/">mixtape.scunning.com</a>). Study results (Basque Country, Proposition 99, Mariel Boatlift, Texas prisons) are paraphrased from these books. The data in both simulators are simulated to mimic the shape of the Proposition 99 study; they are not the real data. This guide is a companion to the readings, not a replacement for them. ECON 4309, Fall 2026.
+</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+var SVGNS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,attrs){var t=el("text",Object.assign({x:x,y:y},attrs||{}),parent);t.textContent=s;return t;}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function mkNorm(rand){return function(){var u=1-rand(),v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};}
+function fmt(v,d){return (v<0?"−":"")+Math.abs(v).toFixed(d);}
+function axes(svg,W,H,M,sx,sy,xt,yt,ylab){
+  var g=el("g",{"class":"ax"},svg);
+  el("line",{x1:M.l,x2:W-M.r,y1:H-M.b,y2:H-M.b},g);
+  el("line",{x1:M.l,x2:M.l,y1:M.t,y2:H-M.b},g);
+  xt.forEach(function(v){el("line",{x1:sx(v),x2:sx(v),y1:H-M.b,y2:H-M.b+5},g);txt(g,sx(v),H-M.b+18,String(v),{"text-anchor":"middle"});});
+  yt.forEach(function(v){el("line",{x1:M.l-5,x2:M.l,y1:sy(v),y2:sy(v)},g);txt(g,M.l-8,sy(v)+4,String(v).replace("-","−"),{"text-anchor":"end"});});
+  if(ylab)txt(g,14,(M.t+H-M.b)/2,ylab,{"text-anchor":"middle",transform:"rotate(-90 14 "+((M.t+H-M.b)/2)+")"});
+}
+function path(xs,ys,sx,sy){return xs.map(function(x,i){return (i?"L":"M")+sx(x).toFixed(1)+","+sy(ys[i]).toFixed(1);}).join("");}
+
+/* ---------- Lab 1: build a synthetic California ---------- */
+var YRS=[];for(var y=1970;y<=2000;y++)YRS.push(y);
+var T0=1989, NPRE=T0-1970;
+var DON=[
+ {n:"Utah",k:[[1970,78],[1980,72],[1988,62],[2000,48]]},
+ {n:"Nevada",k:[[1970,150],[1978,165],[1988,130],[2000,100]]},
+ {n:"Montana",k:[[1970,118],[1980,124],[1988,104],[2000,88]]},
+ {n:"Colorado",k:[[1970,120],[1981,132],[1988,100],[2000,76]]},
+ {n:"Connecticut",k:[[1970,132],[1976,134],[1988,104],[2000,62]]},
+ {n:"Kentucky",k:[[1970,185],[1980,205],[1988,190],[2000,160]]}
+];
+var TRUEW=[0.34,0.23,0.20,0.16,0.07,0];
+(function(){
+  var r=mulberry32(4309),rn=mkNorm(r);
+  DON.forEach(function(d){
+    d.y=YRS.map(function(yr){var k=d.k;for(var i=1;i<k.length;i++)if(yr<=k[i][0]){var a=k[i-1],b=k[i];return a[1]+(b[1]-a[1])*(yr-a[0])/(b[0]-a[0]);}return k[k.length-1][1];});
+    d.y=d.y.map(function(v){return v+rn()*1.6;});
+  });
+})();
+var CA0=YRS.map(function(yr,t){var s=0;DON.forEach(function(d,j){s+=TRUEW[j]*d.y[t];});return s;});
+(function(){var rn=mkNorm(mulberry32(99));CA0=CA0.map(function(v){return v+rn()*1.2;});})();
+var EFF=YRS.map(function(yr){return yr<T0?0:-26*(yr-1988)/12;});
+var raw=[50,50,50,50,50,50];
+var ext=false;
+function caY(){return YRS.map(function(yr,t){return CA0[t]+EFF[t]-(ext?60:0);});}
+function weights(){var s=raw.reduce(function(a,b){return a+b;},0);return s>0?raw.map(function(v){return v/s;}):raw.map(function(){return 1/raw.length;});}
+function synth(w){return YRS.map(function(yr,t){var s=0;DON.forEach(function(d,j){s+=w[j]*d.y[t];});return s;});}
+function projSimplex(v){var u=v.slice().sort(function(a,b){return b-a;}),cs=0,rho=0,th=0;for(var i=0;i<u.length;i++){cs+=u[i];var t=(cs-1)/(i+1);if(u[i]-t>0){rho=i;th=t;}}return v.map(function(x){return Math.max(0,x-th);});}
+function bestW(){
+  var ca=caY(),J=DON.length,L=0;
+  for(var t=0;t<NPRE;t++)for(var j=0;j<J;j++)L+=2*DON[j].y[t]*DON[j].y[t];
+  var lr=1/L,w=DON.map(function(){return 1/J;}),z=w.slice(),tk=1;
+  for(var it=0;it<20000;it++){
+    var g=DON.map(function(){return 0;});
+    for(t=0;t<NPRE;t++){var s=0;for(j=0;j<J;j++)s+=z[j]*DON[j].y[t];var e=s-ca[t];for(j=0;j<J;j++)g[j]+=2*e*DON[j].y[t];}
+    var wn=projSimplex(z.map(function(x,j){return x-lr*g[j];}));
+    var tn=(1+Math.sqrt(1+4*tk*tk))/2;
+    z=wn.map(function(x,j){return x+((tk-1)/tn)*(x-w[j]);});
+    w=wn;tk=tn;
+  }
+  return w;
+}
+function buildTable(){
+  var tb=document.getElementById("wtab");tb.innerHTML="";
+  DON.forEach(function(d,j){
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td class="n">'+d.n+'</td><td><input type="range" min="0" max="100" step="1" aria-label="Weight for '+d.n+'"></td><td class="v"></td><td style="width:90px"><div class="bar"></div></td>';
+    var s=tr.querySelector("input");s.value=raw[j];
+    s.addEventListener("input",function(){raw[j]=+s.value;drawSC();});
+    tb.appendChild(tr);
+  });
+}
+function syncTable(){
+  var w=weights(),rows=document.querySelectorAll("#wtab tr");
+  rows.forEach(function(tr,j){tr.querySelector("input").value=raw[j];tr.querySelector(".v").textContent=w[j].toFixed(2);tr.querySelector(".bar").style.width=Math.round(w[j]*90)+"px";});
+}
+function setW(w){raw=w.map(function(x){return Math.round(x*1000)/10;});drawSC();}
+function drawSC(){
+  syncTable();
+  var w=weights(),ca=caY(),sy_=synth(w);
+  var svg=document.getElementById("scPlot");svg.innerHTML="";
+  var W=680,H=380,M={l:56,r:16,t:14,b:40};
+  var sx=function(x){return M.l+(x-1970)/30*(W-M.l-M.r);};
+  var lo=0,hi=220,sy=function(v){return H-M.b-(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(H-M.t-M.b);};
+  axes(svg,W,H,M,sx,sy,[1970,1975,1980,1985,1990,1995,2000],[0,50,100,150,200],"Packs per person");
+  var ink3=css("--ink-3"),tr=css("--treat"),ct=css("--control"),ink2=css("--ink-2");
+  /* shaded gap */
+  var post=YRS.map(function(yr,t){return t;}).filter(function(t){return YRS[t]>=T0-1;});
+  var d="M"+post.map(function(t){return sx(YRS[t]).toFixed(1)+","+sy(sy_[t]).toFixed(1);}).join("L")+"L"+post.slice().reverse().map(function(t){return sx(YRS[t]).toFixed(1)+","+sy(ca[t]).toFixed(1);}).join("L")+"Z";
+  el("path",{d:d,fill:tr,"fill-opacity":0.12},svg);
+  var labs=DON.map(function(dn){el("path",{d:path(YRS,dn.y,sx,sy),fill:"none",stroke:ink3,"stroke-width":1.2,"stroke-opacity":0.55},svg);return {y:sy(dn.y[30])-4,n:dn.n};});
+  labs.sort(function(a,b){return a.y-b.y;});for(var i=1;i<labs.length;i++)if(labs[i].y-labs[i-1].y<12)labs[i].y=labs[i-1].y+12;
+  labs.forEach(function(o){txt(svg,W-M.r-2,o.y,o.n,{"text-anchor":"end","font-size":"11",fill:ink3});});
+  el("line",{x1:sx(T0-0.5),x2:sx(T0-0.5),y1:M.t,y2:H-M.b,stroke:ink2,"stroke-dasharray":"4 4"},svg);
+  txt(svg,sx(T0-0.5)+6,M.t+12,"Prop 99 takes effect",{"font-size":"12",fill:ink2});
+  el("path",{d:path(YRS,ca,sx,sy),fill:"none",stroke:tr,"stroke-width":3.2},svg);
+  el("path",{d:path(YRS,sy_,sx,sy),fill:"none",stroke:ct,"stroke-width":3,"stroke-dasharray":"8 5"},svg);
+  var pre=0;for(var t=0;t<NPRE;t++)pre+=Math.pow(ca[t]-sy_[t],2);pre=Math.sqrt(pre/NPRE);
+  var gs=0,n=0;for(t=NPRE;t<YRS.length;t++){gs+=ca[t]-sy_[t];n++;}gs/=n;
+  var end=ca[30]-sy_[30];
+  document.getElementById("oPre").textContent=pre.toFixed(1)+" packs";
+  document.getElementById("oGap").textContent=fmt(gs,1);
+  document.getElementById("oEnd").textContent=fmt(end,1);
+  var v;
+  if(pre<3)v="✅ Good pre-1989 fit: the synthetic California is a believable counterfactual, so the gap after 1989 is a credible estimate of the effect.";
+  else if(pre<8)v="⚠️ So-so fit: the lines drift apart before 1989, so part of the later gap may just be mismatch.";
+  else v="❌ Poor fit: the synthetic California doesn't look like the real one even before the policy. Don't trust the gap after 1989.";
+  if(ext&&pre>=3)v+=" California is now lower than every donor, and an average of donors can't go below the lowest one.";
+  document.getElementById("oVerdict").textContent=v;
+}
+buildTable();
+document.getElementById("bBest").addEventListener("click",function(){setW(bestW());});
+document.getElementById("bEq").addEventListener("click",function(){raw=[50,50,50,50,50,50];drawSC();});
+document.getElementById("bNev").addEventListener("click",function(){raw=[0,100,0,0,0,0];drawSC();});
+document.getElementById("cExt").addEventListener("change",function(e){ext=e.target.checked;drawSC();});
+setW(bestW());
+
+/* ---------- Lab 2: placebo test ---------- */
+var NPL=38, seed=7, PL=[], CAN=null;
+function genPlacebos(){
+  var r=mulberry32(seed),rn=mkNorm(r);
+  PL=[];
+  for(var j=0;j<NPL;j++){
+    var sig=j<5?7+r()*7:1.4+r()*3.2;
+    var g=0,pre=[],post=[];
+    for(var t=0;t<NPRE;t++){g=0.55*g+rn()*sig*0.85;pre.push(g);}
+    for(t=NPRE;t<YRS.length;t++){g=0.8*g+rn()*sig*1.0;post.push(g);}
+    PL.push(pre.concat(post));
+  }
+  var g2=0,base=[],sc=1.8;
+  for(var t2=0;t2<YRS.length;t2++){g2=t2<NPRE?0.55*g2+rn()*sc*0.85:0.8*g2+rn()*sc;base.push(g2);}
+  CAN=base;
+}
+function rmspe(a,from,to){var s=0;for(var t=from;t<to;t++)s+=a[t]*a[t];return Math.sqrt(s/(to-from));}
+function drawPL(){
+  var E=+document.getElementById("sEff").value,trim=document.getElementById("cTrim").checked;
+  document.getElementById("vEff").textContent=E===0?"0":"−"+E;
+  var ca=CAN.map(function(v,t){return v+(YRS[t]<T0?0:-E*(YRS[t]-1988)/12);});
+  var all=PL.map(function(a){return {a:a,pre:rmspe(a,0,NPRE),post:rmspe(a,NPRE,YRS.length),ca:false};});
+  all.push({a:ca,pre:rmspe(ca,0,NPRE),post:rmspe(ca,NPRE,YRS.length),ca:true});
+  all.forEach(function(u){u.ratio=u.post/u.pre;});
+  var caU=all[all.length-1];
+  var rank=1+all.filter(function(u){return !u.ca&&u.ratio>caU.ratio;}).length;
+  var p=rank/all.length;
+  var svg=document.getElementById("plPlot");svg.innerHTML="";
+  var W=680,H=340,M={l:56,r:16,t:14,b:40};
+  var sx=function(x){return M.l+(x-1970)/30*(W-M.l-M.r);};
+  var lo=-40,hi=40,sy=function(v){return H-M.b-(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(H-M.t-M.b);};
+  axes(svg,W,H,M,sx,sy,[1970,1975,1980,1985,1990,1995,2000],[-40,-20,0,20,40],"Gap: real − synthetic");
+  var ink3=css("--ink-3"),tr=css("--treat"),ink2=css("--ink-2");
+  el("line",{x1:M.l,x2:W-M.r,y1:sy(0),y2:sy(0),stroke:ink2,"stroke-width":1},svg);
+  el("line",{x1:sx(T0-0.5),x2:sx(T0-0.5),y1:M.t,y2:H-M.b,stroke:ink2,"stroke-dasharray":"4 4"},svg);
+  all.forEach(function(u){if(u.ca)return;if(trim&&u.pre>2*caU.pre)return;
+    el("path",{d:path(YRS,u.a,sx,sy),fill:"none",stroke:ink3,"stroke-width":1.1,"stroke-opacity":0.55},svg);});
+  el("path",{d:path(YRS,ca,sx,sy),fill:"none",stroke:tr,"stroke-width":3.4},svg);
+  /* ratio strip */
+  var s2=document.getElementById("plRatio");s2.innerHTML="";
+  var mx=Math.max.apply(null,all.map(function(u){return u.ratio;}))*1.05;
+  var rx=function(v){return M.l+v/mx*(W-M.l-M.r);};
+  var g=el("g",{"class":"ax"},s2);
+  el("line",{x1:M.l,x2:W-M.r,y1:50,y2:50},g);
+  var step=mx>20?5:mx>8?2:1;
+  for(var v=0;v<=mx;v+=step){el("line",{x1:rx(v),x2:rx(v),y1:50,y2:55},g);txt(g,rx(v),68,String(v),{"text-anchor":"middle"});}
+  txt(g,(M.l+W-M.r)/2,86,"Post/pre RMSPE ratio (bigger = more unusual)",{"text-anchor":"middle"});
+  var sorted=all.slice().sort(function(a,b){return a.ratio-b.ratio;});
+  var bins={};
+  sorted.forEach(function(u){var b=Math.round(rx(u.ratio)/9);bins[b]=(bins[b]||0)+1;var yy=44-(bins[b]-1)*9;
+    el("circle",{cx:rx(u.ratio),cy:Math.max(6,yy),r:u.ca?6:3.6,fill:u.ca?tr:ink3,"fill-opacity":u.ca?1:0.7},s2);});
+  document.getElementById("oRatio").textContent=caU.ratio.toFixed(1);
+  document.getElementById("oRank").textContent=rank;
+  document.getElementById("oP").textContent=p.toFixed(3);
+  var vv=p<=0.05?"California's gap is more extreme than every placebo state's: p = "+p.toFixed(3)+". It's unlikely a gap this unusual is just noise."
+    :"California ranks "+rank+" of "+all.length+": "+(rank-1)+" placebo state"+(rank===2?"":"s")+" had a more unusual fake gap. p = "+p.toFixed(3)+", so we can't rule out chance.";
+  document.getElementById("oVerdict2").textContent=vv;
+}
+genPlacebos();
+document.getElementById("sEff").addEventListener("input",drawPL);
+document.getElementById("cTrim").addEventListener("change",drawPL);
+document.getElementById("bDraw").addEventListener("click",function(){seed++;genPlacebos();drawPL();});
+drawPL();
+
+/* redraw on theme change */
+if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){drawSC();drawPL();});
+})();
+</script>
+</body>
+</html>

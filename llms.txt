@@ -27,7 +27,7 @@ Methods: ethnographic fieldwork and case studies combined with quantitative appr
 
 ## Teaching materials
 
-- [Causal inference reading guides](https://enriqueescalante.com/causal_inference/): interactive chapter summaries of The Effect (Huntington-Klein) for an undergraduate causal inference course
+- [Causal inference reading guides](https://enriqueescalante.com/causal_inference/): interactive chapter summaries of The Effect (Huntington-Klein) and Causal Inference: The Mixtape (Cunningham) for an undergraduate causal inference course
 
 ## Optional
 
